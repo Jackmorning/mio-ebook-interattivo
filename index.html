@@ -1,603 +1,458 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero-Burnout Content Engine - Ebook Interattivo</title>
-    <style>
-        :root {
-            --amber: #f59e0b;
-            --dark: #0f0f0f;
-            --card: #1a1a1a;
-            --muted: #a3a3a3;
-            --green: #22c55e;
-            --red: #ef4444;
-            --blue: #3b82f6;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--dark);
-            color: #e5e5e5;
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 780px;
-            margin: 0 auto;
-            padding: 20px 16px 120px;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Georgia', serif;
-            color: #ffffff;
-            line-height: 1.3;
-        }
-        h1 { font-size: 2.2em; margin-bottom: 12px; }
-        h2 { font-size: 1.7em; margin: 30px 0 15px; }
-        h3 { font-size: 1.3em; margin: 20px 0 10px; }
-        p { margin-bottom: 14px; color: #d1d5db; }
-        .accent { color: var(--amber); }
-        .badge {
-            display: inline-block;
-            background: var(--amber);
-            color: #000;
-            font-weight: 700;
-            font-size: 0.75em;
-            padding: 3px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        .card {
-            background: var(--card);
-            border: 1px solid #2a2a2a;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 16px 0;
-        }
-        .card.amber-border { border-left: 4px solid var(--amber); }
-        .card.green-border { border-left: 4px solid var(--green); }
-
-        /* Checklist */
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 0;
-            border-bottom: 1px solid #2a2a2a;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .checklist-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: var(--amber);
-            margin-top: 2px;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .checklist-item input:checked + span {
-            text-decoration: line-through;
-            opacity: 0.5;
-        }
-        .checklist-item span { flex: 1; }
-
-        /* Quiz */
-        .quiz-block { margin: 20px 0; }
-        .quiz-question {
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        .quiz-option {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 12px 16px;
-            margin: 6px 0;
-            background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 8px;
-            color: #e5e5e5;
-            cursor: pointer;
-            font-size: 0.95em;
-            transition: all 0.2s;
-        }
+ <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260821-05-d0038b4","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/50d846425a1e5082.telemetry_sdk.js" integrity="sha512-Otbex+ztlVbcEGql0rXGd/3E3ee/hqAntg6DeuUEMG6pIPbXGOSvZbFZVzknAXi1tH/itQ+ijEhOTr2aWj6CXg=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero-Burnout Content Engine</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
+        :root { --amber: #f59e0b; --dark: #0f0f0f; --card: #1a1a1a; --muted: #a3a3a3; }
+        body { font-family: 'Source Serif Pro', serif; background: var(--dark); color: #e5e5e5; }
+        h1,h2,h3,h4,h5,h6,.heading-font { font-family: 'DM Sans', sans-serif; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .progress-bar { transition: width 0.3s ease; }
+        .checklist-item input:checked + span { text-decoration: line-through; opacity: 0.6; }
+        .prompt-box { cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; }
+        .prompt-box:active { transform: scale(0.98); }
+        .quiz-option { transition: all 0.2s; }
         .quiz-option:hover { border-color: var(--amber); }
-        .quiz-option.correct { border-color: var(--green) !important; background: rgba(34,197,94,0.15); }
-        .quiz-option.wrong { border-color: var(--red) !important; background: rgba(239,68,68,0.15); }
-        .quiz-feedback {
-            display: none;
-            font-weight: 600;
-            margin-top: 8px;
-            padding: 8px 12px;
-            border-radius: 6px;
-        }
-        .quiz-feedback.show { display: block; }
-        .quiz-feedback.correct { color: var(--green); }
-        .quiz-feedback.wrong { color: var(--red); }
-
-        /* Prompt Box */
-        .prompt-box {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .prompt-box:hover {
-            border-color: var(--amber);
-            background: #1e1a10;
-        }
-        .prompt-box .copy-hint {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            font-size: 0.7em;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .prompt-box pre {
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85em;
-            color: #d1d5db;
-            line-height: 1.5;
-        }
-
-        /* Toast */
-        #toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--green);
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 1000;
-        }
-        #toast.show { opacity: 1; }
-
-        /* Divider */
-        .module-divider {
-            border: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--amber), transparent);
-            margin: 40px 0;
-        }
-
-        /* Print styles */
-        @media print {
-            body { background: #fff; color: #000; }
-            .card, .prompt-box { border-color: #ccc; background: #f9f9f9; }
-            .checklist-item input { border: 2px solid #000; }
-            .quiz-option { border-color: #ccc; color: #000; }
-            .badge { border: 1px solid #000; }
-            #toast { display: none; }
-        }
+        .quiz-option.correct { border-color: #22c55e !important; background: rgba(34,197,94,0.1); }
+        .quiz-option.wrong { border-color: #ef4444 !important; background: rgba(239,68,68,0.1); }
+        .copy-toast { animation: fadeInOut 2s ease forwards; }
+        @keyframes fadeInOut { 0%{opacity:0;transform:translateY(10px)} 15%{opacity:1;transform:translateY(0)} 85%{opacity:1} 100%{opacity:0} }
     </style>
-</head>
-<body>
-
-<div id="toast">✓ Prompt copiato negli appunti!</div>
-
-<div class="container">
-
-    <!-- ==================== COPERTINA ==================== -->
-    <div style="text-align:center; padding: 40px 0;">
-        <div class="badge">Ebook Interattivo</div>
-        <h1>ZERO-BURNOUT<br>CONTENT ENGINE</h1>
-        <p style="font-size:1.1em; color:var(--amber); font-weight:600;">Come creare un video corso completo in 48 ore usando l'Intelligenza Artificiale</p>
-        <p style="margin-top:16px; font-style:italic; color:#999;">Per Creator, Coach e Formatori stanchi di passare settimane a registrare e montare video.</p>
-        <p style="margin-top:24px; color:#888; font-size:0.9em;">⏱️ Tempo di lettura: 15 minuti | 4 Moduli Pratici | Prompt Copiabili</p>
+  <script src="/_sdk/b3bf9e8ac58e6ad6.data_sdk.js" type="text/javascript" integrity="sha512-otc1u9NYq9Ms5Jt//7vmhrrqR5CLPr8Jdgs6741gqniClfLMcfmC+jK/cKuQdhLv6G0esJ/FzaMS9tv0T/vj/Q=="></script>
+  <script src="/_sdk/a27879be4562f807.resizing_sdk.js" type="text/javascript" integrity="sha512-trcxRwz+QLrzK0Dqg95xqVRryR7WtWui2YopXyzOIr3WMde3j/xCRgT63/b/EAg7klDsAOuHzoRgoryhwm8QFw=="></script>
+ </head>
+ <body data-template-id="__page-root" class="min-h-screen w-full"><!-- Progress -->
+  <div class="fixed top-0 left-0 w-full h-1 bg-neutral-800 z-50">
+   <div id="progress" class="progress-bar h-full bg-amber-500" style="width:3.3%"></div>
+  </div><!-- Navigation -->
+  <nav class="fixed bottom-0 left-0 w-full bg-neutral-900/95 backdrop-blur border-t border-neutral-800 p-3 z-50 flex items-center justify-between"><button onclick="prevPage()" class="px-4 py-2 rounded bg-neutral-800 text-white hover:bg-neutral-700"><i data-lucide="chevron-left" style="width:18px;height:18px;display:inline"></i></button>
+   <div class="flex items-center gap-3"><button onclick="toggleTOC()" class="px-3 py-2 rounded bg-neutral-800 text-white hover:bg-neutral-700 text-sm heading-font">Indice</button> <span id="page-counter" class="text-neutral-400 text-sm heading-font">1 / 30</span>
+   </div><button onclick="nextPage()" class="px-4 py-2 rounded bg-amber-500 text-black font-bold hover:bg-amber-400"><i data-lucide="chevron-right" style="width:18px;height:18px;display:inline"></i></button>
+  </nav><!-- TOC Overlay -->
+  <div id="toc-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4" onclick="toggleTOC()">
+   <div class="bg-neutral-900 border border-neutral-700 rounded-xl p-6 max-w-md w-full max-h-[70vh] overflow-y-auto" onclick="event.stopPropagation()">
+    <h3 class="heading-font font-bold text-amber-400 text-lg mb-4">Indice</h3>
+    <ul id="toc-list" class="space-y-1 text-sm"></ul>
+   </div>
+  </div><!-- Toast -->
+  <div id="toast" class="fixed top-4 right-4 z-50 hidden">
+   <div class="copy-toast bg-green-600 text-white px-4 py-2 rounded-lg text-sm heading-font font-medium shadow-lg">
+    ✓ Copiato!
+   </div>
+  </div>
+  <main class="pb-20 pt-2"><!-- PAGE 1: Cover -->
+   <div class="page active" data-page="1">
+    <div class="max-w-2xl mx-auto px-4 py-8"><img data-template-id="cover-image" class="canva-image w-full h-64 object-cover rounded-xl mb-8 shadow-2xl" loading="lazy">
+     <p data-template-id="cover-subtitle" class="canva-text heading-font text-amber-400 font-medium text-sm uppercase tracking-widest mb-3"></p>
+     <h1 data-template-id="cover-title" class="canva-text heading-font font-bold text-3xl md:text-4xl text-white leading-tight mb-4"></h1>
+     <p data-template-id="cover-desc" class="canva-text text-neutral-300 text-lg leading-relaxed mb-6"></p>
+     <p data-template-id="cover-target" class="canva-text text-amber-200/80 text-sm italic"></p>
     </div>
-
-    <hr class="module-divider">
-
-    <!-- ==================== INTRODUZIONE ==================== -->
-    <h2>Il Paradosso del Creatore Moderno</h2>
-    <p>Hai passato più tempo a combattere con il software di editing che a creare valore? Se la risposta è sì, non sei un cattivo imprenditore — sei solo un creatore frustrato. <strong>Il mercato non paga il tuo tempo, paga la trasformazione che offri.</strong></p>
-    <p>Il <span class="accent">Zero-Burnout Content Engine</span> non è un trucco pigro; è un framework strategico di <strong>delega cognitiva</strong>. Utilizzeremo l'IA non per sostituire la tua voce o il tuo pensiero critico, ma per rimuovere l'attrito tra il tuo cervello e la pubblicazione.</p>
-
-    <div class="card amber-border">
-        <h3 style="margin-top:0;">📋 Cosa farai nelle prossime 48 ore:</h3>
-        <p style="margin-bottom:6px;"><strong>Blocco 1 (Ore 0-6):</strong> Strategia e Scripting</p>
-        <p style="margin-bottom:6px;"><strong>Blocco 2 (Ore 6-14):</strong> Produzione Audio</p>
-        <p style="margin-bottom:6px;"><strong>Blocco 3 (Ore 14-24):</strong> Assemblaggio Visivo</p>
-        <p style="margin-bottom:0;"><strong>Blocco 4 (Ore 24-48):</strong> Packaging e Lancio</p>
+   </div><!-- PAGE 2: Intro -->
+   <div class="page" data-page="2">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h2 data-template-id="intro-title" class="canva-text heading-font font-bold text-2xl text-white mb-4"></h2>
+     <p data-template-id="intro-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="intro-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="intro-p3" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <div data-template-id="intro-box" class="canva-card border border-amber-500/30 bg-amber-500/5 rounded-lg p-4 mt-6">
+      <p data-template-id="intro-box-text" class="canva-text text-amber-200 font-medium"></p>
+     </div>
     </div>
-
-    <hr class="module-divider">
-
-    <!-- ==================== MODULO 1 ==================== -->
-    <div class="badge">Modulo 1 di 4</div>
-    <h2>Strategia di Pianificazione Rapida<br><span style="font-size:0.7em; color:#999;">(Scripting con IA)</span></h2>
-
-    <h3>Dalla Nebbia Mentale al Curriculum Strutturato</h3>
-    <p>Il 90% dei corsi fallisce non per la qualità dei contenuti, ma per la mancanza di direzione. Quando registri "a braccio", produci 10 ore di girato inutilizzabile. L'IA brilla nel <strong>costringerti alla chiarezza</strong>.</p>
-    <p>In questo modulo non chiederemo all'IA di inventare un corso per te. Le chiederemo di trasformare la tua conoscenza caotica in un <strong>percorso logico di trasformazione</strong>.</p>
-    <div class="card amber-border">
-        <p style="margin:0;"><strong>💡 La Regola d'Oro del ROI:</strong> Ogni minuto di scripting risparmiato è un minuto di registrazione guadagnato. E ogni minuto di registrazione pianificato è un minuto di editing eliminato.</p>
+   </div><!-- PAGE 3: Overview 4 Moduli -->
+   <div class="page" data-page="3">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h2 data-template-id="overview-title" class="canva-text heading-font font-bold text-2xl text-white mb-6"></h2>
+     <div class="space-y-4">
+      <div data-template-id="ov-mod1" class="canva-card bg-neutral-800 rounded-lg p-4 border-l-4 border-amber-500">
+       <p data-template-id="ov-mod1-text" class="canva-text text-neutral-200"></p>
+      </div>
+      <div data-template-id="ov-mod2" class="canva-card bg-neutral-800 rounded-lg p-4 border-l-4 border-amber-400">
+       <p data-template-id="ov-mod2-text" class="canva-text text-neutral-200"></p>
+      </div>
+      <div data-template-id="ov-mod3" class="canva-card bg-neutral-800 rounded-lg p-4 border-l-4 border-amber-300">
+       <p data-template-id="ov-mod3-text" class="canva-text text-neutral-200"></p>
+      </div>
+      <div data-template-id="ov-mod4" class="canva-card bg-neutral-800 rounded-lg p-4 border-l-4 border-green-400">
+       <p data-template-id="ov-mod4-text" class="canva-text text-neutral-200"></p>
+      </div>
+     </div>
     </div>
-
-    <h3>📋 Prompt Pronto all'Uso #1</h3>
-    <p><em>Il Generatore di Curriculum</em></p>
-    <div class="prompt-box" onclick="copyPrompt(this)">
-        <span class="copy-hint">Clicca per copiare</span>
-        <pre>Agisci come un instructional designer esperto e specializzato in corsi per adulti (andragogia). Il mio target di riferimento è [INSERISCI TARGET ES: coach del benessere over 40]. La promessa del mio corso è: '[INSERISCI PROMESSA ES: imparare a gestire lo stress in 10 minuti al giorno]'.
-
-Crea una struttura modulare per un video corso composto da 4 moduli. Per ogni modulo, fornisci:
-1. Titolo accattivante (orientato al beneficio).
-2. Obiettivo di apprendimento misurabile.
-3. Una lista di 3-4 lezioni video, ognuna con una durata stimata di massimo 8 minuti.
-
-Voglio una tabella markdown.</pre>
+   </div><!-- MODULE 1: Pages 4-10 --> <!-- Page 4: M1 Intro -->
+   <div class="page" data-page="4">
+    <div class="max-w-2xl mx-auto px-4 py-8"><img data-template-id="m1-image" class="canva-image w-full h-48 object-cover rounded-xl mb-6" loading="lazy">
+     <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 1</p>
+     <h2 data-template-id="m1-title" class="canva-text heading-font font-bold text-2xl text-white mb-4"></h2>
+     <p data-template-id="m1-intro" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <h3>📋 Prompt Pronto all'Uso #2</h3>
-    <p><em>Il Compilatore di Script (Lo Scripting Guidato)</em></p>
-    <div class="prompt-box" onclick="copyPrompt(this)">
-        <span class="copy-hint">Clicca per copiare</span>
-        <pre>Ora dobbiamo scrivere lo script dettagliato per la Lezione 1 del Modulo 1. Il titolo della lezione è '[TITOLO ES: Il protocollo del mattino]'. Voglio un tono [TONO: amichevole, autorevole, energico].
-
-Struttura lo script in 3 parti:
-1. Hook (0-30 sec): Un'apertura che sfida una credenza comune del mio target o pone una domanda dolorosa.
-2. Corpo (5 min): Suddividi il concetto principale in 3 punti chiave. Per ogni punto, dammi una metafora o un esempio concreto per spiegarlo semplicemente.
-3. Transizione (15 sec): Un ponte logico verso la lezione successiva.
-
-Includi pause naturali (usa il simbolo '...') per rendere la lettura più naturale per uno strumento di sintesi vocale.</pre>
+   </div><!-- Page 5: M1 Content A -->
+   <div class="page" data-page="5">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m1a-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m1a-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m1a-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m1a-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <h3>✅ Checklist Interattiva — Pianificazione</h3>
-    <div class="card">
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m1-1">
-            <span>Ho definito la "Promessa di Trasformazione" del corso in una frase chiara.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m1-2">
-            <span>Ho validato la struttura del corso generata dall'IA (non è troppo vaga o troppo complessa).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m1-3">
-            <span>Gli script delle lezioni non superano le 1.200 parole ciascuno (circa 6-7 minuti di parlato).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m1-4">
-            <span>Ogni script inizia con un Hook che cattura l'attenzione nei primi 5 secondi.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m1-5">
-            <span>Ho letto lo script ad alta voce una volta per correggere parole "innaturali" per il mio modo di parlare.</span>
-        </label>
+   </div><!-- Page 6: M1 Content B -->
+   <div class="page" data-page="6">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m1b-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m1b-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m1b-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m1b-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <h3>📝 Mini Quiz — Modulo 1</h3>
-    <div class="quiz-block" data-correct="1">
-        <p class="quiz-question">Domanda 1: Perché è meglio scrivere script di 6 minuti invece di 20 minuti?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Perché l'IA non sa scrivere testi lunghi.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Perché la retention dello studente crolla e la produzione diventa pesante.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Perché i video lunghi non si possono vendere.</button>
-        <div class="quiz-feedback"></div>
+   </div><!-- Page 7: M1 Prompts -->
+   <div class="page" data-page="7">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m1-prompts-title" class="canva-text heading-font font-bold text-xl text-amber-400 mb-4"></h3>
+     <div class="space-y-3">
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m1-prompt1" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m1-prompt2" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m1-prompt3" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+     </div>
+     <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
     </div>
-    <div class="quiz-block" data-correct="1">
-        <p class="quiz-question">Domanda 2: Nel Prompt "Compilatore di Script", qual è il ruolo dell'istruzione "Includi pause naturali (...)"?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Far sembrare il testo scritto da un umano.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Ottimizzare il testo per la sintesi vocale, rendendo il parlato fluido.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Allungare il testo artificialmente.</button>
-        <div class="quiz-feedback"></div>
+   </div><!-- Page 8: M1 Checklist -->
+   <div class="page" data-page="8">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m1-check-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <div class="bg-neutral-800 rounded-lg p-5 space-y-3" id="m1-checklist"><label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-1"><span data-template-id="m1-c1" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-2"><span data-template-id="m1-c2" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-3"><span data-template-id="m1-c3" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-4"><span data-template-id="m1-c4" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-5"><span data-template-id="m1-c5" class="canva-text text-neutral-200 text-sm"></span></label>
+     </div>
     </div>
-
-    <hr class="module-divider">
-
-    <!-- ==================== MODULO 2 ==================== -->
-    <div class="badge">Modulo 2 di 4</div>
-    <h2>Produzione Vocale Accelerata<br><span style="font-size:0.7em; color:#999;">(Clonazione e Sintesi Vocale)</span></h2>
-
-    <h3>La Tua Voce, Senza il Tuo Microfono</h3>
-    <p>Il collo di bottiglia classico è la registrazione: il cane abbaia, sbagli la pronuncia, ti schiarisci la gola. Con la <strong>sintesi vocale avanzata (TTS)</strong> e la <strong>clonazione vocale</strong> (con consenso etico e legale), puoi registrare 10 minuti di audio "campione" di alta qualità e generare ore di contenuto pulito in pochi minuti.</p>
-
-    <h3>La Tecnologia</h3>
-    <p><strong>Sintesi (ElevenLabs, OpenAI TTS):</strong> Perfetta se odi la tua voce registrata o se vuoi produrre in lingue diverse.</p>
-    <p><strong>Clonazione (ElevenLabs, Descript):</strong> Perfetta se vuoi mantenere il tuo brand personale ma vuoi eliminare rumori di fondo, respiri affannosi e "ehm" dall'audio.</p>
-    <div class="card amber-border">
-        <p style="margin:0;"><strong>⚠️ Nota Etica:</strong> Assicurati di utilizzare servizi che richiedono verifica dell'identità o che utilizzino la <em>tua</em> voce per il <em>tuo</em> contenuto.</p>
+   </div><!-- Page 9: M1 Quiz -->
+   <div class="page" data-page="9">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m1-quiz-title" class="canva-text heading-font font-bold text-xl text-white mb-6"></h3>
+     <div class="space-y-6">
+      <div class="quiz-block" data-correct="1">
+       <p data-template-id="m1-q1" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m1-q1a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m1-q1b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m1-q1c" class="canva-text"></span></button>
+       </div>
+      </div>
+      <div class="quiz-block" data-correct="2">
+       <p data-template-id="m1-q2" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m1-q2a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m1-q2b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m1-q2c" class="canva-text"></span></button>
+       </div>
+      </div>
+     </div>
     </div>
-
-    <h3>📋 Prompt Pronto all'Uso #3</h3>
-    <p><em>Il Direttore di Doppiaggio Virtuale</em></p>
-    <div class="prompt-box" onclick="copyPrompt(this)">
-        <span class="copy-hint">Clicca per copiare</span>
-        <pre>(Impostazioni Consigliate: Stability al 35%, Similarity al 75%, Style Exaggeration al 55%)
-
-Testo da far leggere (Incolla il tuo script qui sotto):
-
-"Sai qual è il vero motivo per cui non hai ancora risolto [PROBLEMA]? ... Non è mancanza di disciplina. È mancanza di un sistema. E oggi, in questa lezione, ti do il sistema. Punto uno: [CONCETTO 1]... Immagina questo... [METAforA]. Punto due: [CONCETTO 2]... Sembra semplice, vero? Lo è. Ma solo se lo applichi. Resta con me, perché nella prossima lezione alziamo il livello."</pre>
+   </div><!-- Page 10: M1 Summary -->
+   <div class="page" data-page="10">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m1-sum-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m1-sum-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <div data-template-id="m1-sum-box" class="canva-card bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p data-template-id="m1-sum-key" class="canva-text text-amber-200 font-medium"></p>
+     </div>
     </div>
-    <div class="card">
-        <p style="margin:0;"><strong>💡 Suggerimento operativo:</strong> Se la voce suona piatta, usa i tag SSML (Speech Synthesis Markup Language) come <code>&lt;break time="500ms"/&gt;</code> per pause forzate o <code>&lt;prosody rate="slow"&gt;</code> per le frasi chiave ad effetto.</p>
+   </div><!-- MODULE 2: Pages 11-17 -->
+   <div class="page" data-page="11">
+    <div class="max-w-2xl mx-auto px-4 py-8"><img data-template-id="m2-image" class="canva-image w-full h-48 object-cover rounded-xl mb-6" loading="lazy">
+     <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2</p>
+     <h2 data-template-id="m2-title" class="canva-text heading-font font-bold text-2xl text-white mb-4"></h2>
+     <p data-template-id="m2-intro" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <h3>✅ Checklist Interattiva — Audio</h3>
-    <div class="card">
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m2-1">
-            <span>Ho creato un "Voice Profile" chiaro nello strumento di sintesi/clonazione.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m2-2">
-            <span>Ho generato un file audio di prova di 30 secondi e l'ho ascoltato con le cuffie.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m2-3">
-            <span>La pronuncia dei termini tecnici del mio settore è corretta? (Se no, ho scritto il termine in modo fonetico).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m2-4">
-            <span>Il ritmo del parlato è abbastanza lento da essere compreso senza annoiare? (Range ideale: 140-150 parole/minuto).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m2-5">
-            <span>Ho esportato tutti gli audio in formato MP3 o WAV con un nome file coerente (Es: Modulo1_Lezione1.mp3).</span>
-        </label>
+   </div>
+   <div class="page" data-page="12">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m2a-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m2a-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m2a-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m2a-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <h3>📝 Mini Quiz — Modulo 2</h3>
-    <div class="quiz-block" data-correct="0">
-        <p class="quiz-question">Domanda 1: Quando conviene usare la clonazione vocale invece della semplice sintesi standard?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Quando vuoi risparmiare soldi.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Quando vuoi mantenere il legame emotivo e il brand legato alla tua voce reale.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Quando il testo contiene parole straniere.</button>
-        <div class="quiz-feedback"></div>
+   </div>
+   <div class="page" data-page="13">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m2b-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m2b-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m2b-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m2b-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-    <div class="quiz-block" data-correct="1">
-        <p class="quiz-question">Domanda 2: Cosa significa "Stability" nelle impostazioni dei tool di clonazione vocale?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Quanto è stabile la connessione internet.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Quanto la voce rimane costante e uniforme senza variazioni emotive casuali.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Quanto è stabile il volume.</button>
-        <div class="quiz-feedback"></div>
+   </div>
+   <div class="page" data-page="14">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m2-prompts-title" class="canva-text heading-font font-bold text-xl text-amber-400 mb-4"></h3>
+     <div class="space-y-3">
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m2-prompt1" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m2-prompt2" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m2-prompt3" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+     </div>
+     <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
     </div>
-
-    <hr class="module-divider">
-
-    <!-- ==================== MODULO 3 ==================== -->
-    <div class="badge">Modulo 3 di 4</div>
-    <h2>Montaggio e Assemblaggio Automatizzato</h2>
-
-    <h3>Taglia il Tempo di Editing a Zero</h3>
-    <p>L'editing video tradizionale è un buco nero temporale. Se stai creando un corso basato su slide, non hai bisogno di aprire Adobe Premiere o Final Cut. Hai bisogno di un <strong>"Assemblatore"</strong>.</p>
-
-    <h3>La Tecnica del "Video come Documento"</h3>
-    <p>Utilizzeremo software che trasformano il tuo audio e le tue slide in un video finito, sincronizzato, quasi come un documento Word che prende vita.</p>
-
-    <h3>Gli Strumenti Chiave</h3>
-    <p><strong>Descript (o CapCut):</strong> Incolli il testo, incolli l'audio, trascini le immagini. Il video si genera da solo con transizioni fluide.</p>
-    <p><strong>Automazione a 3 Strati:</strong> Voce (Audio MP3) + Visivo (Slide o Stock Footage) + Testo (Sottotitoli generati automaticamente).</p>
-    <div class="card amber-border">
-        <p style="margin:0;"><strong>💡 Il Valore Aggiunto:</strong> In un corso online, la chiarezza del concetto batte la spettacolarità dell'effetto speciale. Nessuno compra un corso per le transizioni 3D; lo comprano per la chiarezza.</p>
+   </div>
+   <div class="page" data-page="15">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m2-check-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <div class="bg-neutral-800 rounded-lg p-5 space-y-3"><label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-1"><span data-template-id="m2-c1" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-2"><span data-template-id="m2-c2" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-3"><span data-template-id="m2-c3" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-4"><span data-template-id="m2-c4" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-5"><span data-template-id="m2-c5" class="canva-text text-neutral-200 text-sm"></span></label>
+     </div>
     </div>
-
-    <h3>📋 Prompt Pronto all'Uso #4</h3>
-    <p><em>Il Generatore di Visual e Slide</em></p>
-    <div class="prompt-box" onclick="copyPrompt(this)">
-        <span class="copy-hint">Clicca per copiare</span>
-        <pre>Genera un'immagine in stile [STILE: flat illustration / fotorealistico / minimalista], colori [PALETTE: blu scuro e arancione acceso].
-Soggetto: una rappresentazione visiva del concetto di '[CONCETTO ES: sistema]' contrapposto a '[CONCETTO ES: caos]'.
-Non inserire testo nell'immagine. Deve essere spaziosa a sinistra per permettere l'inserimento di scritte in sovraimpressione. Aspect ratio 16:9.</pre>
+   </div>
+   <div class="page" data-page="16">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m2-quiz-title" class="canva-text heading-font font-bold text-xl text-white mb-6"></h3>
+     <div class="space-y-6">
+      <div class="quiz-block" data-correct="0">
+       <p data-template-id="m2-q1" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m2-q1a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m2-q1b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m2-q1c" class="canva-text"></span></button>
+       </div>
+      </div>
+      <div class="quiz-block" data-correct="1">
+       <p data-template-id="m2-q2" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m2-q2a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m2-q2b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m2-q2c" class="canva-text"></span></button>
+       </div>
+      </div>
+     </div>
     </div>
-    <div class="prompt-box" onclick="copyPrompt(this)">
-        <span class="copy-hint">Clicca per copiare</span>
-        <pre>Correggi la trascrizione. Rimuovi le parole di riempimento ('uhm', 'ehm', 'cioè'), taglia le pause vuote più lunghe di 3 secondi e aggiungi i sottotitoli animati in stile [STILE: bold, parola per parola].</pre>
+   </div>
+   <div class="page" data-page="17">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m2-sum-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m2-sum-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <div data-template-id="m2-sum-box" class="canva-card bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p data-template-id="m2-sum-key" class="canva-text text-amber-200 font-medium"></p>
+     </div>
     </div>
-
-    <h3>✅ Checklist Interattiva — Montaggio</h3>
-    <div class="card">
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m3-1">
-            <span>Ho preparato almeno 1 slide o immagine ogni 2 minuti di audio (per evitare la noia visiva).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m3-2">
-            <span>I file audio e le slide sono stati caricati nell'assemblatore scelto.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m3-3">
-            <span>Ho verificato che i sottotitoli automatici abbiano la punteggiatura corretta.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m3-4">
-            <span>Ho aggiunto un'intro e un outro brevi (max 5 secondi) con il nome del corso.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m3-5">
-            <span>Ho esportato la prima lezione e l'ho guardata dall'inizio alla fine senza fermarmi (test di qualità).</span>
-        </label>
+   </div><!-- MODULE 3: Pages 18-24 -->
+   <div class="page" data-page="18">
+    <div class="max-w-2xl mx-auto px-4 py-8"><img data-template-id="m3-image" class="canva-image w-full h-48 object-cover rounded-xl mb-6" loading="lazy">
+     <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3</p>
+     <h2 data-template-id="m3-title" class="canva-text heading-font font-bold text-2xl text-white mb-4"></h2>
+     <p data-template-id="m3-intro" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <h3>📝 Mini Quiz — Modulo 3</h3>
-    <div class="quiz-block" data-correct="2">
-        <p class="quiz-question">Domanda 1: Qual è il principio del "Video come Documento"?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Creare video noiosi come documenti Word.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Utilizzare strumenti che sincronizzano automaticamente testo, voce e immagini per creare il video senza timeline manuale.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Scrivere il copione sul computer.</button>
-        <div class="quiz-feedback"></div>
+   </div>
+   <div class="page" data-page="19">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m3a-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m3a-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m3a-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m3a-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-    <div class="quiz-block" data-correct="0">
-        <p class="quiz-question">Domanda 2: Perché è consigliato utilizzare i sottotitoli anche se l'audio è perfetto?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Perché molti utenti guardano i video in mobilità senza audio.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Perché rendono il video più pesante da caricare.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Perché coprono eventuali errori di grafica.</button>
-        <div class="quiz-feedback"></div>
+   </div>
+   <div class="page" data-page="20">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m3b-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m3b-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m3b-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m3b-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
-
-    <hr class="module-divider">
-
-    <!-- ==================== MODULO 4 ==================== -->
-    <div class="badge">Modulo 4 di 4</div>
-    <h2>Monetizzazione e Lancio<br><span style="font-size:0.7em; color:#999;">(Il ROI del Tempo)</span></h2>
-
-    <h3>Il Corso è Pronto. Ora fallo Comprare.</h3>
-    <p>Hai impiegato 48 ore a costruire il prodotto. Ora devi dedicare le tue energie a vendere il <strong>risultato</strong>, non il <strong>contenuto</strong>. Non vendere "10 ore di video lezioni"; vendi <em>"Il ritorno alla calma"</em> o <em>"Il raddoppio dei clienti"</em>.</p>
-
-    <h3>Strategia di Lancio Rapido (Il "Founding Member")</h3>
-    <p><strong>Prezzo di Lancio:</strong> Offri uno sconto del 50% per i primi 10 acquirenti in cambio di una testimonianza scritta o video.</p>
-    <p><strong>Il Video di Vendita (VSL):</strong> Crea un video di 3 minuti per vendere il corso. Usa l'IA per scrivere la struttura "Problema → Agitazione → Soluzione → Prova".</p>
-    <p><strong>La Scarsità Etica:</strong> Comunica che il prezzo aumenterà tra 72 ore.</p>
-
-    <h3>📋 Prompt Pronto all'Uso #5</h3>
-    <p><em>Il Copywriter di Vendita Istantaneo</em></p>
-    <div class="prompt-box" onclick="copyPrompt(this)">
-        <span class="copy-hint">Clicca per copiare</span>
-        <pre>Scrivi un'email di lancio per il mio nuovo video corso '[TITOLO CORSO]'. Il target è [TARGET] e il dolore principale è [DOLORE ES: sentirsi sopraffatti dalla tecnologia].
-
-Struttura:
-1. Oggetto email magnetica (max 45 caratteri).
-2. Apertura empatica (identifica il dolore).
-3. Presentazione della soluzione (il corso, creato con metodo Zero-Burnout).
-4. Cosa c'è dentro (3 bullet point sui benefici).
-5. Offerta speciale di lancio con countdown (72 ore).
-6. Call to action finale.
-
-Tono: ispirazionale e concreto. Niente fuffa.</pre>
+   </div>
+   <div class="page" data-page="21">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m3-prompts-title" class="canva-text heading-font font-bold text-xl text-amber-400 mb-4"></h3>
+     <div class="space-y-3">
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m3-prompt1" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m3-prompt2" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m3-prompt3" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+     </div>
+     <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
     </div>
-
-    <h3>✅ Checklist Interattiva — Lancio</h3>
-    <div class="card">
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m4-1">
-            <span>Ho creato una pagina di vendita semplice (anche un PDF o una landing con Carrd/Systeme.io).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m4-2">
-            <span>Ho preparato una mail di lancio e un post social da pubblicare.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m4-3">
-            <span>Ho impostato un prezzo di listino e un prezzo "Founding Member" scontato.</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m4-4">
-            <span>Ho definito chiaramente cosa riceve l'acquirente (video, audio, pdf, accesso community?).</span>
-        </label>
-        <label class="checklist-item">
-            <input type="checkbox" data-check="m4-5">
-            <span>Ho preparato un modulo per raccogliere feedback/testimonianze da inviare dopo 7 giorni.</span>
-        </label>
+   </div>
+   <div class="page" data-page="22">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m3-check-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <div class="bg-neutral-800 rounded-lg p-5 space-y-3"><label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-1"><span data-template-id="m3-c1" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-2"><span data-template-id="m3-c2" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-3"><span data-template-id="m3-c3" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-4"><span data-template-id="m3-c4" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-5"><span data-template-id="m3-c5" class="canva-text text-neutral-200 text-sm"></span></label>
+     </div>
     </div>
-
-    <h3>📝 Mini Quiz Finale</h3>
-    <div class="quiz-block" data-correct="1">
-        <p class="quiz-question">Domanda 1: Qual è il vero vantaggio competitivo del metodo "Zero-Burnout Content Engine"?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Permette di non lavorare mai.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Riduce drasticamente il "Time-to-Market", permettendoti di iterare e monetizzare più velocemente dei concorrenti.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Rende i video più belli di Hollywood.</button>
-        <div class="quiz-feedback"></div>
+   </div>
+   <div class="page" data-page="23">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m3-quiz-title" class="canva-text heading-font font-bold text-xl text-white mb-6"></h3>
+     <div class="space-y-6">
+      <div class="quiz-block" data-correct="2">
+       <p data-template-id="m3-q1" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m3-q1a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m3-q1b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m3-q1c" class="canva-text"></span></button>
+       </div>
+      </div>
+      <div class="quiz-block" data-correct="0">
+       <p data-template-id="m3-q2" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m3-q2a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m3-q2b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m3-q2c" class="canva-text"></span></button>
+       </div>
+      </div>
+     </div>
     </div>
-    <div class="quiz-block" data-correct="2">
-        <p class="quiz-question">Domanda 2: Cosa dovresti fare se l'IA produce un contenuto che non suona come te?</p>
-        <button class="quiz-option" onclick="answerQuiz(this)">A) Pubblicarlo comunque.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">B) Arrenderti e tornare al montaggio manuale.</button>
-        <button class="quiz-option" onclick="answerQuiz(this)">C) Modificare il prompt e fornire più contesto sul tuo tono di voce e sulle tue esperienze personali.</button>
-        <div class="quiz-feedback"></div>
+   </div>
+   <div class="page" data-page="24">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m3-sum-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m3-sum-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <div data-template-id="m3-sum-box" class="canva-card bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+      <p data-template-id="m3-sum-key" class="canva-text text-amber-200 font-medium"></p>
+     </div>
     </div>
-
-    <hr class="module-divider">
-
-    <!-- ==================== CHIUSURA ==================== -->
-    <div style="text-align:center; padding: 30px 0;">
-        <h2>Dalla Fabbrica di Contenuti<br>alla Fabbrica di Valore</h2>
-        <p>Sei arrivato alla fine di questo framework, ma è solo l'inizio del tuo nuovo sistema operativo mentale. Non devi più scegliere tra "creare" e "vivere". Con l'IA al tuo fianco come assistente, puoi tornare a fare ciò che ami davvero: <strong>connetterti con il tuo pubblico e trasformare vite</strong>.</p>
-        <div class="card" style="border:2px solid var(--amber); text-align:left;">
-            <h3 style="margin-top:0;">🎯 Il Tuo Piano d'Azione per le prossime 48 ore:</h3>
-            <p><strong>Ora 0:</strong> Scegli il topic del corso e apri il Prompt #1.</p>
-            <p><strong>Ora 1:</strong> Genera la struttura. Non cercare la perfezione, cerca il "fatto".</p>
-            <p><strong>Ora 2:</strong> Blocca la tua voce con gli strumenti TTS.</p>
-            <p><strong>Ora 3:</strong> Assembla il Modulo 1 usando la checklist.</p>
-            <p><strong>Ora 4:</strong> Metti online la pagina di pre-ordine.</p>
-        </div>
-        <p style="margin-top:20px; font-style:italic; color:#999;">"Smetti di produrre contenuti. Inizia a produrre <strong>asset</strong>."</p>
-        <p style="margin-top:16px; color:#888; font-size:0.85em;">Se questo metodo ti ha fatto risparmiare tempo, condividilo con un collega creatore che sta ancora lottando con il montaggio video. Il mercato ha spazio per tutti, ma solo per chi è veloce.</p>
+   </div><!-- MODULE 4: Pages 25-30 -->
+   <div class="page" data-page="25">
+    <div class="max-w-2xl mx-auto px-4 py-8"><img data-template-id="m4-image" class="canva-image w-full h-48 object-cover rounded-xl mb-6" loading="lazy">
+     <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4</p>
+     <h2 data-template-id="m4-title" class="canva-text heading-font font-bold text-2xl text-white mb-4"></h2>
+     <p data-template-id="m4-intro" class="canva-text text-neutral-300 leading-relaxed"></p>
     </div>
+   </div>
+   <div class="page" data-page="26">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m4a-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <p data-template-id="m4a-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m4a-p2" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="m4a-p3" class="canva-text text-neutral-300 leading-relaxed"></p>
+    </div>
+   </div>
+   <div class="page" data-page="27">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m4-prompts-title" class="canva-text heading-font font-bold text-xl text-amber-400 mb-4"></h3>
+     <div class="space-y-3">
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m4-prompt1" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m4-prompt2" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+      <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+       <p data-template-id="m4-prompt3" class="canva-text text-neutral-200 text-sm"></p>
+      </div>
+     </div>
+     <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
+    </div>
+   </div>
+   <div class="page" data-page="28">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m4-check-title" class="canva-text heading-font font-bold text-xl text-white mb-4"></h3>
+     <div class="bg-neutral-800 rounded-lg p-5 space-y-3"><label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-1"><span data-template-id="m4-c1" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-2"><span data-template-id="m4-c2" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-3"><span data-template-id="m4-c3" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-4"><span data-template-id="m4-c4" class="canva-text text-neutral-200 text-sm"></span></label> <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-5"><span data-template-id="m4-c5" class="canva-text text-neutral-200 text-sm"></span></label>
+     </div>
+    </div>
+   </div>
+   <div class="page" data-page="29">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+     <h3 data-template-id="m4-quiz-title" class="canva-text heading-font font-bold text-xl text-white mb-6"></h3>
+     <div class="space-y-6">
+      <div class="quiz-block" data-correct="1">
+       <p data-template-id="m4-q1" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m4-q1a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m4-q1b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m4-q1c" class="canva-text"></span></button>
+       </div>
+      </div>
+      <div class="quiz-block" data-correct="2">
+       <p data-template-id="m4-q2" class="canva-text text-neutral-200 font-medium mb-3"></p>
+       <div class="space-y-2"><button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)"><span data-template-id="m4-q2a" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)"><span data-template-id="m4-q2b" class="canva-text"></span></button> <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)"><span data-template-id="m4-q2c" class="canva-text"></span></button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Page 30: Closing -->
+   <div class="page" data-page="30">
+    <div class="max-w-2xl mx-auto px-4 py-8 text-center">
+     <h2 data-template-id="closing-title" class="canva-text heading-font font-bold text-2xl text-white mb-4"></h2>
+     <p data-template-id="closing-p1" class="canva-text text-neutral-300 leading-relaxed mb-4"></p>
+     <p data-template-id="closing-p2" class="canva-text text-neutral-300 leading-relaxed mb-6"></p>
+     <div data-template-id="closing-cta" class="canva-card bg-amber-500 rounded-xl p-6 inline-block">
+      <p data-template-id="closing-cta-text" class="canva-text heading-font font-bold text-black text-lg"></p>
+     </div>
+    </div>
+   </div>
+  </main>
+  <script src="/_sdk/f344579cd2b2cf70.editing_sdk.js" integrity="sha512-bzdgmfJ/pl/acJqgk+LGvYwJbF03Y2d6f4oZHD96WjqTnvQUZBGVAQkTDRz+fyIMjVc+AXkpwFXqDYLeHDMLSw=="></script>
+  <script>
+        const TOTAL_PAGES = 30;
+        let currentPage = 1;
 
-</div>
+        // TOC data
+        const tocData = [
+            {page:1,label:'Copertina'},{page:2,label:'Introduzione'},{page:3,label:'Panoramica Moduli'},
+            {page:4,label:'M1: Scripting con IA'},{page:7,label:'M1: Prompt pronti'},{page:8,label:'M1: Checklist'},{page:9,label:'M1: Quiz'},
+            {page:11,label:'M2: Produzione Vocale'},{page:14,label:'M2: Prompt pronti'},{page:15,label:'M2: Checklist'},{page:16,label:'M2: Quiz'},
+            {page:18,label:'M3: Montaggio Automatizzato'},{page:21,label:'M3: Prompt pronti'},{page:22,label:'M3: Checklist'},{page:23,label:'M3: Quiz'},
+            {page:25,label:'M4: Monetizzazione e Lancio'},{page:27,label:'M4: Prompt pronti'},{page:28,label:'M4: Checklist'},{page:29,label:'M4: Quiz'},
+            {page:30,label:'Conclusione'}
+        ];
 
-<script>
-    // ==================== FUNZIONI INTERATTIVE ====================
-
-    // Salvataggio checklist in localStorage
-    document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(cb => {
-        // Carica stato salvato
-        const key = cb.dataset.check;
-        cb.checked = localStorage.getItem('ebook_' + key) === '1';
-
-        // Salva al cambio
-        cb.addEventListener('change', () => {
-            localStorage.setItem('ebook_' + key, cb.checked ? '1' : '0');
-        });
-    });
-
-    // Copia prompt
-    function copyPrompt(el) {
-        const text = el.querySelector('pre').textContent;
-        navigator.clipboard.writeText(text).then(() => {
-            showToast();
-        }).catch(() => {
-            // Fallback
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            showToast();
-        });
-    }
-
-    function showToast() {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-    }
-
-    // Quiz
-    function answerQuiz(btn) {
-        const block = btn.closest('.quiz-block');
-        if (block.dataset.answered === 'true') return;
-
-        const correct = parseInt(block.dataset.correct);
-        const options = block.querySelectorAll('.quiz-option');
-        const feedback = block.querySelector('.quiz-feedback');
-
-        // Disabilita tutte le opzioni
-        options.forEach(o => o.style.pointerEvents = 'none');
-
-        // Evidenzia la corretta
-        options[correct].classList.add('correct');
-
-        // Se l'utente ha sbagliato, evidenzia la sua scelta
-        if (btn !== options[correct]) {
-            btn.classList.add('wrong');
-            feedback.textContent = '❌ Risposta errata. Riprova!';
-            feedback.className = 'quiz-feedback show wrong';
-        } else {
-            feedback.textContent = '✅ Esatto! Ottimo lavoro.';
-            feedback.className = 'quiz-feedback show correct';
+        function init() {
+            buildTOC();
+            loadChecks();
+            showPage(1);
+            lucide.createIcons();
         }
 
-        block.dataset.answered = 'true';
-    }
-</script>
+        function buildTOC() {
+            const list = document.getElementById('toc-list');
+            tocData.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<button class="w-full text-left py-2 px-3 rounded hover:bg-neutral-800 text-neutral-300 hover:text-amber-400 transition" onclick="goToPage(${item.page})">${item.label}</button>`;
+                list.appendChild(li);
+            });
+        }
 
-</body>
+        function showPage(n) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.querySelector(`[data-page="${n}"]`);
+            if (target) target.classList.add('active');
+            currentPage = n;
+            document.getElementById('page-counter').textContent = `${n} / ${TOTAL_PAGES}`;
+            document.getElementById('progress').style.width = `${(n/TOTAL_PAGES)*100}%`;
+            window.scrollTo(0,0);
+        }
+
+        function nextPage() { if (currentPage < TOTAL_PAGES) showPage(currentPage + 1); }
+        function prevPage() { if (currentPage > 1) showPage(currentPage - 1); }
+        function goToPage(n) { showPage(n); toggleTOC(); }
+
+        function toggleTOC() {
+            document.getElementById('toc-overlay').classList.toggle('hidden');
+        }
+
+        function copyPrompt(el) {
+            const text = el.querySelector('p').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 2000);
+            });
+        }
+
+        function answerQuiz(btn) {
+            const block = btn.closest('.quiz-block');
+            if (block.dataset.answered) return;
+            block.dataset.answered = 'true';
+            const correct = parseInt(block.dataset.correct);
+            const idx = parseInt(btn.dataset.idx);
+            const options = block.querySelectorAll('.quiz-option');
+            options[correct].classList.add('correct');
+            if (idx !== correct) btn.classList.add('wrong');
+            options.forEach(o => o.style.pointerEvents = 'none');
+        }
+
+        // Persist checklists in localStorage
+        function loadChecks() {
+            document.querySelectorAll('[data-check]').forEach(cb => {
+                const key = cb.dataset.check;
+                cb.checked = localStorage.getItem('ebook_' + key) === '1';
+                cb.addEventListener('change', () => {
+                    localStorage.setItem('ebook_' + key, cb.checked ? '1' : '0');
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+ </body>
 </html>
