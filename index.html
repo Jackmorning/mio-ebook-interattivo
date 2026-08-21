@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero-Burnout Content Engine - Ebook Interattivo</title>
+    <style>
+        :root {
+            --amber: #f59e0b;
+            --dark: #0f0f0f;
+            --card: #1a1a1a;
+            --muted: #a3a3a3;
+            --green: #22c55e;
+            --red: #ef4444;
+            --blue: #3b82f6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--dark);
+            color: #e5e5e5;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 20px 16px 120px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Georgia', serif;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+        h1 { font-size: 2.2em; margin-bottom: 12px; }
+        h2 { font-size: 1.7em; margin: 30px 0 15px; }
+        h3 { font-size: 1.3em; margin: 20px 0 10px; }
+        p { margin-bottom: 14px; color: #d1d5db; }
+        .accent { color: var(--amber); }
+        .badge {
+            display: inline-block;
+            background: var(--amber);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.75em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+        .card.amber-border { border-left: 4px solid var(--amber); }
+        .card.green-border { border-left: 4px solid var(--green); }
+
+        /* Checklist */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a2a2a;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--amber);
+            margin-top: 2px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .checklist-item input:checked + span {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        .checklist-item span { flex: 1; }
+
+        /* Quiz */
+        .quiz-block { margin: 20px 0; }
+        .quiz-question {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 16px;
+            margin: 6px 0;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: #e5e5e5;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover { border-color: var(--amber); }
+        .quiz-option.correct { border-color: var(--green) !important; background: rgba(34,197,94,0.15); }
+        .quiz-option.wrong { border-color: var(--red) !important; background: rgba(239,68,68,0.15); }
+        .quiz-feedback {
+            display: none;
+            font-weight: 600;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { color: var(--green); }
+        .quiz-feedback.wrong { color: var(--red); }
+
+        /* Prompt Box */
+        .prompt-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .prompt-box:hover {
+            border-color: var(--amber);
+            background: #1e1a10;
+        }
+        .prompt-box .copy-hint {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.7em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .prompt-box pre {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        #toast.show { opacity: 1; }
+
+        /* Divider */
+        .module-divider {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--amber), transparent);
+            margin: 40px 0;
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: #fff; color: #000; }
+            .card, .prompt-box { border-color: #ccc; background: #f9f9f9; }
+            .checklist-item input { border: 2px solid #000; }
+            .quiz-option { border-color: #ccc; color: #000; }
+            .badge { border: 1px solid #000; }
+            #toast { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="toast">✓ Prompt copiato negli appunti!</div>
+
+<div class="container">
+
+    <!-- ==================== COPERTINA ==================== -->
+    <div style="text-align:center; padding: 40px 0;">
+        <div class="badge">Ebook Interattivo</div>
+        <h1>ZERO-BURNOUT<br>CONTENT ENGINE</h1>
+        <p style="font-size:1.1em; color:var(--amber); font-weight:600;">Come creare un video corso completo in 48 ore usando l'Intelligenza Artificiale</p>
+        <p style="margin-top:16px; font-style:italic; color:#999;">Per Creator, Coach e Formatori stanchi di passare settimane a registrare e montare video.</p>
+        <p style="margin-top:24px; color:#888; font-size:0.9em;">⏱️ Tempo di lettura: 15 minuti | 4 Moduli Pratici | Prompt Copiabili</p>
+    </div>
+
+    <hr class="module-divider">
+
+    <!-- ==================== INTRODUZIONE ==================== -->
+    <h2>Il Paradosso del Creatore Moderno</h2>
+    <p>Hai passato più tempo a combattere con il software di editing che a creare valore? Se la risposta è sì, non sei un cattivo imprenditore — sei solo un creatore frustrato. <strong>Il mercato non paga il tuo tempo, paga la trasformazione che offri.</strong></p>
+    <p>Il <span class="accent">Zero-Burnout Content Engine</span> non è un trucco pigro; è un framework strategico di <strong>delega cognitiva</strong>. Utilizzeremo l'IA non per sostituire la tua voce o il tuo pensiero critico, ma per rimuovere l'attrito tra il tuo cervello e la pubblicazione.</p>
+
+    <div class="card amber-border">
+        <h3 style="margin-top:0;">📋 Cosa farai nelle prossime 48 ore:</h3>
+        <p style="margin-bottom:6px;"><strong>Blocco 1 (Ore 0-6):</strong> Strategia e Scripting</p>
+        <p style="margin-bottom:6px;"><strong>Blocco 2 (Ore 6-14):</strong> Produzione Audio</p>
+        <p style="margin-bottom:6px;"><strong>Blocco 3 (Ore 14-24):</strong> Assemblaggio Visivo</p>
+        <p style="margin-bottom:0;"><strong>Blocco 4 (Ore 24-48):</strong> Packaging e Lancio</p>
+    </div>
+
+    <hr class="module-divider">
+
+    <!-- ==================== MODULO 1 ==================== -->
+    <div class="badge">Modulo 1 di 4</div>
+    <h2>Strategia di Pianificazione Rapida<br><span style="font-size:0.7em; color:#999;">(Scripting con IA)</span></h2>
+
+    <h3>Dalla Nebbia Mentale al Curriculum Strutturato</h3>
+    <p>Il 90% dei corsi fallisce non per la qualità dei contenuti, ma per la mancanza di direzione. Quando registri "a braccio", produci 10 ore di girato inutilizzabile. L'IA brilla nel <strong>costringerti alla chiarezza</strong>.</p>
+    <p>In questo modulo non chiederemo all'IA di inventare un corso per te. Le chiederemo di trasformare la tua conoscenza caotica in un <strong>percorso logico di trasformazione</strong>.</p>
+    <div class="card amber-border">
+        <p style="margin:0;"><strong>💡 La Regola d'Oro del ROI:</strong> Ogni minuto di scripting risparmiato è un minuto di registrazione guadagnato. E ogni minuto di registrazione pianificato è un minuto di editing eliminato.</p>
+    </div>
+
+    <h3>📋 Prompt Pronto all'Uso #1</h3>
+    <p><em>Il Generatore di Curriculum</em></p>
+    <div class="prompt-box" onclick="copyPrompt(this)">
+        <span class="copy-hint">Clicca per copiare</span>
+        <pre>Agisci come un instructional designer esperto e specializzato in corsi per adulti (andragogia). Il mio target di riferimento è [INSERISCI TARGET ES: coach del benessere over 40]. La promessa del mio corso è: '[INSERISCI PROMESSA ES: imparare a gestire lo stress in 10 minuti al giorno]'.
+
+Crea una struttura modulare per un video corso composto da 4 moduli. Per ogni modulo, fornisci:
+1. Titolo accattivante (orientato al beneficio).
+2. Obiettivo di apprendimento misurabile.
+3. Una lista di 3-4 lezioni video, ognuna con una durata stimata di massimo 8 minuti.
+
+Voglio una tabella markdown.</pre>
+    </div>
+
+    <h3>📋 Prompt Pronto all'Uso #2</h3>
+    <p><em>Il Compilatore di Script (Lo Scripting Guidato)</em></p>
+    <div class="prompt-box" onclick="copyPrompt(this)">
+        <span class="copy-hint">Clicca per copiare</span>
+        <pre>Ora dobbiamo scrivere lo script dettagliato per la Lezione 1 del Modulo 1. Il titolo della lezione è '[TITOLO ES: Il protocollo del mattino]'. Voglio un tono [TONO: amichevole, autorevole, energico].
+
+Struttura lo script in 3 parti:
+1. Hook (0-30 sec): Un'apertura che sfida una credenza comune del mio target o pone una domanda dolorosa.
+2. Corpo (5 min): Suddividi il concetto principale in 3 punti chiave. Per ogni punto, dammi una metafora o un esempio concreto per spiegarlo semplicemente.
+3. Transizione (15 sec): Un ponte logico verso la lezione successiva.
+
+Includi pause naturali (usa il simbolo '...') per rendere la lettura più naturale per uno strumento di sintesi vocale.</pre>
+    </div>
+
+    <h3>✅ Checklist Interattiva — Pianificazione</h3>
+    <div class="card">
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m1-1">
+            <span>Ho definito la "Promessa di Trasformazione" del corso in una frase chiara.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m1-2">
+            <span>Ho validato la struttura del corso generata dall'IA (non è troppo vaga o troppo complessa).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m1-3">
+            <span>Gli script delle lezioni non superano le 1.200 parole ciascuno (circa 6-7 minuti di parlato).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m1-4">
+            <span>Ogni script inizia con un Hook che cattura l'attenzione nei primi 5 secondi.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m1-5">
+            <span>Ho letto lo script ad alta voce una volta per correggere parole "innaturali" per il mio modo di parlare.</span>
+        </label>
+    </div>
+
+    <h3>📝 Mini Quiz — Modulo 1</h3>
+    <div class="quiz-block" data-correct="1">
+        <p class="quiz-question">Domanda 1: Perché è meglio scrivere script di 6 minuti invece di 20 minuti?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Perché l'IA non sa scrivere testi lunghi.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Perché la retention dello studente crolla e la produzione diventa pesante.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Perché i video lunghi non si possono vendere.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-block" data-correct="1">
+        <p class="quiz-question">Domanda 2: Nel Prompt "Compilatore di Script", qual è il ruolo dell'istruzione "Includi pause naturali (...)"?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Far sembrare il testo scritto da un umano.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Ottimizzare il testo per la sintesi vocale, rendendo il parlato fluido.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Allungare il testo artificialmente.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+
+    <hr class="module-divider">
+
+    <!-- ==================== MODULO 2 ==================== -->
+    <div class="badge">Modulo 2 di 4</div>
+    <h2>Produzione Vocale Accelerata<br><span style="font-size:0.7em; color:#999;">(Clonazione e Sintesi Vocale)</span></h2>
+
+    <h3>La Tua Voce, Senza il Tuo Microfono</h3>
+    <p>Il collo di bottiglia classico è la registrazione: il cane abbaia, sbagli la pronuncia, ti schiarisci la gola. Con la <strong>sintesi vocale avanzata (TTS)</strong> e la <strong>clonazione vocale</strong> (con consenso etico e legale), puoi registrare 10 minuti di audio "campione" di alta qualità e generare ore di contenuto pulito in pochi minuti.</p>
+
+    <h3>La Tecnologia</h3>
+    <p><strong>Sintesi (ElevenLabs, OpenAI TTS):</strong> Perfetta se odi la tua voce registrata o se vuoi produrre in lingue diverse.</p>
+    <p><strong>Clonazione (ElevenLabs, Descript):</strong> Perfetta se vuoi mantenere il tuo brand personale ma vuoi eliminare rumori di fondo, respiri affannosi e "ehm" dall'audio.</p>
+    <div class="card amber-border">
+        <p style="margin:0;"><strong>⚠️ Nota Etica:</strong> Assicurati di utilizzare servizi che richiedono verifica dell'identità o che utilizzino la <em>tua</em> voce per il <em>tuo</em> contenuto.</p>
+    </div>
+
+    <h3>📋 Prompt Pronto all'Uso #3</h3>
+    <p><em>Il Direttore di Doppiaggio Virtuale</em></p>
+    <div class="prompt-box" onclick="copyPrompt(this)">
+        <span class="copy-hint">Clicca per copiare</span>
+        <pre>(Impostazioni Consigliate: Stability al 35%, Similarity al 75%, Style Exaggeration al 55%)
+
+Testo da far leggere (Incolla il tuo script qui sotto):
+
+"Sai qual è il vero motivo per cui non hai ancora risolto [PROBLEMA]? ... Non è mancanza di disciplina. È mancanza di un sistema. E oggi, in questa lezione, ti do il sistema. Punto uno: [CONCETTO 1]... Immagina questo... [METAforA]. Punto due: [CONCETTO 2]... Sembra semplice, vero? Lo è. Ma solo se lo applichi. Resta con me, perché nella prossima lezione alziamo il livello."</pre>
+    </div>
+    <div class="card">
+        <p style="margin:0;"><strong>💡 Suggerimento operativo:</strong> Se la voce suona piatta, usa i tag SSML (Speech Synthesis Markup Language) come <code>&lt;break time="500ms"/&gt;</code> per pause forzate o <code>&lt;prosody rate="slow"&gt;</code> per le frasi chiave ad effetto.</p>
+    </div>
+
+    <h3>✅ Checklist Interattiva — Audio</h3>
+    <div class="card">
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m2-1">
+            <span>Ho creato un "Voice Profile" chiaro nello strumento di sintesi/clonazione.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m2-2">
+            <span>Ho generato un file audio di prova di 30 secondi e l'ho ascoltato con le cuffie.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m2-3">
+            <span>La pronuncia dei termini tecnici del mio settore è corretta? (Se no, ho scritto il termine in modo fonetico).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m2-4">
+            <span>Il ritmo del parlato è abbastanza lento da essere compreso senza annoiare? (Range ideale: 140-150 parole/minuto).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m2-5">
+            <span>Ho esportato tutti gli audio in formato MP3 o WAV con un nome file coerente (Es: Modulo1_Lezione1.mp3).</span>
+        </label>
+    </div>
+
+    <h3>📝 Mini Quiz — Modulo 2</h3>
+    <div class="quiz-block" data-correct="0">
+        <p class="quiz-question">Domanda 1: Quando conviene usare la clonazione vocale invece della semplice sintesi standard?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Quando vuoi risparmiare soldi.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Quando vuoi mantenere il legame emotivo e il brand legato alla tua voce reale.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Quando il testo contiene parole straniere.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-block" data-correct="1">
+        <p class="quiz-question">Domanda 2: Cosa significa "Stability" nelle impostazioni dei tool di clonazione vocale?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Quanto è stabile la connessione internet.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Quanto la voce rimane costante e uniforme senza variazioni emotive casuali.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Quanto è stabile il volume.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+
+    <hr class="module-divider">
+
+    <!-- ==================== MODULO 3 ==================== -->
+    <div class="badge">Modulo 3 di 4</div>
+    <h2>Montaggio e Assemblaggio Automatizzato</h2>
+
+    <h3>Taglia il Tempo di Editing a Zero</h3>
+    <p>L'editing video tradizionale è un buco nero temporale. Se stai creando un corso basato su slide, non hai bisogno di aprire Adobe Premiere o Final Cut. Hai bisogno di un <strong>"Assemblatore"</strong>.</p>
+
+    <h3>La Tecnica del "Video come Documento"</h3>
+    <p>Utilizzeremo software che trasformano il tuo audio e le tue slide in un video finito, sincronizzato, quasi come un documento Word che prende vita.</p>
+
+    <h3>Gli Strumenti Chiave</h3>
+    <p><strong>Descript (o CapCut):</strong> Incolli il testo, incolli l'audio, trascini le immagini. Il video si genera da solo con transizioni fluide.</p>
+    <p><strong>Automazione a 3 Strati:</strong> Voce (Audio MP3) + Visivo (Slide o Stock Footage) + Testo (Sottotitoli generati automaticamente).</p>
+    <div class="card amber-border">
+        <p style="margin:0;"><strong>💡 Il Valore Aggiunto:</strong> In un corso online, la chiarezza del concetto batte la spettacolarità dell'effetto speciale. Nessuno compra un corso per le transizioni 3D; lo comprano per la chiarezza.</p>
+    </div>
+
+    <h3>📋 Prompt Pronto all'Uso #4</h3>
+    <p><em>Il Generatore di Visual e Slide</em></p>
+    <div class="prompt-box" onclick="copyPrompt(this)">
+        <span class="copy-hint">Clicca per copiare</span>
+        <pre>Genera un'immagine in stile [STILE: flat illustration / fotorealistico / minimalista], colori [PALETTE: blu scuro e arancione acceso].
+Soggetto: una rappresentazione visiva del concetto di '[CONCETTO ES: sistema]' contrapposto a '[CONCETTO ES: caos]'.
+Non inserire testo nell'immagine. Deve essere spaziosa a sinistra per permettere l'inserimento di scritte in sovraimpressione. Aspect ratio 16:9.</pre>
+    </div>
+    <div class="prompt-box" onclick="copyPrompt(this)">
+        <span class="copy-hint">Clicca per copiare</span>
+        <pre>Correggi la trascrizione. Rimuovi le parole di riempimento ('uhm', 'ehm', 'cioè'), taglia le pause vuote più lunghe di 3 secondi e aggiungi i sottotitoli animati in stile [STILE: bold, parola per parola].</pre>
+    </div>
+
+    <h3>✅ Checklist Interattiva — Montaggio</h3>
+    <div class="card">
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m3-1">
+            <span>Ho preparato almeno 1 slide o immagine ogni 2 minuti di audio (per evitare la noia visiva).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m3-2">
+            <span>I file audio e le slide sono stati caricati nell'assemblatore scelto.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m3-3">
+            <span>Ho verificato che i sottotitoli automatici abbiano la punteggiatura corretta.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m3-4">
+            <span>Ho aggiunto un'intro e un outro brevi (max 5 secondi) con il nome del corso.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m3-5">
+            <span>Ho esportato la prima lezione e l'ho guardata dall'inizio alla fine senza fermarmi (test di qualità).</span>
+        </label>
+    </div>
+
+    <h3>📝 Mini Quiz — Modulo 3</h3>
+    <div class="quiz-block" data-correct="2">
+        <p class="quiz-question">Domanda 1: Qual è il principio del "Video come Documento"?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Creare video noiosi come documenti Word.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Utilizzare strumenti che sincronizzano automaticamente testo, voce e immagini per creare il video senza timeline manuale.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Scrivere il copione sul computer.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-block" data-correct="0">
+        <p class="quiz-question">Domanda 2: Perché è consigliato utilizzare i sottotitoli anche se l'audio è perfetto?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Perché molti utenti guardano i video in mobilità senza audio.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Perché rendono il video più pesante da caricare.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Perché coprono eventuali errori di grafica.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+
+    <hr class="module-divider">
+
+    <!-- ==================== MODULO 4 ==================== -->
+    <div class="badge">Modulo 4 di 4</div>
+    <h2>Monetizzazione e Lancio<br><span style="font-size:0.7em; color:#999;">(Il ROI del Tempo)</span></h2>
+
+    <h3>Il Corso è Pronto. Ora fallo Comprare.</h3>
+    <p>Hai impiegato 48 ore a costruire il prodotto. Ora devi dedicare le tue energie a vendere il <strong>risultato</strong>, non il <strong>contenuto</strong>. Non vendere "10 ore di video lezioni"; vendi <em>"Il ritorno alla calma"</em> o <em>"Il raddoppio dei clienti"</em>.</p>
+
+    <h3>Strategia di Lancio Rapido (Il "Founding Member")</h3>
+    <p><strong>Prezzo di Lancio:</strong> Offri uno sconto del 50% per i primi 10 acquirenti in cambio di una testimonianza scritta o video.</p>
+    <p><strong>Il Video di Vendita (VSL):</strong> Crea un video di 3 minuti per vendere il corso. Usa l'IA per scrivere la struttura "Problema → Agitazione → Soluzione → Prova".</p>
+    <p><strong>La Scarsità Etica:</strong> Comunica che il prezzo aumenterà tra 72 ore.</p>
+
+    <h3>📋 Prompt Pronto all'Uso #5</h3>
+    <p><em>Il Copywriter di Vendita Istantaneo</em></p>
+    <div class="prompt-box" onclick="copyPrompt(this)">
+        <span class="copy-hint">Clicca per copiare</span>
+        <pre>Scrivi un'email di lancio per il mio nuovo video corso '[TITOLO CORSO]'. Il target è [TARGET] e il dolore principale è [DOLORE ES: sentirsi sopraffatti dalla tecnologia].
+
+Struttura:
+1. Oggetto email magnetica (max 45 caratteri).
+2. Apertura empatica (identifica il dolore).
+3. Presentazione della soluzione (il corso, creato con metodo Zero-Burnout).
+4. Cosa c'è dentro (3 bullet point sui benefici).
+5. Offerta speciale di lancio con countdown (72 ore).
+6. Call to action finale.
+
+Tono: ispirazionale e concreto. Niente fuffa.</pre>
+    </div>
+
+    <h3>✅ Checklist Interattiva — Lancio</h3>
+    <div class="card">
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m4-1">
+            <span>Ho creato una pagina di vendita semplice (anche un PDF o una landing con Carrd/Systeme.io).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m4-2">
+            <span>Ho preparato una mail di lancio e un post social da pubblicare.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m4-3">
+            <span>Ho impostato un prezzo di listino e un prezzo "Founding Member" scontato.</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m4-4">
+            <span>Ho definito chiaramente cosa riceve l'acquirente (video, audio, pdf, accesso community?).</span>
+        </label>
+        <label class="checklist-item">
+            <input type="checkbox" data-check="m4-5">
+            <span>Ho preparato un modulo per raccogliere feedback/testimonianze da inviare dopo 7 giorni.</span>
+        </label>
+    </div>
+
+    <h3>📝 Mini Quiz Finale</h3>
+    <div class="quiz-block" data-correct="1">
+        <p class="quiz-question">Domanda 1: Qual è il vero vantaggio competitivo del metodo "Zero-Burnout Content Engine"?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Permette di non lavorare mai.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Riduce drasticamente il "Time-to-Market", permettendoti di iterare e monetizzare più velocemente dei concorrenti.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Rende i video più belli di Hollywood.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+    <div class="quiz-block" data-correct="2">
+        <p class="quiz-question">Domanda 2: Cosa dovresti fare se l'IA produce un contenuto che non suona come te?</p>
+        <button class="quiz-option" onclick="answerQuiz(this)">A) Pubblicarlo comunque.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">B) Arrenderti e tornare al montaggio manuale.</button>
+        <button class="quiz-option" onclick="answerQuiz(this)">C) Modificare il prompt e fornire più contesto sul tuo tono di voce e sulle tue esperienze personali.</button>
+        <div class="quiz-feedback"></div>
+    </div>
+
+    <hr class="module-divider">
+
+    <!-- ==================== CHIUSURA ==================== -->
+    <div style="text-align:center; padding: 30px 0;">
+        <h2>Dalla Fabbrica di Contenuti<br>alla Fabbrica di Valore</h2>
+        <p>Sei arrivato alla fine di questo framework, ma è solo l'inizio del tuo nuovo sistema operativo mentale. Non devi più scegliere tra "creare" e "vivere". Con l'IA al tuo fianco come assistente, puoi tornare a fare ciò che ami davvero: <strong>connetterti con il tuo pubblico e trasformare vite</strong>.</p>
+        <div class="card" style="border:2px solid var(--amber); text-align:left;">
+            <h3 style="margin-top:0;">🎯 Il Tuo Piano d'Azione per le prossime 48 ore:</h3>
+            <p><strong>Ora 0:</strong> Scegli il topic del corso e apri il Prompt #1.</p>
+            <p><strong>Ora 1:</strong> Genera la struttura. Non cercare la perfezione, cerca il "fatto".</p>
+            <p><strong>Ora 2:</strong> Blocca la tua voce con gli strumenti TTS.</p>
+            <p><strong>Ora 3:</strong> Assembla il Modulo 1 usando la checklist.</p>
+            <p><strong>Ora 4:</strong> Metti online la pagina di pre-ordine.</p>
+        </div>
+        <p style="margin-top:20px; font-style:italic; color:#999;">"Smetti di produrre contenuti. Inizia a produrre <strong>asset</strong>."</p>
+        <p style="margin-top:16px; color:#888; font-size:0.85em;">Se questo metodo ti ha fatto risparmiare tempo, condividilo con un collega creatore che sta ancora lottando con il montaggio video. Il mercato ha spazio per tutti, ma solo per chi è veloce.</p>
+    </div>
+
+</div>
+
+<script>
+    // ==================== FUNZIONI INTERATTIVE ====================
+
+    // Salvataggio checklist in localStorage
+    document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(cb => {
+        // Carica stato salvato
+        const key = cb.dataset.check;
+        cb.checked = localStorage.getItem('ebook_' + key) === '1';
+
+        // Salva al cambio
+        cb.addEventListener('change', () => {
+            localStorage.setItem('ebook_' + key, cb.checked ? '1' : '0');
+        });
+    });
+
+    // Copia prompt
+    function copyPrompt(el) {
+        const text = el.querySelector('pre').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast();
+        }).catch(() => {
+            // Fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast();
+        });
+    }
+
+    function showToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Quiz
+    function answerQuiz(btn) {
+        const block = btn.closest('.quiz-block');
+        if (block.dataset.answered === 'true') return;
+
+        const correct = parseInt(block.dataset.correct);
+        const options = block.querySelectorAll('.quiz-option');
+        const feedback = block.querySelector('.quiz-feedback');
+
+        // Disabilita tutte le opzioni
+        options.forEach(o => o.style.pointerEvents = 'none');
+
+        // Evidenzia la corretta
+        options[correct].classList.add('correct');
+
+        // Se l'utente ha sbagliato, evidenzia la sua scelta
+        if (btn !== options[correct]) {
+            btn.classList.add('wrong');
+            feedback.textContent = '❌ Risposta errata. Riprova!';
+            feedback.className = 'quiz-feedback show wrong';
+        } else {
+            feedback.textContent = '✅ Esatto! Ottimo lavoro.';
+            feedback.className = 'quiz-feedback show correct';
+        }
+
+        block.dataset.answered = 'true';
+    }
+</script>
+
+</body>
+</html>
