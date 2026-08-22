@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TesiFlash - Sblocca e Finisci la tua Tesi in 30 Giorni</title>
+    <title>TesiFlash - Dashboard Interattiva</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Alpine.js per la reattività -->
@@ -11,179 +11,180 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased" x-data="appState()">
 
-    <!-- HEADER -->
+    <!-- HEADER WEB APP -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <span class="bg-indigo-600 text-white font-bold p-2 rounded-lg text-lg">TF</span>
-                <span class="text-xl font-black tracking-tight text-slate-900">TesiFlash</span>
+                <span class="text-xl font-black tracking-tight text-slate-900">TesiFlash App</span>
             </div>
-            <div>
-                <template x-if="!unlocked">
-                    <button @click="scrollToPricing()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2 rounded-xl text-sm transition shadow-sm">
-                        Accedi alla Web App (77€)
-                    </button>
-                </template>
-                <template x-if="unlocked">
-                    <span class="bg-emerald-100 text-emerald-800 font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wide">
-                        🔓 Area Utente Attiva
-                    </span>
-                </template>
+            <div class="flex items-center space-x-3">
+                <span class="hidden sm:inline bg-emerald-100 text-emerald-800 font-bold px-3 py-1.5 rounded-xl text-xs uppercase tracking-wide">
+                    🔓 Licenza Attiva
+                </span>
+                <button @click="logoutSim()" class="text-xs text-slate-500 hover:text-slate-800 underline">Esci</button>
             </div>
         </div>
     </header>
 
-    <!-- SEZIONE 1: LANDING PAGE (Visibile se non ha acquistato) -->
-    <main x-show="!unlocked">
-        <!-- HERO SECTION -->
-        <section class="max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
-            <span class="inline-block bg-indigo-50 text-indigo-700 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider mb-6">
-                Per Studenti Fuorisede e Genitori Preoccupati
-            </span>
-            <h1 class="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6">
-                La tua Tesi è in alto mare e la scadenza si avvicina?
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10">
-                Basta ansia da pagina bianca. Sblocca la scrittura, organizza le fonti con l'IA e consegna in 30 giorni grazie alla nostra **Web App Interattiva**.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button @click="scrollToPricing()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg hover:shadow-indigo-200 transition">
-                    Sblocca TesiFlash Ora — 77€
-                </button>
-            </div>
-            <p class="text-xs text-slate-400 mt-4">Accesso immediato via browser. Nessun download richiesto.</p>
-        </section>
-
-        <!-- SEZIONE IL PROBLEMA -->
-        <section class="bg-white border-y border-slate-200 py-16">
-            Il blocco dello scrittore e il ritardo accumulato rischiano di farti pagare un intero anno fuori corso in più. Un costo economico ed emotivo devastante. TesiFlash interviene esattamente qui.
-        </section>
-
-        <!-- SEZIONE PREZZO E CALL TO ACTION DI TEST -->
-        <section id="pricing" class="max-w-xl mx-auto px-4 py-20 text-center">
-            <div class="bg-white border-2 border-indigo-600 rounded-3xl p-8 shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl uppercase tracking-wider">
-                    Offerta Lancio
-                </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-2">TesiFlash Web App Completa</h3>
-                <p class="text-slate-500 text-sm mb-6">Quiz diagnostico, indice dinamico e Arsenale Prompt IA.</p>
-                <div class="text-5xl font-black text-slate-900 mb-6">77€ <span class="text-base font-normal text-slate-400">una tantum</span></div>
-                
-                <!-- SIMULATORE DI ACQUISTO PER IL TEST DI MERCATO -->
-                <button @click="simulateUnlock()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl text-lg shadow-md transition mb-4">
-                    Procedi all'Acquisto Sicuro
-                </button>
-                <p class="text-xs text-slate-400">*(Per test: cliccando simulerai il pagamento e sbloccherai l'app)*</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- SEZIONE 2: LA WEB APP INTERATTIVA (Visibile SOLO se utente sbloccato) -->
-    <div x-show="unlocked" class="max-w-5xl mx-auto px-4 py-12" x-cloak>
-        <div class="mb-8 bg-indigo-900 text-white p-8 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-center">
+    <!-- CONTENUTO PRINCIPALE WEB APP -->
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        
+        <!-- BENVENUTO BANNER -->
+        <div class="mb-8 bg-indigo-900 text-white p-6 md:p-8 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-center">
             <div>
-                <h2 class="text-3xl font-black mb-2">Benvenuto nella tua Dashboard, Studente!</h2>
-                <p class="text-indigo-200 text-sm">Usa il quiz diagnostico e l'Arsenale IA per completare la tua tesi in 30 giorni.</p>
+                <h1 class="text-2xl md:text-3xl font-black mb-2">Bentornato nella tua Dashboard!</h1>
+                <p class="text-indigo-200 text-sm">Segui il piano diagnostico e usa l'Arsenale IA per completare la tesi in 30 giorni.</p>
             </div>
-            <button @click="resetApp()" class="mt-4 md:mt-0 text-xs bg-indigo-800 hover:bg-indigo-700 text-indigo-200 px-3 py-1.5 rounded-lg border border-indigo-700 transition">
-                Simula Logout
-            </button>
+            <div class="mt-4 md:mt-0 bg-indigo-800/80 border border-indigo-700 px-4 py-2 rounded-xl text-center">
+                <span class="block text-xs text-indigo-300">Tempo stimato rimasto</span>
+                <span class="text-lg font-bold text-white">30 Giorni</span>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Colonna Sinistra: Menu App -->
+            <!-- COLONNA SINISTRA: MENU / INDICE INTERATTIVO -->
             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm h-fit">
-                <h3 class="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wider">Indice Interattivo</h3>
+                <h2 class="font-bold text-slate-900 mb-4 text-xs uppercase tracking-wider text-slate-400">Indice Interattivo</h2>
                 <ul class="space-y-2 text-sm">
-                    <li><button @click="activeTab = 'quiz'" :class="activeTab === 'quiz' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2 rounded-xl transition">1. Quiz Diagnostico 30 Giorni</button></li>
-                    <li><button @click="activeTab = 'prompts'" :class="activeTab === 'prompts' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2 rounded-xl transition">2. Arsenale Prompt IA</button></li>
-                    <li><button @click="activeTab = 'roadmap'" :class="activeTab === 'roadmap' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2 rounded-xl transition">3. Roadmap Giornaliera</button></li>
+                    <li>
+                        <button @click="activeTab = 'quiz'" :class="activeTab === 'quiz' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <span>📊</span> <span>1. Quiz Diagnostico</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeTab = 'prompts'" :class="activeTab === 'prompts' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <span>🤖</span> <span>2. Arsenale Prompt IA</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeTab = 'roadmap'" :class="activeTab === 'roadmap' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <span>📅</span> <span>3. Roadmap Giornaliera</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button @click="activeTab = 'checklist'" :class="activeTab === 'checklist' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2.5 rounded-xl transition flex items-center space-x-2">
+                            <span>✅</span> <span>4. Checklist Anti-Ansia</span>
+                        </button>
+                    </li>
                 </ul>
             </div>
 
-            <!-- Colonna Destra: Contenuto Dinamico -->
+            <!-- COLONNA DESTRA: SCHEDE DINAMICHE -->
             <div class="md:col-span-2 space-y-6">
-                <!-- TAB 1: QUIZ -->
-                <div x-show="activeTab === 'quiz'" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-                    <h3 class="text-xl font-bold text-slate-900 mb-4">Diagnostica il tuo stato di avanzamento</h3>
-                    <p class="text-sm text-slate-600 mb-6">A che punto sei con la stesura dei capitoli?</p>
+                
+                <!-- SCHEDA 1: QUIZ DIAGNOSTICO -->
+                <div x-show="activeTab === 'quiz'" class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+                    <h2 class="text-xl font-bold text-slate-900 mb-2">Diagnostica il tuo stato di avanzamento</h2>
+                    <p class="text-sm text-slate-600 mb-6">Seleziona la tua situazione attuale per sbloccare la priorità di studio:</p>
+                    
                     <div class="space-y-3">
-                        <label class="flex items-center space-x-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
-                            <input type="radio" name="status" class="text-indigo-600">
-                            <span class="text-sm text-slate-700">Ho solo l'indice approvato dal relatore (Panico totale)</span>
+                        <label class="flex items-center space-x-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition">
+                            <input type="radio" name="status" class="text-indigo-600 w-4 h-4">
+                            <span class="text-sm text-slate-700 font-medium">Ho solo l'indice approvato dal relatore (Panico totale)</span>
                         </label>
-                        <label class="flex items-center space-x-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
-                            <input type="radio" name="status" class="text-indigo-600">
-                            <span class="text-sm text-slate-700">Ho raccolto le fonti ma non riesco a collegarle</span>
+                        <label class="flex items-center space-x-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition">
+                            <input type="radio" name="status" class="text-indigo-600 w-4 h-4">
+                            <span class="text-sm text-slate-700 font-medium">Ho raccolto le fonti ma non riesco a collegarle organicamente</span>
                         </label>
-                        <label class="flex items-center space-x-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
-                            <input type="radio" name="status" class="text-indigo-600">
-                            <span class="text-sm text-slate-700">Ho scritto metà tesi ma mi sono bloccato sul capitolo centrale</span>
+                        <label class="flex items-center space-x-3 p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50 transition">
+                            <input type="radio" name="status" class="text-indigo-600 w-4 h-4">
+                            <span class="text-sm text-slate-700 font-medium">Ho scritto metà tesi ma mi sono bloccato sul capitolo centrale</span>
                         </label>
                     </div>
-                    <button @click="alert('Diagnosi elaborata! Passa alla scheda Roadmap per vedere il tuo piano d\'azione.')" class="mt-6 bg-indigo-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm">
-                        Genera Piano Personalizzato
+
+                    <button @click="alert('Diagnosi elaborata con successo! Passa alla Roadmap per iniziare')" class="mt-6 w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl text-sm transition shadow-sm">
+                        Genera Piano d'Azione Immediato
                     </button>
                 </div>
 
-                <!-- TAB 2: ARSENALE PROMPT IA -->
-                <div x-show="activeTab === 'prompts'" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm" x-cloak>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">L'Arsenale Prompt IA</h3>
-                    <p class="text-sm text-slate-600 mb-6">Usa questi prompt con ChatGPT o Claude come tuoi assistenti di ricerca personali.</p>
+                <!-- SCHEDA 2: ARSENALE PROMPTS IA -->
+                <div x-show="activeTab === 'prompts'" class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm" x-cloak>
+                    <h2 class="text-xl font-bold text-slate-900 mb-2">L'Arsenale Prompt IA</h2>
+                    <p class="text-sm text-slate-600 mb-6">Copia questi prompt chirurgici e incollali su ChatGPT o Claude per sbloccare la scrittura.</p>
                     
-                    <div class="space-y-4">
-                        <div class="border border-slate-200 p-4 rounded-xl">
-                            <h4 class="font-bold text-sm text-slate-900 mb-1">Prompt 1: Sintesi Critica di un Paper Scientifico</h4>
-                            <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg font-mono mb-3">"Agisci come un revisore accademico. Analizza il testo seguente ed estrai solo i dati metodologici chiave, evidenziando eventuali limiti di ricerca..."</p>
-                            <button @click="alert('Prompt copiato negli appunti!')" class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1.5 rounded-lg">Copia Prompt</button>
+                    <div class="space-y-6">
+                        <div class="border border-slate-200 p-5 rounded-2xl bg-slate-50/50">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold text-sm text-slate-900">1. Sintesi Critica di un Paper Scientifico</h3>
+                                <button @click="copyPrompt('Agisci come un revisore accademico. Analizza il testo seguente ed estrai solo i dati metodologici chiave, evidenziando eventuali limiti di ricerca...')" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg transition">Copia Testo</button>
+                            </div>
+                            <p class="text-xs text-slate-600 font-mono bg-white p-3 rounded-xl border border-slate-200">"Agisci come un revisore accademico. Analizza il testo seguente ed estrai solo i dati metodologici chiave, evidenziando eventuali limiti di ricerca..."</p>
                         </div>
-                        <div class="border border-slate-200 p-4 rounded-xl">
-                            <h4 class="font-bold text-sm text-slate-900 mb-1">Prompt 2: Sblocco del Blocco dello Scrittore</h4>
-                            <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg font-mono mb-3">"Ho bisogno di scrivere un paragrafo di transizione tra il concetto A e il concetto B in stile formale universitario. Dammi 3 opzioni di incipit..."</p>
-                            <button @click="alert('Prompt copiato negli appunti!')" class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1.5 rounded-lg">Copia Prompt</button>
+
+                        <div class="border border-slate-200 p-5 rounded-2xl bg-slate-50/50">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold text-sm text-slate-900">2. Sblocco del Blocco dello Scrittore</h3>
+                                <button @click="copyPrompt('Ho bisogno di scrivere un paragrafo di transizione tra il concetto A e il concetto B in stile formale universitario. Dammi 3 opzioni di incipit...')" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded-lg transition">Copia Testo</button>
+                            </div>
+                            <p class="text-xs text-slate-600 font-mono bg-white p-3 rounded-xl border border-slate-200">"Ho bisogno di scrivere un paragrafo di transizione tra il concetto A e il concetto B in stile formale universitario. Dammi 3 opzioni di incipit..."</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB 3: ROADMAP -->
-                <div x-show="activeTab === 'roadmap'" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm" x-cloak>
-                    <h3 class="text-xl font-bold text-slate-900 mb-4">Roadmap Operativa 30 Giorni</h3>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex items-start space-x-3">
-                            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-lg text-xs">Giorni 1-5</span>
-                            <p class="text-slate-700">Sistemazione bibliografica e stesura dell'indice analitico definitivo tramite Prompt IA.</p>
+                <!-- SCHEDA 3: ROADMAP -->
+                <div x-show="activeTab === 'roadmap'" class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm" x-cloak>
+                    <h2 class="text-xl font-bold text-slate-900 mb-6">Roadmap Operativa 30 Giorni</h2>
+                    <div class="space-y-6 text-sm">
+                        <div class="flex items-start space-x-4 pb-6 border-b border-slate-100">
+                            <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1.5 rounded-xl text-xs shrink-0">Giorni 1-5</span>
+                            <div>
+                                <h3 class="font-bold text-slate-900 mb-1">Fondamenta e Fonti</h3>
+                                <p class="text-slate-600 text-xs">Sistemazione bibliografica e stesura dell'indice analitico definitivo tramite Prompt IA.</p>
+                            </div>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <span class="bg-indigo-100 text-indigo-800 font-bold px-2.5 py-1 rounded-lg text-xs">Giorni 6-20</span>
-                            <p class="text-slate-700">Scrittura intensiva di 500 parole al giorno usando i template di transizione.</p>
+                        <div class="flex items-start space-x-4 pb-6 border-b border-slate-100">
+                            <span class="bg-indigo-100 text-indigo-800 font-bold px-3 py-1.5 rounded-xl text-xs shrink-0">Giorni 6-20</span>
+                            <div>
+                                <h3 class="font-bold text-slate-900 mb-1">Scrittura Intensiva</h3>
+                                <p class="text-slate-600 text-xs">Produzione costante di 500 parole al giorno usando i template di transizione formale.</p>
+                            </div>
                         </div>
-                        <div class="flex items-start space-x-3">
-                            <span class="bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-lg text-xs">Giorni 21-30</span>
-                            <p class="text-slate-700">Revisione formale, formattazione indici e simulazione domande di discussione.</p>
+                        <div class="flex items-start space-x-4">
+                            <span class="bg-amber-100 text-amber-800 font-bold px-3 py-1.5 rounded-xl text-xs shrink-0">Giorni 21-30</span>
+                            <div>
+                                <h3 class="font-bold text-slate-900 mb-1">Revisione e Discussione</h3>
+                                <p class="text-slate-600 text-xs">Controllo formale indici, formattazione bibliografia e simulazione domande di difesa della tesi.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- SCHEDA 4: CHECKLIST -->
+                <div x-show="activeTab === 'checklist'" class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm" x-cloak>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">Checklist Anti-Ansia di Consegna</h2>
+                    <p class="text-sm text-slate-600 mb-6">Spunta le voci prima di caricare il file definitivo in segreteria:</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl cursor-pointer">
+                            <input type="checkbox" class="rounded text-indigo-600 w-4 h-4">
+                            <span class="text-sm text-slate-700">Margini e font impostati secondo le linee guida ufficiali dell'ateneo</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl cursor-pointer">
+                            <input type="checkbox" class="rounded text-indigo-600 w-4 h-4">
+                            <span class="text-sm text-slate-700">Indice automatico aggiornato (capitoli e pagine corrispondono)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 bg-slate-50 rounded-xl cursor-pointer">
+                            <input type="checkbox" class="rounded text-indigo-600 w-4 h-4">
+                            <span class="text-sm text-slate-700">Bibliografia formattata con lo stesso stile (APA o Harvard) in tutto il documento</span>
+                        </label>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- LOGICA JAVASCRIPT CON ALPINE.JS -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         function appState() {
             return {
-                unlocked: false, // Se false mostra la landing, se true mostra la web app
                 activeTab: 'quiz',
-                simulateUnlock() {
-                    // Qui in futuro collegherai il link di Stripe/Lemon Squeezy.
-                    // Per ora, simuliamo il pagamento riuscito sbloccando la web app:
-                    this.unlocked = true;
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                copyPrompt(text) {
+                    navigator.clipboard.writeText(text);
+                    alert('Prompt copiato negli appunti!');
                 },
-                resetApp() {
-                    this.unlocked = false;
-                },
-                scrollToPricing() {
-                    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+                logoutSim() {
+                    alert('Simulazione uscita dall\'area riservata.');
                 }
             }
         }
