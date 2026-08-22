@@ -3,677 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero-Burnout Content Engine</title>
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-    <style>
-        :root { --amber: #f59e0b; --dark: #0f0f0f; --card: #1a1a1a; --muted: #a3a3a3; }
-        body { font-family: 'Source Serif Pro', serif; background: var(--dark); color: #e5e5e5; }
-        h1,h2,h3,h4,h5,h6,.heading-font { font-family: 'DM Sans', sans-serif; }
-        .page { display: none; }
-        .page.active { display: block; }
-        .progress-bar { transition: width 0.3s ease; }
-        .checklist-item input:checked + span { text-decoration: line-through; opacity: 0.6; }
-        .prompt-box { cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; }
-        .prompt-box:active { transform: scale(0.98); }
-        .quiz-option { transition: all 0.2s; }
-        .quiz-option:hover { border-color: var(--amber); }
-        .quiz-option.correct { border-color: #22c55e !important; background: rgba(34,197,94,0.1); }
-        .quiz-option.wrong { border-color: #ef4444 !important; background: rgba(239,68,68,0.1); }
-        .copy-toast { animation: fadeInOut 2s ease forwards; }
-        @keyframes fadeInOut { 0%{opacity:0;transform:translateY(10px)} 15%{opacity:1;transform:translateY(0)} 85%{opacity:1} 100%{opacity:0} }
-    </style>
+    <title>TesiFlash - Sblocca e Finisci la tua Tesi in 30 Giorni</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Alpine.js per la reattività -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="min-h-screen w-full">
-    <!-- Progress -->
-    <div class="fixed top-0 left-0 w-full h-1 bg-neutral-800 z-50">
-        <div id="progress" class="progress-bar h-full bg-amber-500" style="width:3.3%"></div>
-    </div>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased" x-data="appState()">
 
-    <!-- Navigation -->
-    <nav class="fixed bottom-0 left-0 w-full bg-neutral-900/95 backdrop-blur border-t border-neutral-800 p-3 z-50 flex items-center justify-between">
-        <button onclick="prevPage()" class="px-4 py-2 rounded bg-neutral-800 text-white hover:bg-neutral-700">
-            <i data-lucide="chevron-left" style="width:18px;height:18px;display:inline"></i>
-        </button>
-        <div class="flex items-center gap-3">
-            <button onclick="toggleTOC()" class="px-3 py-2 rounded bg-neutral-800 text-white hover:bg-neutral-700 text-sm heading-font">Indice</button>
-            <span id="page-counter" class="text-neutral-400 text-sm heading-font">1 / 30</span>
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="bg-indigo-600 text-white font-bold p-2 rounded-lg text-lg">TF</span>
+                <span class="text-xl font-black tracking-tight text-slate-900">TesiFlash</span>
+            </div>
+            <div>
+                <template x-if="!unlocked">
+                    <button @click="scrollToPricing()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-2 rounded-xl text-sm transition shadow-sm">
+                        Accedi alla Web App (77€)
+                    </button>
+                </template>
+                <template x-if="unlocked">
+                    <span class="bg-emerald-100 text-emerald-800 font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wide">
+                        🔓 Area Utente Attiva
+                    </span>
+                </template>
+            </div>
         </div>
-        <button onclick="nextPage()" class="px-4 py-2 rounded bg-amber-500 text-black font-bold hover:bg-amber-400">
-            <i data-lucide="chevron-right" style="width:18px;height:18px;display:inline"></i>
-        </button>
-    </nav>
+    </header>
 
-    <!-- TOC Overlay -->
-    <div id="toc-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4" onclick="toggleTOC()">
-        <div class="bg-neutral-900 border border-neutral-700 rounded-xl p-6 max-w-md w-full max-h-[70vh] overflow-y-auto" onclick="event.stopPropagation()">
-            <h3 class="heading-font font-bold text-amber-400 text-lg mb-4">Indice</h3>
-            <ul id="toc-list" class="space-y-1 text-sm"></ul>
-        </div>
-    </div>
+    <!-- SEZIONE 1: LANDING PAGE (Visibile se non ha acquistato) -->
+    <main x-show="!unlocked">
+        <!-- HERO SECTION -->
+        <section class="max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
+            <span class="inline-block bg-indigo-50 text-indigo-700 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-wider mb-6">
+                Per Studenti Fuorisede e Genitori Preoccupati
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight mb-6">
+                La tua Tesi è in alto mare e la scadenza si avvicina?
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10">
+                Basta ansia da pagina bianca. Sblocca la scrittura, organizza le fonti con l'IA e consegna in 30 giorni grazie alla nostra **Web App Interattiva**.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button @click="scrollToPricing()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg hover:shadow-indigo-200 transition">
+                    Sblocca TesiFlash Ora — 77€
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mt-4">Accesso immediato via browser. Nessun download richiesto.</p>
+        </section>
 
-    <!-- Toast -->
-    <div id="toast" class="fixed top-4 right-4 z-50 hidden">
-        <div class="copy-toast bg-green-600 text-white px-4 py-2 rounded-lg text-sm heading-font font-medium shadow-lg">
-            ✓ Copiato!
-        </div>
-    </div>
+        <!-- SEZIONE IL PROBLEMA -->
+        <section class="bg-white border-y border-slate-200 py-16">
+            Il blocco dello scrittore e il ritardo accumulato rischiano di farti pagare un intero anno fuori corso in più. Un costo economico ed emotivo devastante. TesiFlash interviene esattamente qui.
+        </section>
 
-    <main class="pb-20 pt-2">
-        <!-- PAGE 1: Cover -->
-        <div class="page active" data-page="1">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <div class="w-full h-64 bg-gradient-to-br from-amber-500/20 to-neutral-800 rounded-xl mb-8 shadow-2xl flex items-center justify-center">
-                    <i data-lucide="zap" style="width:80px;height:80px;color:#f59e0b"></i>
+        <!-- SEZIONE PREZZO E CALL TO ACTION DI TEST -->
+        <section id="pricing" class="max-w-xl mx-auto px-4 py-20 text-center">
+            <div class="bg-white border-2 border-indigo-600 rounded-3xl p-8 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-indigo-600 text-white text-xs font-bold px-4 py-1 rounded-bl-xl uppercase tracking-wider">
+                    Offerta Lancio
                 </div>
-                <p class="heading-font text-amber-400 font-medium text-sm uppercase tracking-widest mb-3">Ebook Interattivo</p>
-                <h1 class="heading-font font-bold text-3xl md:text-4xl text-white leading-tight mb-4">Zero-Burnout<br>Content Engine</h1>
-                <p class="text-neutral-300 text-lg leading-relaxed mb-6">Come creare un video corso completo in 48 ore usando l'Intelligenza Artificiale</p>
-                <p class="text-amber-200/80 text-sm italic">Per Creator, Coach e Formatori stanchi di passare settimane a registrare e montare video.</p>
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">TesiFlash Web App Completa</h3>
+                <p class="text-slate-500 text-sm mb-6">Quiz diagnostico, indice dinamico e Arsenale Prompt IA.</p>
+                <div class="text-5xl font-black text-slate-900 mb-6">77€ <span class="text-base font-normal text-slate-400">una tantum</span></div>
+                
+                <!-- SIMULATORE DI ACQUISTO PER IL TEST DI MERCATO -->
+                <button @click="simulateUnlock()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl text-lg shadow-md transition mb-4">
+                    Procedi all'Acquisto Sicuro
+                </button>
+                <p class="text-xs text-slate-400">*(Per test: cliccando simulerai il pagamento e sbloccherai l'app)*</p>
             </div>
-        </div>
-
-        <!-- PAGE 2: Intro -->
-        <div class="page" data-page="2">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">Il Paradosso del Creatore Moderno</h2>
-                <p class="text-neutral-300 leading-relaxed mb-4">Hai passato più tempo a combattere con il software di editing che a creare valore? Se la risposta è sì, non sei un cattivo imprenditore — sei solo un creatore frustrato. <strong class="text-white">Il mercato non paga il tuo tempo, paga la trasformazione che offri.</strong></p>
-                <p class="text-neutral-300 leading-relaxed mb-4">Il <span class="text-amber-400 font-semibold">Zero-Burnout Content Engine</span> non è un trucco pigro; è un framework strategico di <strong class="text-white">delega cognitiva</strong>. Utilizzeremo l'IA non per sostituire la tua voce o il tuo pensiero critico, ma per rimuovere l'attrito tra il tuo cervello e la pubblicazione.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-white">Cosa farai nelle prossime 48 ore:</strong></p>
-                <div class="border border-amber-500/30 bg-amber-500/5 rounded-lg p-4 mt-2">
-                    <p class="text-amber-200 font-medium mb-2">📋 Blocco 1 (Ore 0-6): Strategia e Scripting</p>
-                    <p class="text-amber-200 font-medium mb-2">🎙️ Blocco 2 (Ore 6-14): Produzione Audio</p>
-                    <p class="text-amber-200 font-medium mb-2">🎬 Blocco 3 (Ore 14-24): Assemblaggio Visivo</p>
-                    <p class="text-amber-200 font-medium">💰 Blocco 4 (Ore 24-48): Packaging e Lancio</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- PAGE 3: Overview 4 Moduli -->
-        <div class="page" data-page="3">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h2 class="heading-font font-bold text-2xl text-white mb-6">Panoramica dei 4 Moduli</h2>
-                <div class="space-y-4">
-                    <div class="bg-neutral-800 rounded-lg p-4 border-l-4 border-amber-500">
-                        <p class="text-neutral-200"><strong class="text-amber-400">Modulo 1:</strong> Strategia di pianificazione rapida dei contenuti (Scripting con IA)</p>
-                    </div>
-                    <div class="bg-neutral-800 rounded-lg p-4 border-l-4 border-amber-400">
-                        <p class="text-neutral-200"><strong class="text-amber-400">Modulo 2:</strong> Produzione vocale accelerata (Clonazione e sintesi vocale senza errori)</p>
-                    </div>
-                    <div class="bg-neutral-800 rounded-lg p-4 border-l-4 border-amber-300">
-                        <p class="text-neutral-200"><strong class="text-amber-400">Modulo 3:</strong> Montaggio e assemblaggio automatizzato</p>
-                    </div>
-                    <div class="bg-neutral-800 rounded-lg p-4 border-l-4 border-green-400">
-                        <p class="text-neutral-200"><strong class="text-green-400">Modulo 4:</strong> Monetizzazione e lancio (Il ROI del tempo)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULE 1: Pages 4-10 -->
-        <!-- Page 4: M1 Intro -->
-        <div class="page" data-page="4">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <div class="w-full h-48 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl mb-6 flex items-center justify-center">
-                    <i data-lucide="pen-tool" style="width:60px;height:60px;color:#f59e0b"></i>
-                </div>
-                <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 1</p>
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">Strategia di Pianificazione Rapida<br><span class="text-lg text-neutral-400">(Scripting con IA)</span></h2>
-                <p class="text-neutral-300 leading-relaxed">Dalla nebbia mentale al curriculum strutturato. In questo modulo trasformeremo la tua conoscenza caotica in un percorso logico di trasformazione.</p>
-            </div>
-        </div>
-
-        <!-- Page 5: M1 Content A -->
-        <div class="page" data-page="5">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Dalla Nebbia Mentale al Curriculum Strutturato</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">Il 90% dei corsi fallisce non per la qualità dei contenuti, ma per la mancanza di direzione. Quando registri "a braccio", produci 10 ore di girato inutilizzabile. L'IA brilla nel <strong class="text-white">costringerti alla chiarezza</strong>.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4">In questo modulo non chiederemo all'IA di inventare un corso per te. Le chiederemo di trasformare la tua conoscenza caotica in un <strong class="text-white">percorso logico di trasformazione</strong>.</p>
-                <p class="text-neutral-300 leading-relaxed"><span class="text-amber-400 font-semibold">💡 La Regola d'Oro del ROI:</span> Ogni minuto di scripting risparmiato è un minuto di registrazione guadagnato.</p>
-            </div>
-        </div>
-
-        <!-- Page 6: M1 Content B -->
-        <div class="page" data-page="6">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Il Framework di Scripting in 3 Step</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Step 1 — Struttura:</strong> Genera il curriculum modulare con obiettivi misurabili e lezioni di massimo 8 minuti.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Step 2 — Script:</strong> Compila ogni lezione con Hook (0-30 sec), Corpo (5 min), Transizione (15 sec).</p>
-                <p class="text-neutral-300 leading-relaxed"><strong class="text-amber-400">Step 3 — Validazione:</strong> Rileggi ad alta voce e correggi le parole "innaturali" per il tuo modo di parlare.</p>
-            </div>
-        </div>
-
-        <!-- Page 7: M1 Prompts -->
-        <div class="page" data-page="7">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-amber-400 mb-4">📋 Prompt Pronti all'Uso</h3>
-                <div class="space-y-3">
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Agisci come un instructional designer esperto e specializzato in corsi per adulti (andragogia). Il mio target di riferimento è [INSERISCI TARGET]. La promessa del mio corso è: '[INSERISCI PROMESSA]'. Crea una struttura modulare per un video corso composto da 4 moduli. Per ogni modulo, fornisci: 1) Titolo accattivante, 2) Obiettivo misurabile, 3) Lista di 3-4 lezioni di max 8 minuti. Voglio una tabella markdown.</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Ora dobbiamo scrivere lo script dettagliato per la Lezione 1 del Modulo 1. Il titolo della lezione è '[TITOLO]'. Voglio un tono [TONO]. Struttura: 1) Hook (0-30 sec) che sfida una credenza comune, 2) Corpo (5 min) con 3 punti chiave e metafore concrete, 3) Transizione (15 sec) verso la lezione successiva. Includi pause naturali con '...' per la sintesi vocale.</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Suggerimento operativo: Non accettare la prima bozza. Chiedi all'IA di rendere i titoli più "magnetici" o più "concreti" finché non risuonano con il tuo stile.</p>
-                    </div>
-                </div>
-                <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
-            </div>
-        </div>
-
-        <!-- Page 8: M1 Checklist -->
-        <div class="page" data-page="8">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">✅ Checklist di Verifica — Pianificazione</h3>
-                <div class="bg-neutral-800 rounded-lg p-5 space-y-3">
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-1">
-                        <span class="text-neutral-200 text-sm">Ho definito la "Promessa di Trasformazione" del corso in una frase chiara.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-2">
-                        <span class="text-neutral-200 text-sm">Ho validato la struttura del corso generata dall'IA.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-3">
-                        <span class="text-neutral-200 text-sm">Gli script delle lezioni non superano le 1.200 parole ciascuno.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-4">
-                        <span class="text-neutral-200 text-sm">Ogni script inizia con un Hook che cattura l'attenzione nei primi 5 secondi.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m1-5">
-                        <span class="text-neutral-200 text-sm">Ho letto lo script ad alta voce per correggere parole innaturali.</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 9: M1 Quiz -->
-        <div class="page" data-page="9">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-6">📝 Mini Quiz — Modulo 1</h3>
-                <div class="space-y-6">
-                    <div class="quiz-block" data-correct="1">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 1: Perché è meglio scrivere script di 6 minuti invece di 20 minuti?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Perché l'IA non sa scrivere testi lunghi.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Perché la retention dello studente crolla e la produzione diventa pesante.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Perché i video lunghi non si possono vendere.</button>
-                        </div>
-                    </div>
-                    <div class="quiz-block" data-correct="1">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 2: Nel Prompt "Compilatore di Script", qual è il ruolo dell'istruzione "Includi pause naturali (...)"?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Far sembrare il testo scritto da un umano.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Ottimizzare il testo per la sintesi vocale, rendendo il parlato fluido.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Allungare il testo artificialmente.</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 10: M1 Summary -->
-        <div class="page" data-page="10">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Riepilogo Modulo 1</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">Hai ora una struttura chiara e script validati, pronti per la produzione. Il tempo investito qui ti farà risparmiare ore in fase di registrazione.</p>
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
-                    <p class="text-amber-200 font-medium">🔑 Key Takeaway: Ogni minuto di scripting risparmiato è un minuto di editing eliminato.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULE 2: Pages 11-17 -->
-        <!-- Page 11: M2 Intro -->
-        <div class="page" data-page="11">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <div class="w-full h-48 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl mb-6 flex items-center justify-center">
-                    <i data-lucide="mic" style="width:60px;height:60px;color:#f59e0b"></i>
-                </div>
-                <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2</p>
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">Produzione Vocale Accelerata<br><span class="text-lg text-neutral-400">(Clonazione e Sintesi Vocale)</span></h2>
-                <p class="text-neutral-300 leading-relaxed">La tua voce, senza il tuo microfono. Elimina il collo di bottiglia della registrazione tradizionale.</p>
-            </div>
-        </div>
-
-        <!-- Page 12: M2 Content A -->
-        <div class="page" data-page="12">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">La Tua Voce, Senza il Tuo Microfono</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">Il collo di bottiglia classico è la registrazione: il cane abbaia, sbagli la pronuncia, ti schiarisci la gola. Con la <strong class="text-white">sintesi vocale avanzata (TTS)</strong> e la <strong class="text-white">clonazione vocale</strong>, puoi registrare 10 minuti di audio campione e generare ore di contenuto pulito.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Sintesi (ElevenLabs, OpenAI TTS):</strong> Perfetta se odi la tua voce registrata o vuoi produrre in lingue diverse.</p>
-                <p class="text-neutral-300 leading-relaxed"><strong class="text-amber-400">Clonazione (ElevenLabs, Descript):</strong> Perfetta per mantenere il tuo brand eliminando rumori e "ehm".</p>
-            </div>
-        </div>
-
-        <!-- Page 13: M2 Content B -->
-        <div class="page" data-page="13">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Impostazioni Tecniche Ottimali</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Stability (35%):</strong> Mantiene la voce costante senza variazioni emotive casuali.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Similarity (75%):</strong> Bilancia la fedeltà alla voce originale con la naturalezza.</p>
-                <p class="text-neutral-300 leading-relaxed"><strong class="text-amber-400">Style Exaggeration (55%):</strong> Aggiunge espressività senza risultare artificiale. Usa tag SSML per pause e enfasi.</p>
-            </div>
-        </div>
-
-        <!-- Page 14: M2 Prompts -->
-        <div class="page" data-page="14">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-amber-400 mb-4">📋 Prompt Pronti all'Uso</h3>
-                <div class="space-y-3">
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">(Impostazioni: Stability 35%, Similarity 75%, Style Exaggeration 55%) Testo da far leggere: "Sai qual è il vero motivo per cui non hai ancora risolto [PROBLEMA]? ... Non è mancanza di disciplina. È mancanza di un sistema. E oggi ti do il sistema. Punto uno: [CONCETTO 1]... Immagina questo... [METAforA]. Punto due: [CONCETTO 2]..."</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Suggerimento: Se la voce suona piatta, usa tag SSML come &lt;break time="500ms"/&gt; per pause forzate o &lt;prosody rate="slow"&gt; per frasi chiave ad effetto.</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">⚠️ Nota Etica: Assicurati di utilizzare servizi che richiedono verifica dell'identità o che utilizzino la tua voce per il tuo contenuto.</p>
-                    </div>
-                </div>
-                <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
-            </div>
-        </div>
-
-        <!-- Page 15: M2 Checklist -->
-        <div class="page" data-page="15">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">✅ Checklist di Verifica — Audio</h3>
-                <div class="bg-neutral-800 rounded-lg p-5 space-y-3">
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-1">
-                        <span class="text-neutral-200 text-sm">Ho creato un "Voice Profile" chiaro nello strumento di sintesi/clonazione.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-2">
-                        <span class="text-neutral-200 text-sm">Ho generato un file audio di prova di 30 secondi e l'ho ascoltato con le cuffie.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-3">
-                        <span class="text-neutral-200 text-sm">La pronuncia dei termini tecnici è corretta (o ho scritto il termine foneticamente).</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-4">
-                        <span class="text-neutral-200 text-sm">Il ritmo del parlato è tra 140-150 parole/minuto.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m2-5">
-                        <span class="text-neutral-200 text-sm">Ho esportato tutti gli audio in MP3 o WAV con nome file coerente.</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 16: M2 Quiz -->
-        <div class="page" data-page="16">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-6">📝 Mini Quiz — Modulo 2</h3>
-                <div class="space-y-6">
-                    <div class="quiz-block" data-correct="1">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 1: Quando conviene usare la clonazione vocale invece della sintesi standard?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Quando vuoi risparmiare soldi.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Quando vuoi mantenere il legame emotivo e il brand legato alla tua voce reale.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Quando il testo contiene parole straniere.</button>
-                        </div>
-                    </div>
-                    <div class="quiz-block" data-correct="1">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 2: Cosa significa "Stability" nelle impostazioni dei tool di clonazione vocale?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Quanto è stabile la connessione internet.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Quanto la voce rimane costante e uniforme senza variazioni emotive casuali.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Quanto è stabile il volume.</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 17: M2 Summary -->
-        <div class="page" data-page="17">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Riepilogo Modulo 2</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">Hai trasformato i tuoi script in audio professionale senza registrare una singola parola. Il tuo corso ha ora una voce chiara e coerente.</p>
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
-                    <p class="text-amber-200 font-medium">🔑 Key Takeaway: La clonazione vocale elimina il 90% degli errori di registrazione.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULE 3: Pages 18-24 -->
-        <!-- Page 18: M3 Intro -->
-        <div class="page" data-page="18">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <div class="w-full h-48 bg-gradient-to-r from-green-500/20 to-teal-500/20 rounded-xl mb-6 flex items-center justify-center">
-                    <i data-lucide="clapperboard" style="width:60px;height:60px;color:#f59e0b"></i>
-                </div>
-                <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3</p>
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">Montaggio e Assemblaggio Automatizzato</h2>
-                <p class="text-neutral-300 leading-relaxed">Taglia il tempo di editing a zero con la tecnica del "Video come Documento".</p>
-            </div>
-        </div>
-
-        <!-- Page 19: M3 Content A -->
-        <div class="page" data-page="19">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Taglia il Tempo di Editing a Zero</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">L'editing video tradizionale è un buco nero temporale. Se stai creando un corso basato su slide, non hai bisogno di Adobe Premiere o Final Cut. Hai bisogno di un <strong class="text-white">"Assemblatore"</strong>.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Descript (o CapCut):</strong> Incolli il testo, incolli l'audio, trascini le immagini. Il video si genera da solo con transizioni fluide.</p>
-                <p class="text-neutral-300 leading-relaxed"><strong class="text-amber-400">Automazione a 3 Strati:</strong> Voce (Audio MP3) + Visivo (Slide) + Testo (Sottotitoli automatici).</p>
-            </div>
-        </div>
-
-        <!-- Page 20: M3 Content B -->
-        <div class="page" data-page="20">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Il Valore Aggiunto della Chiarezza</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">In un corso online, la chiarezza del concetto batte la spettacolarità dell'effetto speciale. Nessuno compra un corso per le transizioni 3D; lo comprano per la chiarezza.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Regola pratica:</strong> Prepara almeno 1 slide o immagine ogni 2 minuti di audio per evitare la noia visiva.</p>
-                <p class="text-neutral-300 leading-relaxed"><strong class="text-amber-400">Test di qualità:</strong> Esporta la prima lezione e guardala dall'inizio alla fine senza fermarti.</p>
-            </div>
-        </div>
-
-        <!-- Page 21: M3 Prompts -->
-        <div class="page" data-page="21">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-amber-400 mb-4">📋 Prompt Pronti all'Uso</h3>
-                <div class="space-y-3">
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Genera un'immagine in stile [STILE: flat illustration / fotorealistico / minimalista], colori [PALETTE: blu scuro e arancione acceso]. Soggetto: rappresentazione visiva di '[CONCETTO ES: sistema]' contrapposto a '[CONCETTO ES: caos]'. Non inserire testo nell'immagine. Spaziosa a sinistra per scritte in sovraimpressione. Aspect ratio 16:9.</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Correggi la trascrizione. Rimuovi le parole di riempimento ('uhm', 'ehm', 'cioè'), taglia le pause vuote più lunghe di 3 secondi e aggiungi i sottotitoli animati in stile [STILE: bold, parola per parola].</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Suggerimento: Usa Descript per l'editing basato su testo. È come modificare un documento Word, ma il video si aggiorna automaticamente.</p>
-                    </div>
-                </div>
-                <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
-            </div>
-        </div>
-
-        <!-- Page 22: M3 Checklist -->
-        <div class="page" data-page="22">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">✅ Checklist di Verifica — Montaggio</h3>
-                <div class="bg-neutral-800 rounded-lg p-5 space-y-3">
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-1">
-                        <span class="text-neutral-200 text-sm">Ho preparato almeno 1 slide o immagine ogni 2 minuti di audio.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-2">
-                        <span class="text-neutral-200 text-sm">I file audio e le slide sono caricati nell'assemblatore scelto.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-3">
-                        <span class="text-neutral-200 text-sm">Ho verificato che i sottotitoli automatici abbiano la punteggiatura corretta.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-4">
-                        <span class="text-neutral-200 text-sm">Ho aggiunto un'intro e un outro brevi (max 5 secondi).</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m3-5">
-                        <span class="text-neutral-200 text-sm">Ho esportato la prima lezione e l'ho guardata senza fermarmi.</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 23: M3 Quiz -->
-        <div class="page" data-page="23">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-6">📝 Mini Quiz — Modulo 3</h3>
-                <div class="space-y-6">
-                    <div class="quiz-block" data-correct="1">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 1: Qual è il principio del "Video come Documento"?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Creare video noiosi come documenti Word.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Utilizzare strumenti che sincronizzano automaticamente testo, voce e immagini senza timeline manuale.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Scrivere il copione sul computer.</button>
-                        </div>
-                    </div>
-                    <div class="quiz-block" data-correct="0">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 2: Perché è consigliato utilizzare i sottotitoli anche se l'audio è perfetto?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Perché molti utenti guardano i video in mobilità senza audio.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Perché rendono il video più pesante da caricare.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Perché coprono eventuali errori di grafica.</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 24: M3 Summary -->
-        <div class="page" data-page="24">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Riepilogo Modulo 3</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">Hai trasformato audio e slide in video professionali senza mai aprire un software di editing tradizionale.</p>
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
-                    <p class="text-amber-200 font-medium">🔑 Key Takeaway: La chiarezza del concetto batte la spettacolarità dell'effetto speciale.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODULE 4: Pages 25-30 -->
-        <!-- Page 25: M4 Intro -->
-        <div class="page" data-page="25">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <div class="w-full h-48 bg-gradient-to-r from-yellow-500/20 to-amber-500/20 rounded-xl mb-6 flex items-center justify-center">
-                    <i data-lucide="trending-up" style="width:60px;height:60px;color:#f59e0b"></i>
-                </div>
-                <p class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4</p>
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">Monetizzazione e Lancio<br><span class="text-lg text-neutral-400">(Il ROI del Tempo)</span></h2>
-                <p class="text-neutral-300 leading-relaxed">Il corso è pronto. Ora fallo comprare vendendo il risultato, non il contenuto.</p>
-            </div>
-        </div>
-
-        <!-- Page 26: M4 Content A -->
-        <div class="page" data-page="26">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">Strategia di Lancio Rapido</h3>
-                <p class="text-neutral-300 leading-relaxed mb-4">Hai impiegato 48 ore a costruire il prodotto. Ora dedica le tue energie a vendere il <strong class="text-white">risultato</strong>, non il <strong class="text-white">contenuto</strong>. Non vendere "10 ore di video lezioni"; vendi <em>"Il ritorno alla calma"</em> o <em>"Il raddoppio dei clienti"</em>.</p>
-                <p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-amber-400">Prezzo di Lancio:</strong> Offri uno sconto del 50% per i primi 10 acquirenti in cambio di una testimonianza.</p>
-                <p class="text-neutral-300 leading-relaxed"><strong class="text-amber-400">Scarsità Etica:</strong> Comunica che il prezzo aumenterà tra 72 ore.</p>
-            </div>
-        </div>
-
-        <!-- Page 27: M4 Prompts -->
-        <div class="page" data-page="27">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-amber-400 mb-4">📋 Prompt Pronti all'Uso</h3>
-                <div class="space-y-3">
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Scrivi un'email di lancio per il mio nuovo video corso '[TITOLO CORSO]'. Il target è [TARGET] e il dolore principale è [DOLORE]. Struttura: 1) Oggetto magnetica, 2) Apertura empatica, 3) Presentazione soluzione, 4) 3 bullet point benefici, 5) Offerta speciale con countdown 72 ore, 6) Call to action finale. Tono: ispirazionale e concreto. Niente fuffa.</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Crea la struttura per un Video di Vendita (VSL) di 3 minuti usando il framework: Problema → Agitazione → Soluzione → Prova. Includi hook iniziale che sfida una credenza comune.</p>
-                    </div>
-                    <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
-                        <p class="text-neutral-200 text-sm">Genera 3 post social per il lancio del corso. Uno per LinkedIn, uno per Instagram e uno per Facebook. Ogni post deve includere un gancio, un beneficio e una call-to-action.</p>
-                    </div>
-                </div>
-                <p class="text-neutral-500 text-xs mt-3 heading-font">Tocca un box per copiare il prompt</p>
-            </div>
-        </div>
-
-        <!-- Page 28: M4 Checklist -->
-        <div class="page" data-page="28">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-4">✅ Checklist di Verifica — Lancio</h3>
-                <div class="bg-neutral-800 rounded-lg p-5 space-y-3">
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-1">
-                        <span class="text-neutral-200 text-sm">Ho creato una pagina di vendita semplice (PDF o landing con Carrd/Systeme.io).</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-2">
-                        <span class="text-neutral-200 text-sm">Ho preparato una mail di lancio e un post social da pubblicare.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-3">
-                        <span class="text-neutral-200 text-sm">Ho impostato un prezzo di listino e un prezzo "Founding Member" scontato.</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-4">
-                        <span class="text-neutral-200 text-sm">Ho definito chiaramente cosa riceve l'acquirente (video, audio, pdf, community).</span>
-                    </label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" class="mt-1 accent-amber-500" data-check="m4-5">
-                        <span class="text-neutral-200 text-sm">Ho preparato un modulo per raccogliere testimonianze dopo 7 giorni.</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 29: M4 Quiz -->
-        <div class="page" data-page="29">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <h3 class="heading-font font-bold text-xl text-white mb-6">📝 Mini Quiz Finale</h3>
-                <div class="space-y-6">
-                    <div class="quiz-block" data-correct="1">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 1: Qual è il vero vantaggio competitivo del metodo "Zero-Burnout Content Engine"?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Permette di non lavorare mai.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Riduce drasticamente il "Time-to-Market", permettendoti di iterare e monetizzare più velocemente.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Rende i video più belli di Hollywood.</button>
-                        </div>
-                    </div>
-                    <div class="quiz-block" data-correct="2">
-                        <p class="text-neutral-200 font-medium mb-3">Domanda 2: Cosa dovresti fare se l'IA produce un contenuto che non suona come te?</p>
-                        <div class="space-y-2">
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="0" onclick="answerQuiz(this)">A) Pubblicarlo comunque.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="1" onclick="answerQuiz(this)">B) Arrenderti e tornare al montaggio manuale.</button>
-                            <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" data-idx="2" onclick="answerQuiz(this)">C) Modificare il prompt e fornire più contesto sul tuo tono di voce e sulle tue esperienze personali.</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 30: Closing -->
-        <div class="page" data-page="30">
-            <div class="max-w-2xl mx-auto px-4 py-8 text-center">
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">Dalla Fabbrica di Contenuti alla Fabbrica di Valore</h2>
-                <p class="text-neutral-300 leading-relaxed mb-4">Sei arrivato alla fine di questo framework, ma è solo l'inizio del tuo nuovo sistema operativo mentale. Non devi più scegliere tra "creare" e "vivere". Con l'IA al tuo fianco come assistente, puoi tornare a fare ciò che ami davvero: <strong class="text-white">connetterti con il tuo pubblico e trasformare vite</strong>.</p>
-                <p class="text-neutral-300 leading-relaxed mb-6">Smetti di produrre contenuti. Inizia a produrre <strong class="text-amber-400">asset</strong>.</p>
-                <div class="bg-amber-500 rounded-xl p-6 inline-block">
-                    <p class="heading-font font-bold text-black text-lg">🚀 Il tuo piano d'azione per le prossime 48 ore inizia ora.</p>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
 
+    <!-- SEZIONE 2: LA WEB APP INTERATTIVA (Visibile SOLO se utente sbloccato) -->
+    <div x-show="unlocked" class="max-w-5xl mx-auto px-4 py-12" x-cloak>
+        <div class="mb-8 bg-indigo-900 text-white p-8 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h2 class="text-3xl font-black mb-2">Benvenuto nella tua Dashboard, Studente!</h2>
+                <p class="text-indigo-200 text-sm">Usa il quiz diagnostico e l'Arsenale IA per completare la tua tesi in 30 giorni.</p>
+            </div>
+            <button @click="resetApp()" class="mt-4 md:mt-0 text-xs bg-indigo-800 hover:bg-indigo-700 text-indigo-200 px-3 py-1.5 rounded-lg border border-indigo-700 transition">
+                Simula Logout
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Colonna Sinistra: Menu App -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm h-fit">
+                <h3 class="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wider">Indice Interattivo</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><button @click="activeTab = 'quiz'" :class="activeTab === 'quiz' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2 rounded-xl transition">1. Quiz Diagnostico 30 Giorni</button></li>
+                    <li><button @click="activeTab = 'prompts'" :class="activeTab === 'prompts' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2 rounded-xl transition">2. Arsenale Prompt IA</button></li>
+                    <li><button @click="activeTab = 'roadmap'" :class="activeTab === 'roadmap' ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-50'" class="w-full text-left px-3 py-2 rounded-xl transition">3. Roadmap Giornaliera</button></li>
+                </ul>
+            </div>
+
+            <!-- Colonna Destra: Contenuto Dinamico -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- TAB 1: QUIZ -->
+                <div x-show="activeTab === 'quiz'" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Diagnostica il tuo stato di avanzamento</h3>
+                    <p class="text-sm text-slate-600 mb-6">A che punto sei con la stesura dei capitoli?</p>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
+                            <input type="radio" name="status" class="text-indigo-600">
+                            <span class="text-sm text-slate-700">Ho solo l'indice approvato dal relatore (Panico totale)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
+                            <input type="radio" name="status" class="text-indigo-600">
+                            <span class="text-sm text-slate-700">Ho raccolto le fonti ma non riesco a collegarle</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 border border-slate-200 rounded-xl cursor-pointer hover:bg-slate-50">
+                            <input type="radio" name="status" class="text-indigo-600">
+                            <span class="text-sm text-slate-700">Ho scritto metà tesi ma mi sono bloccato sul capitolo centrale</span>
+                        </label>
+                    </div>
+                    <button @click="alert('Diagnosi elaborata! Passa alla scheda Roadmap per vedere il tuo piano d\'azione.')" class="mt-6 bg-indigo-600 text-white font-bold px-5 py-2.5 rounded-xl text-sm">
+                        Genera Piano Personalizzato
+                    </button>
+                </div>
+
+                <!-- TAB 2: ARSENALE PROMPT IA -->
+                <div x-show="activeTab === 'prompts'" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm" x-cloak>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">L'Arsenale Prompt IA</h3>
+                    <p class="text-sm text-slate-600 mb-6">Usa questi prompt con ChatGPT o Claude come tuoi assistenti di ricerca personali.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="border border-slate-200 p-4 rounded-xl">
+                            <h4 class="font-bold text-sm text-slate-900 mb-1">Prompt 1: Sintesi Critica di un Paper Scientifico</h4>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg font-mono mb-3">"Agisci come un revisore accademico. Analizza il testo seguente ed estrai solo i dati metodologici chiave, evidenziando eventuali limiti di ricerca..."</p>
+                            <button @click="alert('Prompt copiato negli appunti!')" class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1.5 rounded-lg">Copia Prompt</button>
+                        </div>
+                        <div class="border border-slate-200 p-4 rounded-xl">
+                            <h4 class="font-bold text-sm text-slate-900 mb-1">Prompt 2: Sblocco del Blocco dello Scrittore</h4>
+                            <p class="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg font-mono mb-3">"Ho bisogno di scrivere un paragrafo di transizione tra il concetto A e il concetto B in stile formale universitario. Dammi 3 opzioni di incipit..."</p>
+                            <button @click="alert('Prompt copiato negli appunti!')" class="text-xs bg-indigo-50 text-indigo-700 font-bold px-3 py-1.5 rounded-lg">Copia Prompt</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: ROADMAP -->
+                <div x-show="activeTab === 'roadmap'" class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm" x-cloak>
+                    <h3 class="text-xl font-bold text-slate-900 mb-4">Roadmap Operativa 30 Giorni</h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-lg text-xs">Giorni 1-5</span>
+                            <p class="text-slate-700">Sistemazione bibliografica e stesura dell'indice analitico definitivo tramite Prompt IA.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-indigo-100 text-indigo-800 font-bold px-2.5 py-1 rounded-lg text-xs">Giorni 6-20</span>
+                            <p class="text-slate-700">Scrittura intensiva di 500 parole al giorno usando i template di transizione.</p>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-lg text-xs">Giorni 21-30</span>
+                            <p class="text-slate-700">Revisione formale, formattazione indici e simulazione domande di discussione.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGICA JAVASCRIPT CON ALPINE.JS -->
     <script>
-        const TOTAL_PAGES = 30;
-        let currentPage = 1;
-
-        const tocData = [
-            {page:1,label:'Copertina'},
-            {page:2,label:'Introduzione'},
-            {page:3,label:'Panoramica Moduli'},
-            {page:4,label:'M1: Scripting con IA'},
-            {page:5,label:'M1: Teoria'},
-            {page:6,label:'M1: Framework'},
-            {page:7,label:'M1: Prompt pronti'},
-            {page:8,label:'M1: Checklist'},
-            {page:9,label:'M1: Quiz'},
-            {page:10,label:'M1: Riepilogo'},
-            {page:11,label:'M2: Produzione Vocale'},
-            {page:12,label:'M2: Teoria'},
-            {page:13,label:'M2: Impostazioni'},
-            {page:14,label:'M2: Prompt pronti'},
-            {page:15,label:'M2: Checklist'},
-            {page:16,label:'M2: Quiz'},
-            {page:17,label:'M2: Riepilogo'},
-            {page:18,label:'M3: Montaggio Automatizzato'},
-            {page:19,label:'M3: Teoria'},
-            {page:20,label:'M3: Valore'},
-            {page:21,label:'M3: Prompt pronti'},
-            {page:22,label:'M3: Checklist'},
-            {page:23,label:'M3: Quiz'},
-            {page:24,label:'M3: Riepilogo'},
-            {page:25,label:'M4: Monetizzazione e Lancio'},
-            {page:26,label:'M4: Strategia'},
-            {page:27,label:'M4: Prompt pronti'},
-            {page:28,label:'M4: Checklist'},
-            {page:29,label:'M4: Quiz Finale'},
-            {page:30,label:'Conclusione'}
-        ];
-
-        function init() {
-            buildTOC();
-            loadChecks();
-            showPage(1);
-            lucide.createIcons();
+        function appState() {
+            return {
+                unlocked: false, // Se false mostra la landing, se true mostra la web app
+                activeTab: 'quiz',
+                simulateUnlock() {
+                    // Qui in futuro collegherai il link di Stripe/Lemon Squeezy.
+                    // Per ora, simuliamo il pagamento riuscito sbloccando la web app:
+                    this.unlocked = true;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+                resetApp() {
+                    this.unlocked = false;
+                },
+                scrollToPricing() {
+                    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         }
-
-        function buildTOC() {
-            const list = document.getElementById('toc-list');
-            tocData.forEach(item => {
-                const li = document.createElement('li');
-                li.innerHTML = `<button class="w-full text-left py-2 px-3 rounded hover:bg-neutral-800 text-neutral-300 hover:text-amber-400 transition" onclick="goToPage(${item.page})">${item.label}</button>`;
-                list.appendChild(li);
-            });
-        }
-
-        function showPage(n) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.querySelector(`[data-page="${n}"]`);
-            if (target) target.classList.add('active');
-            currentPage = n;
-            document.getElementById('page-counter').textContent = `${n} / ${TOTAL_PAGES}`;
-            document.getElementById('progress').style.width = `${(n/TOTAL_PAGES)*100}%`;
-            window.scrollTo(0,0);
-        }
-
-        function nextPage() { if (currentPage < TOTAL_PAGES) showPage(currentPage + 1); }
-        function prevPage() { if (currentPage > 1) showPage(currentPage - 1); }
-        function goToPage(n) { showPage(n); toggleTOC(); }
-
-        function toggleTOC() {
-            document.getElementById('toc-overlay').classList.toggle('hidden');
-        }
-
-        function copyPrompt(el) {
-            const text = el.querySelector('p').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.remove('hidden');
-                setTimeout(() => toast.classList.add('hidden'), 2000);
-            });
-        }
-
-        function answerQuiz(btn) {
-            const block = btn.closest('.quiz-block');
-            if (block.dataset.answered) return;
-            block.dataset.answered = 'true';
-            const correct = parseInt(block.dataset.correct);
-            const idx = parseInt(btn.dataset.idx);
-            const options = block.querySelectorAll('.quiz-option');
-            options[correct].classList.add('correct');
-            if (idx !== correct) btn.classList.add('wrong');
-            options.forEach(o => o.style.pointerEvents = 'none');
-        }
-
-        function loadChecks() {
-            document.querySelectorAll('[data-check]').forEach(cb => {
-                const key = cb.dataset.check;
-                cb.checked = localStorage.getItem('ebook_' + key) === '1';
-                cb.addEventListener('change', () => {
-                    localStorage.setItem('ebook_' + key, cb.checked ? '1' : '0');
-                });
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
