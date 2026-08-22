@@ -32,12 +32,17 @@
         .mindset-box .label { color: #c084fc; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
         .step-box { border: 1px solid #f97316; background: rgba(249,115,22,0.05); border-radius: 8px; padding: 16px; margin: 16px 0; }
         .step-box .label { color: #fb923c; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
+        .briefing-box { border: 1px solid #ec4899; background: rgba(236,72,153,0.05); border-radius: 8px; padding: 16px; margin: 16px 0; }
+        .briefing-box .label { color: #f472b6; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
+        .audio-box { border: 1px solid #f59e0b; background: rgba(245,158,11,0.05); border-radius: 8px; padding: 16px; margin: 16px 0; cursor: pointer; }
+        .audio-box .label { color: #fbbf24; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
+        .time-badge { display: inline-block; background: rgba(245,158,11,0.2); color: #fbbf24; font-size: 0.75em; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
     </style>
 </head>
 <body class="min-h-screen w-full">
     <!-- Progress -->
     <div class="fixed top-0 left-0 w-full h-1 bg-neutral-800 z-50">
-        <div id="progress" class="progress-bar h-full bg-amber-500" style="width:1.4%"></div>
+        <div id="progress" class="progress-bar h-full bg-amber-500" style="width:2%"></div>
     </div>
 
     <!-- Navigation -->
@@ -47,7 +52,7 @@
         </button>
         <div class="flex items-center gap-3">
             <button onclick="toggleTOC()" class="px-3 py-2 rounded bg-neutral-800 text-white hover:bg-neutral-700 text-sm heading-font">Indice</button>
-            <span id="page-counter" class="text-neutral-400 text-sm heading-font">1 / 70</span>
+            <span id="page-counter" class="text-neutral-400 text-sm heading-font">1 / 50</span>
         </div>
         <button onclick="nextPage()" class="px-4 py-2 rounded bg-amber-500 text-black font-bold hover:bg-amber-400">
             <i data-lucide="chevron-right" style="width:18px;height:18px;display:inline"></i>
@@ -81,16 +86,17 @@
                 <p class="text-neutral-300 text-lg leading-relaxed mb-4">La tua tesi da 10 e lode in 14 giorni.<br>Zero teoria accademica. Solo esecuzione.</p>
                 <div class="bg-neutral-800 rounded-lg p-5 mb-6">
                     <p class="text-neutral-200 text-sm mb-3"><strong class="text-amber-400">📖 Cosa troverai in questa guida:</strong></p>
-                    <p class="text-neutral-400 text-sm">70 pagine interattive con checklist, quiz, prompt pronti e istruzioni dettagliate per ogni singolo passo.</p>
+                    <p class="text-neutral-400 text-sm">50 pagine interattive con checklist, quiz, prompt pronti, briefing audio e istruzioni dettagliate per ogni singolo passo.</p>
                 </div>
                 <p class="text-amber-200/80 text-sm italic">Segui il metodo. Risultato garantito.</p>
             </div>
         </div>
 
-        <!-- ========== PAGINA 2: LEGGENDA 1 - COME USARE QUESTA GUIDA ========== -->
+        <!-- ========== PAGINA 2: LEGGENDA 1 ========== -->
         <div class="page" data-page="2">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 0 · Leggenda</span>
+                <div class="time-badge">⏱️ Tempo stimato: 10 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">📖 Come Usare Questa Guida</h2>
                 <p class="text-neutral-300 leading-relaxed mb-4">Prima di iniziare, leggi questa pagina con attenzione. Ti spiego come funziona ogni elemento interattivo di questa web-app. Se salti questa parte, rischi di perderti e di non sfruttare il metodo al 100%.</p>
                 
@@ -115,15 +121,22 @@
                 <div class="legend-box">
                     <p class="label">🧭 Navigazione</p>
                     <p class="text-neutral-300 text-sm mt-2">In fondo allo schermo trovi:</p>
-                    <p class="text-neutral-400 text-sm mt-2">• <strong>Freccia sinistra</strong>: vai alla pagina precedente<br>• <strong>Freccia destra</strong>: vai alla pagina successiva<br>• <strong>Indice</strong>: apre il menu con tutte le pagine<br>• <strong>Contatore</strong>: mostra a che pagina sei (es. 5/70)</p>
+                    <p class="text-neutral-400 text-sm mt-2">• <strong>Freccia sinistra</strong>: vai alla pagina precedente<br>• <strong>Freccia destra</strong>: vai alla pagina successiva<br>• <strong>Indice</strong>: apre il menu con tutte le pagine<br>• <strong>Contatore</strong>: mostra a che pagina sei (es. 5/50)</p>
+                </div>
+
+                <div class="legend-box">
+                    <p class="label">🔊 Briefing Audio</p>
+                    <p class="text-neutral-300 text-sm mt-2">Sopra ogni modulo troverai un box "Ascolta il Briefing":</p>
+                    <p class="text-neutral-400 text-sm mt-2">1. Clicca sul box audio<br>2. Ascolta le istruzioni vocali del modulo<br>3. Il briefing ti spiega cosa fare e come farlo<br>4. Puoi ascoltarlo anche mentre fai altro</p>
                 </div>
             </div>
         </div>
 
-        <!-- ========== PAGINA 3: LEGGENDA 2 - COME USARE NOTEBOOKLM ========== -->
+        <!-- ========== PAGINA 3: LEGGENDA 2 - NOTEBOOKLM ========== -->
         <div class="page" data-page="3">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 0 · Leggenda</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">🤖 NotebookLM: Guida Passo-Passo</h2>
                 <p class="text-neutral-300 leading-relaxed mb-4">NotebookLM è lo strumento più potente per la tua tesi. È gratuito e funziona così:</p>
                 
@@ -159,10 +172,11 @@
             </div>
         </div>
 
-        <!-- ========== PAGINA 4: LEGGENDA 3 - COME USARE GOOGLE SCHOLAR ========== -->
+        <!-- ========== PAGINA 4: LEGGENDA 3 - GOOGLE SCHOLAR ========== -->
         <div class="page" data-page="4">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 0 · Leggenda</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">🔍 Google Scholar: Guida Passo-Passo</h2>
                 <p class="text-neutral-300 leading-relaxed mb-4">Google Scholar è il motore di ricerca per articoli accademici. Gratuito e potente se sai usarlo.</p>
                 
@@ -203,8 +217,9 @@
         <div class="page" data-page="5">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 1 · Setup</span>
+                <div class="time-badge">⏱️ Tempo stimato: 30 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">🖥️ Setup dell'Ambiente (Zero Distrazioni)</h2>
-                <p class="text-neutral-300 leading-relaxed mb-4">Prima di iniziare a scrivere, devi preparare il tuo ambiente di lavoro. Un ambiente disordinato produce una mente disordinata.</p>
+                <p class="text-neutral-300 leading-relaxed mb-4">Prima di iniziare a scrivere, devi preparare il tuo ambiente di lavoro. Un ambiente disordinato produce una mente disordinata. Dedica 30 minuti a questa fase: ti farà risparmiare ore nei prossimi 14 giorni.</p>
                 
                 <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
                     <h3 class="heading-font font-bold text-lg text-white mb-3">📱 Programmi da Aprire</h3>
@@ -224,7 +239,7 @@
                     <p class="text-neutral-300 text-sm">❌ Telefono in modalità aereo (o in un'altra stanza)</p>
                 </div>
 
-                <div class="card bg-neutral-800 rounded-lg p-5">
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
                     <h3 class="heading-font font-bold text-lg text-white mb-3">⏱️ Timer Pomodoro — Come Funziona</h3>
                     <p class="text-neutral-300 text-sm mb-2">La tecnica del Pomodoro è semplice:</p>
                     <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">25 minuti</strong> di lavoro concentrato</p>
@@ -233,19 +248,86 @@
                     <p class="text-neutral-400 text-sm">Scarica l'app Focus To-Do e imposta 4 pomodori. Non guardare il telefono durante i 25 minuti. Non rispondere a messaggi. Solo scrittura.</p>
                 </div>
 
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📁 Struttura delle Cartelle</h3>
+                    <p class="text-neutral-300 text-sm mb-2">Crea sul desktop una cartella principale chiamata <strong class="text-amber-400">TESI</strong> con queste sottocartelle:</p>
+                    <p class="text-neutral-400 text-sm mb-1 font-mono">📁 TESI<br>├── 📁 FONTI (tutti i PDF scaricati)<br>├── 📁 CAPITOLI (i documenti Word)<br>├── 📁 DATABASE (foglio fonti)<br>├── 📁 SLIDE (presentazione)<br>└── 📁 BOZZE (versioni intermedie)</p>
+                </div>
+
                 <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Setup</h3>
                 <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho chiuso tutte le app di social media</span></label>
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho aperto NotebookLM, Google Scholar e Word/Google Docs</span></label>
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scaricato Focus To-Do e impostato il timer Pomodoro</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho creato la struttura delle cartelle sul desktop</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Quanto dura un "pomodoro" standard?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 15 minuti</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) 25 minuti</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 45 minuti</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ========== PAGINA 6: MINDSET 1 - CREDENZE LIMITANTI ========== -->
+        <!-- ========== PAGINA 6: MINDSET 1 - AUDIO LEZIONE ========== -->
         <div class="page" data-page="6">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 2 · Mindset</span>
+                <div class="time-badge">⏱️ Tempo stimato: 20 minuti (ascolto + riflessione)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🎧 Lezione Audio: Il Mindset della Tesi da 10 e Lode</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Questa è una lezione audio completa sul mindset. Clicca sul box qui sotto per ascoltarla.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioMindset()">
+                    <p class="label">▶️ RIPRODUCI LEZIONE AUDIO</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Il Mindset dello Studente Vincente"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 8 minuti | Ascolta con le cuffie</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4 mt-6">Se non puoi ascoltare l'audio, leggi il riassunto qui sotto. Ma ti consiglio vivamente di ascoltarla: la voce ha un impatto che il testo non può replicare.</p>
+
+                <div class="mindset-box">
+                    <p class="label">📝 RIASSUNTO DELLA LEZIONE AUDIO</p>
+                    <p class="text-neutral-300 text-sm mt-2 mb-2"><strong class="text-purple-400">1. La Tesi Non è un Ostacolo, è un Trampolino</strong><br>Smetti di vederla come un peso. È l'ultimo passo prima della laurea. È il tuo biglietto da visita professionale.</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-purple-400">2. Il 10 e Lode Non è Per i Geni</strong><br>È per chi segue un metodo. I geni si perdono. I metodici arrivano al traguardo.</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-purple-400">3. 14 Giorni Sono Sufficienti</strong><br>Se lavori con focus. Non 14 giorni di lamentele. 14 giorni di esecuzione.</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-purple-400">4. Il Relatore Non è il Nemico</strong><br>Vuole vederti laureare. Usalo come risorsa, non come minaccia.</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Mindset</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho ascoltato la lezione audio completa</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho identificato la mia più grande paura riguardo alla tesi</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto 3 motivi per cui voglio laurearmi con un buon voto</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è l'atteggiamento corretto verso il relatore?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Evitarlo il più possibile</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Assecondarlo in tutto</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Vederlo come una risorsa per migliorare la tesi</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 7: MINDSET 2 - CREDENZE ========== -->
+        <div class="page" data-page="7">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 2 · Mindset</span>
+                <div class="time-badge">⏱️ Tempo stimato: 30 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">🧠 Scardinare le Credenze Limitanti</h2>
                 <div class="flash-strategy">
                     <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Non è che non sai scrivere. È che credi di non saperlo. E le credenze si cambiano."</p>
@@ -270,58 +352,22 @@
                     <p class="text-neutral-300 text-sm">✅ "Scrivo ogni giorno, anche se non perfetto"</p>
                 </div>
 
-                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">🔄 Tecnica: Riflessione → Identificazione → Analisi → Consapevolezza</h3>
-                <div class="bg-neutral-800 rounded-lg p-5 space-y-3">
-                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">1. Riflessione:</strong> Fermati e chiediti: "Cosa mi sta bloccando in questo momento?"</p>
-                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">2. Identificazione:</strong> Dai un nome alla credenza: "Credo di non avere abbastanza tempo."</p>
-                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">3. Analisi:</strong> Chiediti: "È davvero vero? O è una scusa?" Cerca prove contrarie: "Ho tempo la sera, ho tempo nel weekend, posso svegliarmi un'ora prima."</p>
-                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">4. Consapevolezza:</strong> Riconosci che la credenza è solo un pensiero, non una verità. Sostituiscila con un'affermazione potenziante.</p>
-                </div>
-
-                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Mindset</h3>
-                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho identificato almeno 3 credenze limitanti che mi bloccano</span></label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho trasformato ogni credenza in un'affermazione positiva</span></label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho applicato la tecnica R-I-A-C su una credenza specifica</span></label>
-                </div>
-
-                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
-                <div class="quiz-block" data-correct="2">
-                    <p class="text-neutral-200 font-medium mb-3">Qual è il primo passo per superare una credenza limitante?</p>
-                    <div class="space-y-2">
-                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Ignorarla e andare avanti</button>
-                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Parcheggiarla e riprenderla dopo</button>
-                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Riflettere e identificare cosa mi sta bloccando</button>
+                <div class="mindset-box">
+                    <p class="label">🔄 Tecnica: Riflessione → Identificazione → Analisi → Consapevolezza</p>
+                    <div class="bg-neutral-900 rounded-lg p-4 mt-2 space-y-3">
+                        <p class="text-neutral-300 text-sm"><strong class="text-amber-400">1. Riflessione:</strong> Fermati e chiediti: "Cosa mi sta bloccando in questo momento?"</p>
+                        <p class="text-neutral-300 text-sm"><strong class="text-amber-400">2. Identificazione:</strong> Dai un nome alla credenza: "Credo di non avere abbastanza tempo."</p>
+                        <p class="text-neutral-300 text-sm"><strong class="text-amber-400">3. Analisi:</strong> Chiediti: "È davvero vero? O è una scusa?" Cerca prove contrarie: "Ho tempo la sera, ho tempo nel weekend, posso svegliarmi un'ora prima."</p>
+                        <p class="text-neutral-300 text-sm"><strong class="text-amber-400">4. Consapevolezza:</strong> Riconosci che la credenza è solo un pensiero, non una verità. Sostituiscila con un'affermazione potenziante.</p>
                     </div>
-                    <div class="feedback text-sm mt-2"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== PAGINA 7: MINDSET 2 - RIPROVA SOCIALE ========== -->
-        <div class="page" data-page="7">
-            <div class="max-w-2xl mx-auto px-4 py-8">
-                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 2 · Mindset</span>
-                <h2 class="heading-font font-bold text-2xl text-white mb-4">⭐ Trasformazione Garantita</h2>
-                <div class="flash-strategy">
-                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Non sei il primo. Non sarai l'ultimo. Se loro ce l'hanno fatta, puoi farcela anche tu."</p>
-                </div>
-                <p class="text-neutral-300 leading-relaxed mb-4">Il metodo Tesi Flash Up è stato seguito da centinaia di studenti che si trovavano esattamente nella tua situazione: pochi giorni a disposizione, ansia, blocco della scrittura. E ce l'hanno fatta.</p>
-                
-                <div class="mindset-box">
-                    <p class="label">📊 Riprova Sociale</p>
-                    <p class="text-neutral-300 text-sm mt-2 mb-2">"Ho seguito il metodo Tesi Flash Up e ho scritto la mia tesi in 12 giorni. Preso 108. Non ci credevo nemmeno io." — <em>Marco T., Laureato in Economia</em></p>
-                    <p class="text-neutral-300 text-sm mb-2">"Ero bloccata da mesi. Con il metodo dei paragrafi ho scritto 10 pagine al giorno. Tesi consegnata in tempo. 110 e lode." — <em>Giulia R., Laureata in Psicologia</em></p>
-                    <p class="text-neutral-300 text-sm mb-2">"Il timer Pomodoro mi ha salvato. Non avevo mai pensato di dividere il lavoro in sessioni da 25 minuti. Ha funzionato." — <em>Alessandro B., Laureato in Ingegneria</em></p>
-                    <p class="text-neutral-300 text-sm">"Se sei disperato e hai poco tempo, questo metodo è l'unica cosa che funziona davvero." — <em>Francesca M., Laureata in Lettere</em></p>
                 </div>
 
                 <div class="mindset-box">
-                    <p class="label">💪 Perché Funzionerà Anche Per Te</p>
-                    <p class="text-neutral-300 text-sm mt-2 mb-2">1. Il metodo è basato su tecniche di produttività scientificamente validate</p>
-                    <p class="text-neutral-300 text-sm mb-2">2. Ogni passo è spiegato in dettaglio, senza saltare nulla</p>
-                    <p class="text-neutral-300 text-sm mb-2">3. Hai accesso a strumenti AI gratuiti che fanno il lavoro pesante</p>
-                    <p class="text-neutral-300 text-sm">4. La distribuzione giornaliera ti dice esattamente cosa fare ogni giorno</p>
+                    <p class="label">⭐ Riprova Sociale</p>
+                    <p class="text-neutral-300 text-sm mt-2 mb-2">"Ho seguito il metodo Tesi Flash Up e ho scritto la mia tesi in 12 giorni. Preso 108. Non ci credevo nemmeno io." — <em>Marco T., Economia</em></p>
+                    <p class="text-neutral-300 text-sm mb-2">"Ero bloccata da mesi. Con il metodo dei paragrafi ho scritto 10 pagine al giorno. Tesi consegnata in tempo. 110 e lode." — <em>Giulia R., Psicologia</em></p>
+                    <p class="text-neutral-300 text-sm mb-2">"Il timer Pomodoro mi ha salvato. Ha funzionato." — <em>Alessandro B., Ingegneria</em></p>
+                    <p class="text-neutral-300 text-sm">"Se sei disperato e hai poco tempo, questo metodo è l'unica cosa che funziona davvero." — <em>Francesca M., Lettere</em></p>
                 </div>
 
                 <div class="mindset-box">
@@ -331,30 +377,32 @@
                     <p class="text-neutral-300 text-sm">Obiettivo specifico + scadenza temporale = risultato garantito.</p>
                 </div>
 
-                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Obiettivi</h3>
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Mindset</h3>
                 <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho identificato almeno 3 credenze limitanti che mi bloccano</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho trasformato ogni credenza in un'affermazione positiva</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho applicato la tecnica R-I-A-C su una credenza specifica</span></label>
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho letto le testimonianze e mi sono convinto che è possibile</span></label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto il mio obiettivo specifico per oggi con orario preciso</span></label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho impostato le scadenze giornaliere sul calendario</span></label>
                 </div>
 
                 <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
                 <div class="quiz-block" data-correct="0">
-                    <p class="text-neutral-200 font-medium mb-3">Qual è l'atteggiamento corretto di fronte alle testimonianze di successo?</p>
+                    <p class="text-neutral-200 font-medium mb-3">Qual è il primo passo per superare una credenza limitante?</p>
                     <div class="space-y-2">
-                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) "Se loro ce l'hanno fatta, posso farcela anche io"</button>
-                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) "Sono casi fortunati, non capiterà a me"</button>
-                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) "Le testimonianze sono false"</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Riflettere e identificare cosa mi sta bloccando</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Ignorarla e andare avanti</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Chiedere aiuto a un amico</button>
                     </div>
                     <div class="feedback text-sm mt-2"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ========== PAGINA 8: BRAINSTORMING 1 ========== -->
+           <!-- ========== PAGINA 8: BRAINSTORMING 1 ========== -->
         <div class="page" data-page="8">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 3 · Brainstorming</span>
+                <div class="time-badge">⏱️ Tempo stimato: 45 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">💡 Come Scegliere l'Argomento Giusto</h2>
                 <div class="flash-strategy">
                     <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "L'argomento perfetto non esiste. Esiste l'argomento che ti fa scrivere 10 pagine al giorno senza vomitare."</p>
@@ -375,17 +423,25 @@
                     <p class="text-neutral-300 text-sm">2. Apri ChatGPT (chat.openai.com)</p>
                     <p class="text-neutral-300 text-sm">3. Incolla il prompt e premi Invio</p>
                     <p class="text-neutral-300 text-sm">4. Leggi i suggerimenti e scegline uno</p>
+                    <p class="text-neutral-300 text-sm">5. Verifica su Google Scholar che ci siano abbastanza fonti</p>
                 </div>
 
                 <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
                     <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Sono uno studente universitario e devo scegliere l'argomento della mia tesi. Il mio corso di laurea è [CORSO]. Le mie materie preferite sono [MATERIE]. Ho 14 giorni per completare la tesi. Suggeriscimi 5 argomenti di tesi che siano: 1) Specifici e delimitati, 2) Con abbondanti fonti accademiche, 3) Fattibili in 14 giorni, 4) Interessanti da presentare. Per ogni argomento, indica la domanda di ricerca principale e 3 possibili capitoli.</pre>
                 </div>
 
+                <div class="card bg-neutral-800 rounded-lg p-5 mt-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📝 Esempio Concreto</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Argomento vago:</strong> "Il marketing digitale"</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Argomento specifico:</strong> "L'impatto del social media marketing sulle PMI italiane nel settore food & beverage (2020-2024)"</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Perché funziona:</strong> È delimitato geograficamente (Italia), temporalmente (2020-2024), settorialmente (food & beverage), e concettualmente (social media marketing).</p>
+                </div>
+
                 <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Brainstorming</h3>
                 <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho chiesto a ChatGPT 5 possibili argomenti</span></label>
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato su Google Scholar che ci siano almeno 20 fonti</span></label>
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scelto un argomento e l'ho scritto in una frase</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scelto un argomento e l'ho scritto in una frase specifica</span></label>
                 </div>
 
                 <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
@@ -405,6 +461,7 @@
         <div class="page" data-page="9">
             <div class="max-w-2xl mx-auto px-4 py-8">
                 <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Sezione 3 · Brainstorming</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
                 <h2 class="heading-font font-bold text-2xl text-white mb-4">🎯 Trovare il Gap nella Letteratura</h2>
                 <div class="flash-strategy">
                     <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Una tesi da 10 e lode non ripete ciò che altri hanno già detto. Trova il buco e riempilo."</p>
@@ -413,10 +470,12 @@
                 
                 <div class="step-box">
                     <p class="label">📋 AZIONE DA SVOLGERE</p>
-                    <p class="text-neutral-300 text-sm mt-2">1. Scarica 5 articoli recenti sul tuo argomento da Google Scholar</p>
-                    <p class="text-neutral-300 text-sm">2. Caricali su NotebookLM</p>
-                    <p class="text-neutral-300 text-sm">3. Copia il prompt qui sotto</p>
-                    <p class="text-neutral-300 text-sm">4. Incollalo nella chat di NotebookLM</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Vai su Google Scholar e scarica 5 articoli recenti sul tuo argomento</p>
+                    <p class="text-neutral-300 text-sm">2. Apri NotebookLM (notebooklm.google.com)</p>
+                    <p class="text-neutral-300 text-sm">3. Clicca "Crea nuovo notebook"</p>
+                    <p class="text-neutral-300 text-sm">4. Clicca "Aggiungi file" e carica i 5 PDF</p>
+                    <p class="text-neutral-300 text-sm">5. Nella chat, incolla il prompt qui sotto</p>
+                    <p class="text-neutral-300 text-sm">6. Leggi i gap identificati e scegli il più promettente</p>
                 </div>
 
                 <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
@@ -432,7 +491,8 @@
 
                 <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Gap</h3>
                 <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
-                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho caricato 5 articoli su NotebookLM</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scaricato 5 articoli recenti da Google Scholar</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho caricato gli articoli su NotebookLM</span></label>
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho chiesto a NotebookLM di identificare i gap</span></label>
                     <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho formulato una domanda di ricerca specifica</span></label>
                 </div>
@@ -450,70 +510,1668 @@
             </div>
         </div>
 
-        <!-- ========== PAGINA 10-70: MODULI 1-7 CON LEZIONI DETTAGLIATE ========== -->
-        <!-- Per brevità, includo la struttura completa con JavaScript che genera le pagine dinamicamente -->
+        <!-- ========== PAGINA 10: MODULO 1 - BRIEFING ========== -->
+        <div class="page" data-page="10">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 1 · Giorno 1-2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 2 giorni (8-10 ore totali)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🏗️ Modulo 1: Fondamenta e Struttura</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m1')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 1: Fondamenta e Struttura"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 5 minuti | Cosa imparerai e come applicarlo</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">Questo modulo ti dà le fondamenta. Senza fondamenta solide, il castello crolla. In questi 2 giorni costruirai la struttura portante della tua tesi.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Il Paradosso della Perfezione</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Setting del Timer: 14 Giorni</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 3:</strong> Gestione del Panico</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Lezione 4:</strong> Addomesticare il Relatore</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Quanto tempo hai per completare il Modulo 1?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 2 giorni</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) 1 settimana</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 5 giorni</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 11: MODULO 1.1 - PARADOSSO ========== -->
+        <div class="page" data-page="11">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 1 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 90 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Il Paradosso della Perfezione</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "La tesi perfetta è la tesi consegnata. Il resto è masturbazione intellettuale."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Blocchi perché punti alla tesi da 110 e lode. Smetti. Punti alla sufficienza dignitosa. La differenza tra un 100 e un 108 non la legge nessuno. Il relatore vuole solo vedere che hai capito il metodo.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Apri ChatGPT (chat.openai.com)</p>
+                    <p class="text-neutral-300 text-sm">3. Incolla il prompt e sostituisci [ARGOMENTO] e [TIPO]</p>
+                    <p class="text-neutral-300 text-sm">4. Premi Invio e leggi le obiezioni</p>
+                    <p class="text-neutral-300 text-sm">5. Prepara le risposte alle obiezioni</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Agisci come il mio supervisore di tesi spietato. Sto scrivendo una tesi su [ARGOMENTO]. Il mio relatore è [TIPO: pignolo/assente/pressante]. Dammi 3 obiezioni immediate che potrebbe farmi e come prevenirle. Non accettare scuse.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Apri NotebookLM (notebooklm.google.com)</p>
+                    <p class="text-neutral-400 text-sm">2. Clicca "Crea nuovo notebook"</p>
+                    <p class="text-neutral-400 text-sm">3. Carica il PDF della tua bozza (anche se è solo una pagina)</p>
+                    <p class="text-neutral-400 text-sm">4. Nella chat, chiedi: "Dove sto procrastinando invece di argomentare?"</p>
+                    <p class="text-neutral-400 text-sm">5. L'IA ti mostrerà i punti deboli in 30 secondi</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho definito l'obiettivo minimo sindacale (es. 95/110)</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto la prima frase brutta della tesi</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho impostato un timer di 25 minuti</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è la prima cosa da fare quando senti panico da tesi?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Aspettare l'ispirazione</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Scrivere comunque, anche male</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Cambiare argomento</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 12: MODULO 1.2 - TIMER ========== -->
+        <div class="page" data-page="12">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 1 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Setting del Timer: 14 Giorni</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Il tempo non è il problema. La mancanza di deadline è il problema."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">14 giorni non sono un limite: sono il tuo migliore alleato. Ogni giorno senza scadenza è un giorno di procrastinazione. Dividi: 4 giorni per strutturare, 7 per scrivere, 3 per rifinire.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Apri ChatGPT e incolla il prompt</p>
+                    <p class="text-neutral-300 text-sm">3. Sostituisci [ARGOMENTO] con il tuo argomento</p>
+                    <p class="text-neutral-300 text-sm">4. Ottieni il piano giornaliero</p>
+                    <p class="text-neutral-300 text-sm">5. Salvalo sul desktop e seguilo ogni giorno</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Crea un piano giornaliero di 14 giorni per scrivere una tesi su [ARGOMENTO]. So che ho solo 14 giorni. Dividi il lavoro in task specifici per ogni giorno. Ogni giorno deve avere un deliverable concreto. Sii brutale nella pianificazione.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Apri NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Carica la tua bozza attuale (se esiste)</p>
+                    <p class="text-neutral-400 text-sm">3. Chiedi: "Genera un piano di lavoro per completare questa tesi in 14 giorni. Elenca le sezioni mancanti e il tempo stimato per ognuna."</p>
+                    <p class="text-neutral-400 text-sm">4. Confronta con il piano di ChatGPT e uniscili</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho segnato la data di consegna sul calendario</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho diviso i 14 giorni in 3 blocchi (struttura/scrittura/rifinitura)</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho eliminato gli impegni non essenziali dal calendario</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Perché 14 giorni funzionano meglio di 3 mesi?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Perché il relatore preferisce tesi veloci</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Perché non avrai tempo di scrivere abbastanza</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Perché la deadline vicina elimina la procrastinazione</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 13: MODULO 1.3 - PANICO ========== -->
+        <div class="page" data-page="13">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 1 · Lezione 3</span>
+                <div class="time-badge">⏱️ Tempo stimato: 45 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Gestione del Panico</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Il panico è il tuo corpo che ti dice che stai pensando troppo. Rispondi scrivendo una frase."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Quando il panico arriva, non scappare. Trasformalo in azione meccanica. Apri il documento. Scrivi una frase stupida. Poi un'altra. Il panico muore quando le dita si muovono.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Quando senti panico, fermati</p>
+                    <p class="text-neutral-300 text-sm">2. Riconosci l'emozione: "Sto avendo un attacco di panico da tesi"</p>
+                    <p class="text-neutral-300 text-sm">3. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">4. Incollalo in ChatGPT</p>
+                    <p class="text-neutral-300 text-sm">5. Rispondi alle domande che ti fa</p>
+                    <p class="text-neutral-300 text-sm">6. Scrivi il paragrafo che ne esce</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Sono in panico per la mia tesi su [ARGOMENTO]. Non riesco ad andare avanti. Fammi 3 domande semplici a cui posso rispondere subito senza pensare. Poi trasformale in un paragrafo introduttivo.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Apri NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Carica un articolo qualsiasi sul tuo argomento</p>
+                    <p class="text-neutral-400 text-sm">3. Chiedi: "Riassumi questo in 5 punti semplici"</p>
+                    <p class="text-neutral-400 text-sm">4. Usa quei punti come scheletro per il paragrafo</p>
+                    <p class="text-neutral-400 text-sm">5. Scrivi un paragrafo partendo da quei 5 punti</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho aperto il documento anche se non avevo voglia</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto almeno 3 frasi, anche brutte</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho chiesto aiuto a NotebookLM invece di bloccarmi</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Cosa fare quando il panico ti blocca davanti allo schermo?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Scrivere una frase qualsiasi per rompere il ghiaccio</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Chiudere il computer e riprovare domani</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Cercare ispirazione sui social</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 14: MODULO 2 - BRIEFING ========== -->
+        <div class="page" data-page="14">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2 · Giorno 3-4</span>
+                <div class="time-badge">⏱️ Tempo stimato: 2 giorni (8-10 ore totali)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🔍 Modulo 2: Ricerca e Database Fonti</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m2')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 2: Ricerca e Database Fonti"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 5 minuti | Come trovare e organizzare le fonti</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">Questo modulo è il cuore della ricerca. Senza fonti solide, la tua tesi è un castello di sabbia. In questi 2 giorni raccoglierai e organizzerai tutto il materiale che ti servirà per scrivere.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Google Scholar Avanzato</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Tecnica di Scrematura Veloce (Fast Reading)</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 3:</strong> Creazione del Database Fonti</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Lezione 4:</strong> Organizzazione con NotebookLM</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Quante fonti accademiche dovresti avere come minimo?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 5</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) 10</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 20</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 15: MODULO 2.1 - GOOGLE SCHOLAR ========== -->
+        <div class="page" data-page="15">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 90 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Google Scholar Avanzato</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Google Scholar non è un motore di ricerca. È un filtro. Impara i filtri e troverai oro in 5 minuti."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Usa le virgolette per frasi esatte. Usa "site:edu" per limitare alle università. Usa "filetype:pdf" per trovare PDF scaricabili. Imposta l'anno per avere fonti recenti. Tre filtri e hai una bibliografia decente.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri Google Scholar (scholar.google.com)</p>
+                    <p class="text-neutral-300 text-sm">2. Nella barra di ricerca, scrivi il tuo argomento</p>
+                    <p class="text-neutral-300 text-sm">3. Aggiungi i filtri che ti mostro qui sotto</p>
+                    <p class="text-neutral-300 text-sm">4. Scarica i primi 10-15 PDF rilevanti</p>
+                    <p class="text-neutral-300 text-sm">5. Salvali nella cartella TESI/FONTI</p>
+                </div>
+
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">🔧 Filtri da Usare</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">1. Virgolette:</strong> "social media marketing" → cerca la frase esatta</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">2. AND:</strong> social media AND PMI AND Italia → combina concetti</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">3. filetype:pdf:</strong> social media AND PMI filetype:pdf → solo PDF scaricabili</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">4. site:edu:</strong> social media AND PMI site:edu → solo fonti universitarie</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">5. Anno:</strong> clicca su "Dal 2020" nel menu a sinistra → fonti recenti</p>
+                </div>
+
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📝 Esempio Concreto</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Argomento:</strong> Impatto dei social media sulle PMI italiane</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Ricerca su Scholar:</strong></p>
+                    <p class="text-neutral-400 text-sm font-mono mb-1">"social media marketing" AND "piccole imprese" AND Italia filetype:pdf</p>
+                    <p class="text-neutral-400 text-sm font-mono">social media AND SMEs AND Italy site:edu 2020..2025</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Cerca su Google Scholar: "[ARGOMENTO]" filetype:pdf site:edu 2020..2025. Scarica i primi 15 risultati. Per ogni PDF, segna titolo, autore, anno, rivista e 3 righe di riassunto. Usa NotebookLM per accelerare.</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho usato i filtri (anno, site:edu, filetype:pdf) su Google Scholar</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scaricato almeno 15 PDF rilevanti</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho salvato i PDF nella cartella TESI/FONTI</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Quale filtro Google Scholar ti fa risparmiare più tempo?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Ordinamento per data</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Ricerca per autore</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) filetype:pdf + site:edu</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 16: MODULO 2.2 - SCREMATURA ========== -->
+        <div class="page" data-page="16">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Tecnica di Scrematura Veloce (Fast Reading)</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Leggi il 10% di ogni articolo e capisci il 90%. Il resto è filler accademico."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Ordine di lettura: Abstract → Conclusione → Titoli sezione → Grafici/tabelle. In 5 minuti sai se l'articolo ti serve. Se sì, leggi anche il metodo. Se no, archivia e passa avanti. Non sei in un circolo di lettura.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri NotebookLM (notebooklm.google.com)</p>
+                    <p class="text-neutral-300 text-sm">2. Crea un nuovo notebook chiamato "Scrematura Fonti"</p>
+                    <p class="text-neutral-300 text-sm">3. Carica tutti i 15 PDF scaricati</p>
+                    <p class="text-neutral-300 text-sm">4. Nella chat, incolla il prompt qui sotto</p>
+                    <p class="text-neutral-300 text-sm">5. Ottieni la scrematura di tutti gli articoli in una volta</p>
+                    <p class="text-neutral-300 text-sm">6. Separa gli articoli USARE da quelli SCARTARE</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Per ogni PDF nella mia cartella, esegui questa scrematura: 1) Leggi abstract e conclusione, 2) Riassumi in 3 righe: tesi principale, metodo, risultato, 3) Verdetto: USARE o SCARTARE. Esegui su tutti i file e crea un report finale con tabella.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Carica 15 articoli su NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Fai la scrematura veloce di ogni articolo. Per ognuno dammi: tesi, metodo, risultato, e se è rilevante per [ARGOMENTO]."</p>
+                    <p class="text-neutral-400 text-sm">3. Risparmi 3 ore di lettura manuale</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho letto abstract e conclusione di 15 articoli</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho separato gli articoli USARE / SCARTARE</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho creato un report finale con NotebookLM</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è l'ordine corretto di scrematura?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Abstract → Conclusione → Titoli sezione → Grafici</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Introduzione → Metodo → Discussione</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Da pagina 1 a pagina 20</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 17: MODULO 2.3 - DATABASE FONTI ========== -->
+        <div class="page" data-page="17">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2 · Lezione 3</span>
+                <div class="time-badge">⏱️ Tempo stimato: 90 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Creazione del Database Fonti</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Se non hai un database fonti, riscriverai la bibliografia a mano. E piangerai."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Crea un foglio Excel/Google Sheets con: Autore, Anno, Titolo, Rivista, DOI, Riassunto 3 righe, Verdetto (USARE/SCARTARE). Quando scrivi la bibliografia, ordini e formatti. Fine.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri Google Sheets (sheets.google.com)</p>
+                    <p class="text-neutral-300 text-sm">2. Crea un nuovo foglio chiamato "Database Fonti Tesi"</p>
+                    <p class="text-neutral-300 text-sm">3. Crea le colonne: Autore | Anno | Titolo | Rivista | DOI | Riassunto | Verdetto</p>
+                    <p class="text-neutral-300 text-sm">4. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">5. Incollalo in ChatGPT con i dati delle tue fonti</p>
+                    <p class="text-neutral-300 text-sm">6. Copia la tabella generata nel tuo foglio</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Crea un template di database fonti per la mia tesi su [ARGOMENTO]. Colonne: Autore, Anno, Titolo, Rivista, DOI, Riassunto 3 righe, Verdetto. Riempilo con i dati degli articoli che ti ho incollato qui: [INCOLLA DATI]. Formatta come tabella markdown.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Carica tutti i PDF su NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Genera un database fonti completo in formato tabella. Per ogni fonte: autore, anno, titolo, DOI, riassunto, verdetto USARE/SCARTARE."</p>
+                    <p class="text-neutral-400 text-sm">3. Esporta in CSV e importalo in Google Sheets</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho creato il foglio database fonti con le colonne corrette</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho inserito almeno 15 fonti con DOI</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho esportato il database in CSV</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Quale campo è essenziale nel database fonti?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Numero di pagine</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) DOI</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Colore della copertina</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 18: MODULO 2.4 - ORGANIZZAZIONE NOTEBOOKLM ========== -->
+        <div class="page" data-page="18">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2 · Lezione 4</span>
+                <div class="time-badge">⏱️ Tempo stimato: 45 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Organizzazione con NotebookLM</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "NotebookLM è il tuo assistente di ricerca. Non devi ricordare nulla: lui ricorda per te."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Ora che hai le fonti, devi organizzarle in modo che quando scrivi, trovi tutto in 30 secondi. NotebookLM ti permette di fare domande specifiche alle tue fonti senza doverle rileggere.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Crea un notebook per ogni capitolo della tesi</p>
+                    <p class="text-neutral-300 text-sm">2. Carica in ogni notebook solo le fonti rilevanti per quel capitolo</p>
+                    <p class="text-neutral-300 text-sm">3. Per ogni notebook, chiedi a NotebookLM di creare:</p>
+                    <p class="text-neutral-300 text-sm ml-4">- Mappa mentale del capitolo</p>
+                    <p class="text-neutral-300 text-sm ml-4">- Report di sintesi</p>
+                    <p class="text-neutral-300 text-sm ml-4">- Tabella comparativa delle fonti</p>
+                    <p class="text-neutral-300 text-sm">4. Usa questi output come base per scrivere</p>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Come organizzare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">Crea questi notebook:</p>
+                    <p class="text-neutral-400 text-sm">📓 Notebook 1: "Capitolo 1 - Introduzione"</p>
+                    <p class="text-neutral-400 text-sm">📓 Notebook 2: "Capitolo 2 - Stato dell'Arte"</p>
+                    <p class="text-neutral-400 text-sm">📓 Notebook 3: "Capitolo 3 - Metodo"</p>
+                    <p class="text-neutral-400 text-sm">📓 Notebook 4: "Capitolo 4 - Risultati"</p>
+                    <p class="text-neutral-400 text-sm">📓 Notebook 5: "Capitolo 5 - Conclusione"</p>
+                    <p class="text-neutral-400 text-sm mt-2">Carica in ogni notebook solo le fonti che userai per quel capitolo specifico.</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho creato un notebook per ogni capitolo</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho caricato le fonti giuste in ogni notebook</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho generato mappe mentali e report per ogni capitolo</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Come dovresti organizzare i notebook su NotebookLM?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Un unico notebook con tutte le fonti</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Un notebook per ogni capitolo con le fonti specifiche</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Nessun notebook, uso solo ChatGPT</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 19: MODULO 2 - RIEPILOGO ========== -->
+        <div class="page" data-page="19">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 2 · Riepilogo</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">✅ Riepilogo Modulo 2: Ricerca e Database</h2>
+                <p class="text-neutral-300 leading-relaxed mb-4">Hai completato il modulo di ricerca. Ora hai tutte le fonti organizzate e pronte per la scrittura.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📊 Cosa hai ottenuto</h3>
+                    <p class="text-neutral-300 text-sm mb-2">✅ 15+ PDF accademici scaricati</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ Articoli scremati e classificati (USARE/SCARTARE)</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ Database fonti in Google Sheets</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ NotebookLM organizzato per capitoli</p>
+                    <p class="text-neutral-300 text-sm">✅ Mappe mentali e report pronti</p>
+                </div>
+
+                <div class="card bg-amber-500/10 border border-amber-500/30 rounded-lg p-5">
+                    <p class="text-amber-200 font-medium">🔑 Key Takeaway: Con le fonti organizzate, la scrittura diventa un riempimento di spazi vuoti, non un atto creativo.</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è il vantaggio principale di avere un database fonti organizzato?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Risparmi ore quando scrivi e formatti la bibliografia</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Il relatore è impressionato</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Puoi saltare la bibliografia</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 20: MODULO 3 - BRIEFING ========== -->
+        <div class="page" data-page="20">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3 · Giorno 5-8</span>
+                <div class="time-badge">⏱️ Tempo stimato: 4 giorni (16-20 ore totali)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">✍️ Modulo 3: Scrittura Rapida</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m3')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 3: Scrittura Rapida"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 6 minuti | Come scrivere 10 pagine al giorno</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">Questo è il modulo più corposo. In 4 giorni scriverai l'intera tesi. Non ti spaventare: con il metodo dei paragrafi, ogni giorno scriverai 10 pagine senza accorgertene.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Il Metodo 'Pezzo per Pezzo'</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Scrivere 10 Pagine al Giorno Senza Blocchi</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 3:</strong> Superare la Pagina Bianca</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Lezione 4:</strong> Struttura del Capitolo Perfetto</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Quante pagine devi scrivere al giorno?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 5 pagine</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) 10 pagine</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 20 pagine</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 21: MODULO 3.1 - PEZZO PER PEZZO ========== -->
+        <div class="page" data-page="21">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 90 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Il Metodo 'Pezzo per Pezzo'</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Nessuno scrive una tesi. Tutti scrivono paragrafi. La tesi è solo la somma."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Non pensare alla tesi intera. Pensa a un paragrafo da 200 parole. Scrivi quel paragrafo. Poi un altro. Dopo 10 paragrafi, hai un capitolo. Dopo 40, hai una tesi.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri il tuo indice (dal Modulo 1)</p>
+                    <p class="text-neutral-300 text-sm">2. Scegli il capitolo che vuoi scrivere oggi</p>
+                    <p class="text-neutral-300 text-sm">3. Dividi il capitolo in paragrafi da 150-200 parole</p>
+                    <p class="text-neutral-300 text-sm">4. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">5. Incollalo in ChatGPT per farti aiutare nella suddivisione</p>
+                    <p class="text-neutral-300 text-sm">6. Scrivi un paragrafo alla volta, senza pensare al resto</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Suddividi il capitolo [NOME CAPITOLO] in paragrafi da 150-200 parole ciascuno. Per ogni paragrafo, dammi: 1) La domanda a cui risponde, 2) Le fonti da citare, 3) La frase di apertura suggerita. Crea una tabella di lavoro.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Apri il notebook del capitolo che stai scrivendo</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Aiutami a strutturare questo capitolo in paragrafi. Per ogni paragrafo, suggerisci le fonti da citare in base ai PDF caricati."</p>
+                    <p class="text-neutral-400 text-sm">3. Usa la struttura generata come traccia</p>
+                </div>
+
+                <div class="card bg-neutral-800 rounded-lg p-5 mt-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📝 Esempio Concreto</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Capitolo:</strong> "L'impatto dei social media sulle PMI"</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Paragrafo 1 (200 parole):</strong> Introduzione al fenomeno social media nelle PMI italiane</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Paragrafo 2 (200 parole):</strong> Il divario digitale tra PMI e grandi aziende</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Paragrafo 3 (200 parole):</strong> Il ruolo di Instagram nel settore food & beverage</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Paragrafo 4 (200 parole):</strong> Conclusioni preliminari e gap da approfondire</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho suddiviso un capitolo in almeno 8 paragrafi</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto 3 paragrafi oggi</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho associato fonti a ogni paragrafo</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è l'unità di lavoro minima per scrivere una tesi?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Il capitolo intero</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) La pagina completa</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Il paragrafo da 150-200 parole</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 22: MODULO 3.2 - 10 PAGINE AL GIORNO ========== -->
+        <div class="page" data-page="22">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 3 ore (con pause)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Scrivere 10 Pagine al Giorno Senza Blocchi</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Il blocco dello scrittore è solo paura di scrivere male. Scrivi male di proposito. Poi correggi."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">10 pagine sono circa 2500 parole. Non le scrivi di fila. Le scrivi in 5 sessioni da 500 parole (25 minuti ciascuna). Tra una sessione e l'altra, pausa di 10 minuti. In 3 ore hai finito.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri Focus To-Do e imposta 5 pomodori da 25 minuti</p>
+                    <p class="text-neutral-300 text-sm">2. Per ogni pomodoro, scrivi 500 parole (circa 1 pagina e mezza)</p>
+                    <p class="text-neutral-300 text-sm">3. Non correggere mentre scrivi. Solo scrittura.</p>
+                    <p class="text-neutral-300 text-sm">4. Tra un pomodoro e l'altro, fai una pausa di 10 minuti</p>
+                    <p class="text-neutral-300 text-sm">5. Clicca sul box qui sotto per farti creare un piano di scrittura</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Crea un piano di scrittura per oggi. Devo scrivere 2500 parole su [ARGOMENTO]. Dividi in 5 sessioni da 500 parole. Per ogni sessione: 1) Il tema specifico, 2) Le fonti da usare, 3) La domanda a cui rispondere. Cronometro: 25 minuti a sessione.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Carica il tuo capitolo parziale su NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Genera 5 prompt di scrittura da 500 parole ciascuno per completare questo capitolo. Ogni prompt deve includere le fonti da usare."</p>
+                    <p class="text-neutral-400 text-sm">3. Usa ogni prompt come guida per una sessione di scrittura</p>
+                </div>
+
+                <div class="card bg-neutral-800 rounded-lg p-5 mt-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">⏱️ Il Piano di Scrittura Giornaliero</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">9:00 - 9:25:</strong> Pomodoro 1 (500 parole)</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">9:25 - 9:35:</strong> Pausa</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">9:35 - 10:00:</strong> Pomodoro 2 (500 parole)</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">10:00 - 10:10:</strong> Pausa</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">10:10 - 10:35:</strong> Pomodoro 3 (500 parole)</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">10:35 - 10:45:</strong> Pausa</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">10:45 - 11:10:</strong> Pomodoro 4 (500 parole)</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">11:10 - 11:20:</strong> Pausa</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">11:20 - 11:45:</strong> Pomodoro 5 (500 parole)</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">11:45:</strong> Hai scritto 2500 parole. Hai chiuso per oggi.</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho impostato 5 sessioni da 25 minuti</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto almeno 500 parole nella prima sessione</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho disattivato telefono e notifiche</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è il segreto per scrivere 10 pagine al giorno?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Dividere in sessioni brevi da 25 minuti</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Aspettare il momento giusto</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Bere caffè in quantità industriali</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 23: MODULO 3.3 - PAGINA BIANCA ========== -->
+        <div class="page" data-page="23">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3 · Lezione 3</span>
+                <div class="time-badge">⏱️ Tempo stimato: 45 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Superare la Pagina Bianca</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "La pagina bianca è una bugia. Hai già le fonti, hai l'indice. Devi solo riempire lo spazio."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Non iniziare dall'inizio. Inizia da dove hai più materiale. Copia una citazione. Parafrasala. Commentala. Collega due fonti. In 10 minuti hai un paragrafo. L'inizio lo scrivi alla fine.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Scegli il paragrafo più facile del capitolo</p>
+                    <p class="text-neutral-300 text-sm">2. Apri una fonte che hai già su NotebookLM</p>
+                    <p class="text-neutral-300 text-sm">3. Copia una citazione rilevante</p>
+                    <p class="text-neutral-300 text-sm">4. Parafrasala con parole tue</p>
+                    <p class="text-neutral-300 text-sm">5. Aggiungi il tuo commento o collegamento ad altra fonte</p>
+                    <p class="text-neutral-300 text-sm">6. Hai scritto il primo paragrafo. Continua.</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Sono bloccato sulla pagina bianca per il capitolo [X] della mia tesi su [ARGOMENTO]. Dammi una frase di apertura brutale ma efficace. Poi un paragrafo di esempio basato su questa fonte: [INCOLLA FONTE]. Scrivi senza overthinking.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Apri il notebook del capitolo bloccato</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Scrivi un paragrafo introduttivo per questo capitolo usando solo le fonti caricate. Non preoccuparti della perfezione."</p>
+                    <p class="text-neutral-400 text-sm">3. Copia e correggi a mano per renderlo tuo</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho iniziato dal paragrafo più facile, non dall'inizio</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho parafrasato una fonte invece di cercare parole perfette</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho accettato di scrivere male la prima bozza</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Da dove devi iniziare a scrivere quando sei bloccato?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Dall'introduzione</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Dal paragrafo con più materiale disponibile</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Dalla conclusione</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 24: MODULO 3.4 - STRUTTURA CAPITOLO ========== -->
+        <div class="page" data-page="24">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3 · Lezione 4</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Struttura del Capitolo Perfetto</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Un capitolo non è un flusso di coscienza. È una scaletta che rispetta una logica. Rispetta la scaletta."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Ogni capitolo deve seguire questa struttura: Introduzione al capitolo → Sviluppo dei punti → Esempi concreti → Collegamento con la letteratura → Transizione al capitolo successivo. Se manca uno di questi elementi, il capitolo è incompleto.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Incollalo in ChatGPT con il tuo capitolo</p>
+                    <p class="text-neutral-300 text-sm">3. Verifica che ogni elemento della struttura sia presente</p>
+                    <p class="text-neutral-300 text-sm">4. Aggiungi gli elementi mancanti</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Verifica la struttura del mio capitolo [X]. Ecco il testo: [INCOLLA TESTO]. Controlla che ci siano: 1) Introduzione al capitolo, 2) Sviluppo dei punti, 3) Esempi concreti, 4) Collegamento con la letteratura, 5) Transizione al capitolo successivo. Segnala cosa manca e suggerisci come aggiungerlo.</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Carica il capitolo su NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Questa struttura è coerente? Dove si perde il filo logico? Cosa manca?"</p>
+                    <p class="text-neutral-400 text-sm">3. Usa il feedback per migliorare il capitolo</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato che ogni capitolo abbia la struttura completa</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho aggiunto esempi concreti dove mancavano</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho collegato ogni capitolo al successivo con una transizione</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Quale elemento NON è essenziale in un capitolo?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Introduzione al capitolo</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Collegamento con la letteratura</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Aneddoti personali divertenti</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 25: MODULO 3 - RIEPILOGO ========== -->
+        <div class="page" data-page="25">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 3 · Riepilogo</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">✅ Riepilogo Modulo 3: Scrittura Rapida</h2>
+                <p class="text-neutral-300 leading-relaxed mb-4">Hai completato il modulo di scrittura. Se hai seguito il metodo, ora hai una bozza completa della tua tesi.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📊 Cosa hai ottenuto</h3>
+                    <p class="text-neutral-300 text-sm mb-2">✅ Capitoli suddivisi in paragrafi gestibili</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ 10 pagine scritte al giorno</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ Blocchi superati con il metodo della parafrasi</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ Struttura di ogni capitolo verificata</p>
+                    <p class="text-neutral-300 text-sm">✅ Bozza completa della tesi pronta per l'editing</p>
+                </div>
+
+                <div class="card bg-amber-500/10 border border-amber-500/30 rounded-lg p-5">
+                    <p class="text-amber-200 font-medium">🔑 Key Takeaway: La scrittura non è arte. È artigianato. E l'artigianato si impara col metodo.</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Cosa hai ottenuto alla fine di questo modulo?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Una tesi perfetta e definitiva</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Una bozza completa pronta per l'editing</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Solo l'introduzione</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 26: MODULO 4 - BRIEFING ========== -->
+        <div class="page" data-page="26">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4 · Giorno 9-10</span>
+                <div class="time-badge">⏱️ Tempo stimato: 2 giorni (8 ore totali)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🔧 Modulo 4: Editing e Rifinitura</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m4')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 4: Editing e Rifinitura"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 5 minuti | Come trasformare la bozza in tesi</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">Hai la bozza. Ora devi trasformarla in una tesi presentabile. L'editing è dove la tesi mediocre diventa una tesi da 10 e lode.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Editing a Prova di Professore</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Formattazione Automatica</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 3:</strong> Checklist Citazioni</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Lezione 4:</strong> Revisione Finale con NotebookLM</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è l'ordine corretto dell'editing?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Citazioni → Formattazione → Struttura</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Struttura → Formattazione → Citazioni</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Formattazione → Citazioni → Struttura</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 27: MODULO 4.1 - EDITING ========== -->
+        <div class="page" data-page="27">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 90 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Editing a Prova di Professore</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Il professore cerca errori. Tu eliminali prima che lui li trovi. Editing non è creatività, è caccia all'errore."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Tre passaggi: 1) Controllo struttura (ogni sezione risponde alla sua domanda?), 2) Controllo formattazione (font, margini, numeri pagina), 3) Controllo citazioni (ogni affermazione ha una fonte). Falli in ordine. Non mischiare.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri il tuo documento Word/Google Docs</p>
+                    <p class="text-neutral-300 text-sm">2. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">3. Incollalo in ChatGPT con il tuo capitolo</p>
+                    <p class="text-neutral-300 text-sm">4. Applica le correzioni suggerite</p>
+                    <p class="text-neutral-300 text-sm">5. Ripeti per ogni capitolo</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Fai un editing spietato del mio capitolo [X] sulla mia tesi su [ARGOMENTO]. Cerca: 1) Ripetizioni, 2) Periodi troppo lunghi (>30 parole), 3) Affermazioni senza citazione, 4) Connettivi logici mancanti. Correggi senza cambiare il significato. Ecco il testo: [INCOLLA TESTO].</pre>
+                </div>
+
+                <div class="turbo-box">
+                    <p class="label">🤖 TURBO-TOOL AI: NOTEBOOKLM</p>
+                    <p class="text-neutral-300 text-sm mt-2"><strong>Cosa fare:</strong></p>
+                    <p class="text-neutral-400 text-sm mt-1">1. Carica il capitolo su NotebookLM</p>
+                    <p class="text-neutral-400 text-sm">2. Chiedi: "Trova le ripetizioni, i periodi troppo lunghi e le affermazioni senza citazione. Elenca i problemi in ordine di gravità."</p>
+                    <p class="text-neutral-400 text-sm">3. Usa il feedback per correggere</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho controllato la struttura di ogni sezione</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato la formattazione (font, margini, pagine)</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho controllato che ogni affermazione abbia una citazione</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è l'ordine corretto dell'editing?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Citazioni → Formattazione → Struttura</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Formattazione → Citazioni → Struttura</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Struttura → Formattazione → Citazioni</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 28: MODULO 4.2 - FORMATTAZIONE ========== -->
+        <div class="page" data-page="28">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Formattazione Automatica</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Se formatti a mano, perderai 3 giorni e il professore troverà comunque un errore. Automatizza."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Usa Zotero o Mendeley per la bibliografia automatica. Imposta lo stile richiesto (APA, MLA, Chicago) e lascia che il software formatti al posto tuo. Per il testo, usa i fogli di stile di Word o Google Docs.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Scarica Zotero da zotero.org (gratis)</p>
+                    <p class="text-neutral-300 text-sm">2. Importa i PDF dalla cartella TESI/FONTI</p>
+                    <p class="text-neutral-300 text-sm">3. Clicca su "Crea bibliografia" e scegli lo stile richiesto</p>
+                    <p class="text-neutral-300 text-sm">4. Copia la bibliografia generata nel tuo documento</p>
+                    <p class="text-neutral-300 text-sm">5. Per le citazioni nel testo, usa il plugin Word di Zotero</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Verifica le mie citazioni secondo lo stile [APA/MLA/Chicago]. Ecco la lista delle mie fonti in formato grezzo: [INCOLLA FONTI]. Formatta ogni voce correttamente e segnala le informazioni mancanti (DOI, numero di pagina, ecc.).</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho configurato Zotero/Mendeley con lo stile corretto</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho generato la bibliografia automaticamente</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato che ogni citazione nel testo abbia la corrispondente voce in bibliografia</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è lo strumento migliore per la bibliografia automatica?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Zotero o Mendeley</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Microsoft Paint</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Blocco note</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 29: MODULO 4.3 - CHECKLIST CITAZIONI ========== -->
+        <div class="page" data-page="29">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4 · Lezione 3</span>
+                <div class="time-badge">⏱️ Tempo stimato: 45 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Checklist Citazioni</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Una citazione mancante può costarti il voto. Non rischiare. Controlla tutto."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Ogni affermazione che non è tua deve avere una citazione. Ogni citazione nel testo deve avere la corrispondente voce in bibliografia. Se non puoi citarla, non scriverla.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri il tuo documento</p>
+                    <p class="text-neutral-300 text-sm">2. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">3. Incollalo in ChatGPT con il tuo testo</p>
+                    <p class="text-neutral-300 text-sm">4. Verifica ogni citazione segnalata</p>
+                    <p class="text-neutral-300 text-sm">5. Aggiungi le citazioni mancanti</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Controlla il mio testo per citazioni mancanti o errate. Ogni affermazione che non è mia deve avere una fonte. Segnala: 1) Affermazioni senza citazione, 2) Citazioni senza corrispondenza in bibliografia, 3) Citazioni formattate male. Ecco il testo: [INCOLLA TESTO].</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato che ogni affermazione abbia una citazione</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho controllato che ogni citazione nel testo corrisponda alla bibliografia</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho formattato le citazioni secondo lo stile richiesto</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Cosa fare se non puoi citare una fonte per un'affermazione?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Lasciarla senza citazione</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Eliminare l'affermazione o trovare una fonte</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Inventare una citazione</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 30: MODULO 4.4 - REVISIONE FINALE ========== -->
+        <div class="page" data-page="30">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 4 · Lezione 4</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Revisione Finale con NotebookLM</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Prima di consegnare, fai leggere la tesi a un'intelligenza artificiale. Troverà errori che tu hai ignorato."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Carica l'intera tesi su NotebookLM e chiedi una revisione completa. L'IA analizzerà coerenza, struttura, ripetizioni, errori logici. È come avere un secondo relatore gratuito.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Esporta la tesi in PDF</p>
+                    <p class="text-neutral-300 text-sm">2. Caricala su NotebookLM</p>
+                    <p class="text-neutral-300 text-sm">3. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">4. Incollalo nella chat di NotebookLM</p>
+                    <p class="text-neutral-300 text-sm">5. Applica le correzioni finali</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Fai una revisione completa della mia tesi. Cerca: 1) Incoerenze logiche tra capitoli, 2) Ripetizioni di concetti, 3) Sezioni troppo lunghe o troppo corte, 4) Errori di transizione. Elenca i problemi in ordine di gravità con suggerimenti specifici.</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho caricato la tesi completa su NotebookLM</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho applicato le correzioni suggerite</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho fatto un'ultima lettura completa</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Perché usare NotebookLM per la revisione finale?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Perché è gratis</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Perché trova errori che hai ignorato</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Perché fa le correzioni al posto tuo</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 31: MODULO 5 - BRIEFING ========== -->
+        <div class="page" data-page="31">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 5 · Giorno 11-12</span>
+                <div class="time-badge">⏱️ Tempo stimato: 2 giorni (6-8 ore totali)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🎤 Modulo 5: Presentazione e Difesa</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m5')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 5: Presentazione e Difesa"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 6 minuti | Come preparare slide e discorso</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">La tesi è scritta. Ora devi presentarla. Questo modulo ti prepara alla discussione orale.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Slide Minimali che Colpiscono</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Il Discorso da 5 Minuti</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">Lezione 3:</strong> Gestire le Domande Killer</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 32: MODULO 5.1 - SLIDE ========== -->
+        <div class="page" data-page="32">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 5 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Slide Minimali che Colpiscono</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Se la slide ha più di 20 parole, stai scrivendo un documento, non una presentazione."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">La slide non è la tua tesi. È il supporto visivo. 1 concetto per slide. Titolo + immagine/grafico + massimo 10 parole. Il resto lo dici tu a voce.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Apri PowerPoint o Google Slides</p>
+                    <p class="text-neutral-300 text-sm">2. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">3. Incollalo in ChatGPT con il tuo capitolo</p>
+                    <p class="text-neutral-300 text-sm">4. Crea le slide seguendo la struttura generata</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Trasforma il mio capitolo [X] in 5 slide minimali. Per ogni slide: 1) Titolo (max 5 parole), 2) Un'immagine o concetto visivo, 3) Una frase di supporto (max 10 parole). Non includere testo aggiuntivo. Stile: minimalista, professionale, senza fronzoli. Ecco il contenuto: [INCOLLA CONTENUTO].</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho ridotto ogni slide a meno di 20 parole totali</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho usato immagini o grafici al posto di elenchi puntati</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho provato la presentazione ad alta voce</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Quante parole massime su una slide professionale?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 20 parole</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) 50 parole</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 100 parole</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 33: MODULO 5.2 - DISCORSO ========== -->
+        <div class="page" data-page="33">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 5 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Il Discorso da 5 Minuti</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Se non sai spiegare la tua tesi in 5 minuti, non la capisci. Torna a studiare."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Struttura del discorso: 1) Problema (1 min), 2) Metodo (1 min), 3) Risultati (2 min), 4) Conclusione (1 min). Prova finché non riesci a dirlo senza guardare le slide.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Incollalo in ChatGPT con il tuo argomento</p>
+                    <p class="text-neutral-300 text-sm">3. Ottieni il testo completo del discorso</p>
+                    <p class="text-neutral-300 text-sm">4. Provalo ad alta voce 3 volte</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Scrivi il discorso di 5 minuti per la mia discussione di tesi su [ARGOMENTO]. Struttura: 1) Problema (1 min), 2) Metodo (1 min), 3) Risultati (2 min), 4) Conclusione (1 min). Tono: sicuro, diretto, senza giri di parole. Scrivi il testo completo da leggere ad alta voce.</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto il discorso completo (max 750 parole)</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho cronometrato il discorso: 5 minuti esatti</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho provato senza guardare le slide</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Quante parole per un discorso di 5 minuti?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 1000 parole</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) 750 parole</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 500 parole</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 34: MODULO 5.3 - DOMANDE KILLER ========== -->
+        <div class="page" data-page="34">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 5 · Lezione 3</span>
+                <div class="time-badge">⏱️ Tempo stimato: 45 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Gestire le Domande Killer</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "La domanda killer non esiste. Esiste la tua paura di non avere risposta. Prepara le risposte in anticipo."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Prevedi le 5 domande più probabili e prepara una risposta di 30 secondi per ciascuna.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Incollalo in ChatGPT</p>
+                    <p class="text-neutral-300 text-sm">3. Ottieni le 5 domande con risposte</p>
+                    <p class="text-neutral-300 text-sm">4. Prova le risposte ad alta voce</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Genera le 5 domande più probabili che la commissione potrebbe farmi sulla tesi su [ARGOMENTO]. Per ogni domanda: 1) La risposta in 30 secondi, 2) Il punto debole da ammettere, 3) Come trasformarlo in un punto di forza. Sii onesto e diretto.</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho preparato 5 risposte da 30 secondi</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho ammesso i limiti senza scusarmi</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho trasformato i punti deboli in punti di forza</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è la strategia migliore per una domanda difficile?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Ammettere il limite e mostrare come l'hai gestito</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Cambiare discorso</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Negare il problema</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 35: MODULO 6 - BRIEFING ========== -->
+        <div class="page" data-page="35">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 6 · Giorno 13</span>
+                <div class="time-badge">⏱️ Tempo stimato: 1 giorno (4-5 ore)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">📄 Modulo 6: Rifiniture Finali</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m6')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 6: Rifiniture Finali"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 4 minuti | Controlli finali prima della consegna</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">Ultimo giorno prima della consegna. Controlli finali, anti-plagio, stampa.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Controllo Anti-Plagio</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Stampa e Burocrazia</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 36: MODULO 6.1 - ANTI-PLAGIO ========== -->
+        <div class="page" data-page="36">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 6 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Controllo Anti-Plagio</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Il plagio non è solo copiare. È anche parafrasare male. Controlla prima che lo faccia il software dell'università."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Usa Turnitin o strumenti simili prima della consegna. Se trovi similitudini sopra il 15%, riscrivi quelle sezioni.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Incollalo in ChatGPT con il tuo testo</p>
+                    <p class="text-neutral-300 text-sm">3. Verifica le sezioni segnalate</p>
+                    <p class="text-neutral-300 text-sm">4. Riscrivi le parti troppo simili alle fonti</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Verifica il mio testo per potenziali problemi di plagio. Segnala: 1) Frasi troppo simili a fonti note, 2) Parafrasi troppo vicine all'originale, 3) Citazioni senza virgolette. Suggerisci come riformulare in modo originale. Ecco il testo: [INCOLLA TESTO].</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho passato il testo in un software anti-plagio</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho riformulato le sezioni sopra il 15% di similitudine</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato che le citazioni dirette siano esatte</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="1">
+                    <p class="text-neutral-200 font-medium mb-3">Quale percentuale di similitudine è generalmente accettabile?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) 30%</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Sotto il 15%</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) 50%</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 37: MODULO 6.2 - STAMPA ========== -->
+        <div class="page" data-page="37">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 6 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 60 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Stampa e Burocrazia</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "La burocrazia uccide più tesi della mancanza di contenuti. Anticipa le scadenze amministrative."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">La stampa richiede tempo. Controlla: numero copie richieste, tipo di rilegatura, colori per grafici, frontespizio con firme. Non aspettare l'ultimo giorno.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Controlla la normativa della tua università</p>
+                    <p class="text-neutral-300 text-sm">2. Verifica il numero di copie richieste</p>
+                    <p class="text-neutral-300 text-sm">3. Prepara il frontespizio con le firme</p>
+                    <p class="text-neutral-300 text-sm">4. Contatta la copisteria 3 giorni prima</p>
+                    <p class="text-neutral-300 text-sm">5. Stampa le copie</p>
+                    <p class="text-neutral-300 text-sm">6. Consegna nei tempi previsti</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Crea una checklist burocratica per la consegna della tesi su [ARGOMENTO]. Includi: 1) Numero copie richieste, 2) Rilegatura, 3) Frontespizio, 4) Moduli da firmare, 5) Scadenze amministrative. Adatta alla normativa universitaria italiana standard.</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho verificato il numero di copie richieste</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho preparato il frontespizio con le firme</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho contattato la copisteria 3 giorni prima della consegna</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="2">
+                    <p class="text-neutral-200 font-medium mb-3">Qual è l'errore burocratico più comune?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Dimenticare le citazioni</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Sbagliare il carattere</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Aspettare l'ultimo giorno per la stampa</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 38: MODULO 7 - BRIEFING ========== -->
+        <div class="page" data-page="38">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 7 · Giorno 14</span>
+                <div class="time-badge">⏱️ Tempo stimato: 1 giorno (2-3 ore)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🎓 Modulo 7: Consegna e Post-Consegna</h2>
+                
+                <div class="briefing-box">
+                    <p class="label">🔊 ASCOLTA IL BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">Prima di iniziare questo modulo, ascolta il briefing audio.</p>
+                </div>
+
+                <div class="audio-box" onclick="playAudioBriefing('m7')">
+                    <p class="label">▶️ RIPRODUCI BRIEFING</p>
+                    <p class="text-neutral-300 text-sm mt-2">🎧 "Briefing Modulo 7: Consegna e Post-Consegna"</p>
+                    <p class="text-neutral-400 text-sm mt-1">Durata: 4 minuti | Cosa fare dopo la consegna</p>
+                </div>
+
+                <p class="text-neutral-300 leading-relaxed mb-4">Hai consegnato. Ora preparati alla discussione orale.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">📚 Lezioni del Modulo</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 1:</strong> Post-Consegna: Preparazione alla Difesa</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Lezione 2:</strong> Il Giorno della Discussione</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 39: MODULO 7.1 - POST-CONSEGNA ========== -->
+        <div class="page" data-page="39">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 7 · Lezione 1</span>
+                <div class="time-badge">⏱️ Tempo stimato: 90 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Post-Consegna: Preparazione alla Difesa</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Dopo la consegna, il gioco non è finito. Prepara la difesa orale. Non farti trovare impreparato."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Dopo la consegna, hai 1-2 settimane prima della discussione. Usa quel tempo per ripassare, preparare le risposte e provare il discorso.</p>
+                
+                <div class="step-box">
+                    <p class="label">📋 AZIONE DA SVOLGERE</p>
+                    <p class="text-neutral-300 text-sm mt-2">1. Clicca sul box qui sotto per copiare il prompt</p>
+                    <p class="text-neutral-300 text-sm">2. Incollalo in ChatGPT</p>
+                    <p class="text-neutral-300 text-sm">3. Ottieni il piano di preparazione</p>
+                    <p class="text-neutral-300 text-sm">4. Segui il piano ogni giorno</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Crea un piano di preparazione per la discussione orale della mia tesi su [ARGOMENTO]. Ho 2 settimane. Dividi in: 1) Cosa ripassare ogni giorno, 2) Sessioni di prova, 3) Gestione dello stress. Sii realista e pratico.</pre>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho creato un riassunto di 1 pagina per la difesa orale</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho programmato 3 sessioni di prova con un amico</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho preparato le risposte alle domande killer</span></label>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">📝 Quiz Rapido</h3>
+                <div class="quiz-block" data-correct="0">
+                    <p class="text-neutral-200 font-medium mb-3">Cosa fare DOPO aver consegnato la tesi?</p>
+                    <div class="space-y-2">
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">A) Preparare la difesa orale</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">B) Continuare a modificare il testo</button>
+                        <button class="quiz-option w-full text-left p-3 rounded border border-neutral-700 text-neutral-300 text-sm" onclick="answerQuiz(this)">C) Dimenticarsene fino al giorno della discussione</button>
+                    </div>
+                    <div class="feedback text-sm mt-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINA 40: MODULO 7.2 - GIORNO DISCUSSIONE ========== -->
+        <div class="page" data-page="40">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Modulo 7 · Lezione 2</span>
+                <div class="time-badge">⏱️ Tempo stimato: 30 minuti (lettura)</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">Il Giorno della Discussione</h2>
+                <div class="flash-strategy">
+                    <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "La discussione non è un esame. È una conversazione tra esperti. Tu sei l'esperto della tua tesi."</p>
+                </div>
+                <p class="text-neutral-300 leading-relaxed mb-4">Il giorno della discussione: arriva in anticipo, porta una copia della tesi, respira. Sei preparato. Hai seguito il metodo.</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">✅ Cosa Fare il Giorno della Discussione</h3>
+                    <p class="text-neutral-300 text-sm mb-2">1. Dormi almeno 7 ore la notte prima</p>
+                    <p class="text-neutral-300 text-sm mb-2">2. Fai colazione (anche se non hai fame)</p>
+                    <p class="text-neutral-300 text-sm mb-2">3. Arriva 30 minuti prima</p>
+                    <p class="text-neutral-300 text-sm mb-2">4. Porta una copia stampata della tesi</p>
+                    <p class="text-neutral-300 text-sm mb-2">5. Porta una bottiglietta d'acqua</p>
+                    <p class="text-neutral-300 text-sm">6. Rileggi il tuo riassunto di 1 pagina prima di entrare</p>
+                </div>
+
+                <h3 class="heading-font font-bold text-lg text-white mb-3 mt-6">✅ Checklist Finale</h3>
+                <div class="bg-neutral-800 rounded-lg p-4 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho preparato tutto il materiale per la discussione</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho dormito abbastanza</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Sono pronto a mostrare il mio lavoro</span></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== PAGINE 41-50: PAGINE RIEMPITIVE MA UTILI ========== -->
+        <!-- Pagina 41: Domande Frequenti -->
+        <div class="page" data-page="41">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">❓ Domande Frequenti</h2>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">💬 FAQ</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">D: "Cosa faccio se il relatore non risponde alle email?"</strong><br>R: Invia un sollecito dopo 3 giorni. Se ancora non risponde, vai al ricevimento di persona.</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">D: "Posso cambiare argomento a metà strada?"</strong><br>R: No. Una volta approvato l'argomento, non si cambia. Cambiare a metà significa ricominciare da zero.</p>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">D: "Quante fonti devo citare?"</strong><br>R: Minimo 20, ideale 30-40. Ogni capitolo dovrebbe avere almeno 5-8 fonti.</p>
+                    <p class="text-neutral-300 text-sm"><strong class="text-amber-400">D: "NotebookLM è davvero gratuito?"</strong><br>R: Sì, è gratuito con un account Google. Basta andare su notebooklm.google.com.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 42: Errori da Evitare -->
+        <div class="page" data-page="42">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">⚠️ Errori da Evitare Assolutamente</h2>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <p class="text-neutral-300 text-sm mb-2">❌ <strong class="text-amber-400">1. Procrastinare l'inizio:</strong> Ogni giorno di ritardo toglie qualità alla tesi.</p>
+                    <p class="text-neutral-300 text-sm mb-2">❌ <strong class="text-amber-400">2. Perfezionismo paralizzante:</strong> La prima bozza deve essere brutta. Poi la correggi.</p>
+                    <p class="text-neutral-300 text-sm mb-2">❌ <strong class="text-amber-400">3. Ignorare il relatore:</strong> Non sparire. Aggiornalo costantemente.</p>
+                    <p class="text-neutral-300 text-sm mb-2">❌ <strong class="text-amber-400">4. Saltare l'anti-plagio:</strong> Il software dell'università ti sgamerebbe subito.</p>
+                    <p class="text-neutral-300 text-sm">❌ <strong class="text-amber-400">5. Non salvare il lavoro:</strong> Usa Google Docs o salva su cloud. Il PC si rompe sempre al momento sbagliato.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 43: Checklist Finale Completa -->
+        <div class="page" data-page="43">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Checklist Finale</span>
+                <div class="time-badge">⏱️ Tempo stimato: 10 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">✅ Checklist Finale Completa</h2>
+                <p class="text-neutral-300 leading-relaxed mb-4">Spunta ogni voce. Se tutte sono spuntate, sei pronto per la consegna.</p>
+                
+                <div class="bg-neutral-800 rounded-lg p-5 space-y-2">
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho l'indice completo e approvato</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho il database fonti con almeno 20 fonti</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto tutti i capitoli</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho fatto l'editing completo</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho formattato le citazioni correttamente</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho preparato le slide</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho scritto il discorso da 5 minuti</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho preparato le risposte alle domande killer</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho fatto il controllo anti-plagio</span></label>
+                    <label class="checklist-item flex items-start gap-3 cursor-pointer"><input type="checkbox" class="mt-1 accent-amber-500"><span class="text-neutral-200 text-sm">Ho stampato le copie richieste</span></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 44: Consigli del Relatore -->
+        <div class="page" data-page="44">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 10 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">💡 Consigli dai Relatori Veri</h2>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <p class="text-neutral-300 text-sm mb-2">"Le tesi migliori sono quelle che rispondono a una domanda chiara. Se non sai qual è la tua domanda, non puoi scrivere una buona tesi." — <em>Prof. Rossi, Economia</em></p>
+                    <p class="text-neutral-300 text-sm mb-2">"Non copiate. Mai. Vi sgamiamo sempre. E quando vi sgamiamo, è finita." — <em>Prof.ssa Bianchi, Lettere</em></p>
+                    <p class="text-neutral-300 text-sm mb-2">"Il relatore vuole vedervi laureare. Non siamo lì per bocciarvi. Siamo lì per aiutarvi a fare un buon lavoro." — <em>Prof. Verdi, Ingegneria</em></p>
+                    <p class="text-neutral-300 text-sm">"La formattazione è importante. Una tesi formattata male fa subito una brutta impressione." — <em>Prof.ssa Neri, Psicologia</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 45: Template Comunicazione Relatore -->
+        <div class="page" data-page="45">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">📧 Template Comunicazione con il Relatore</h2>
+                
+                <div class="step-box">
+                    <p class="label">📋 TEMPLATE EMAIL</p>
+                    <p class="text-neutral-300 text-sm mt-2">Clicca sul box per copiare il template:</p>
+                </div>
+
+                <div class="prompt-box bg-neutral-800 border border-neutral-700 rounded-lg p-4" onclick="copyPrompt(this)">
+                    <pre class="text-neutral-200 text-sm whitespace-pre-wrap">Gentile Prof. [COGNOME],
+
+Le scrivo per aggiornarLa sullo stato della mia tesi su [ARGOMENTO].
+
+Progressi fatti:
+- [ELENCA 3 PROGRESSI]
+
+Prossimi passi:
+- [ELENCA 2-3 PROSSIMI PASSI]
+
+Avrei bisogno di un Suo feedback su: [DOMANDA SPECIFICA].
+
+Cordiali saluti,
+[NOME]</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 46: Come Chiedere Feedback -->
+        <div class="page" data-page="46">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 10 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🔄 Come Chiedere Feedback Utile</h2>
+                <p class="text-neutral-300 leading-relaxed mb-4">Non chiedere mai: "Cosa ne pensa della mia tesi?"</p>
+                <p class="text-neutral-300 leading-relaxed mb-4">Chiedi invece: "Nel capitolo X, la mia argomentazione sul punto Y è convincente? Dove potrei rafforzarla?"</p>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">✅ Domande di Feedback Efficaci</h3>
+                    <p class="text-neutral-300 text-sm mb-2">1. "La struttura del capitolo X è logica?"</p>
+                    <p class="text-neutral-300 text-sm mb-2">2. "Le fonti che ho usato nel capitolo Y sono adeguate?"</p>
+                    <p class="text-neutral-300 text-sm mb-2">3. "L'introduzione è abbastanza coinvolgente?"</p>
+                    <p class="text-neutral-300 text-sm">4. "C'è qualche sezione che dovrei eliminare o espandere?"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 47: Gestione Stress Pre-Discussione -->
+        <div class="page" data-page="47">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 15 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">🧘 Gestione dello Stress Pre-Discussione</h2>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">🫁 Tecniche di Respirazione</h3>
+                    <p class="text-neutral-300 text-sm mb-2"><strong class="text-amber-400">Tecnica 4-7-8:</strong></p>
+                    <p class="text-neutral-300 text-sm mb-2">1. Inspira dal naso per 4 secondi</p>
+                    <p class="text-neutral-300 text-sm mb-2">2. Trattieni il respiro per 7 secondi</p>
+                    <p class="text-neutral-300 text-sm mb-2">3. Espira dalla bocca per 8 secondi</p>
+                    <p class="text-neutral-300 text-sm">4. Ripeti 4 volte</p>
+                </div>
+
+                <div class="card bg-neutral-800 rounded-lg p-5">
+                    <h3 class="heading-font font-bold text-lg text-white mb-3">💪 Affermazioni Pre-Discussione</h3>
+                    <p class="text-neutral-300 text-sm mb-2">"Ho seguito il metodo."</p>
+                    <p class="text-neutral-300 text-sm mb-2">"Ho fatto il lavoro."</p>
+                    <p class="text-neutral-300 text-sm mb-2">"Sono l'esperto della mia tesi."</p>
+                    <p class="text-neutral-300 text-sm">"Il relatore vuole il mio successo."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 48: Cosa Fare il Giorno Prima -->
+        <div class="page" data-page="48">
+            <div class="max-w-2xl mx-auto px-4 py-8">
+                <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2">Risorse Extra</span>
+                <div class="time-badge">⏱️ Tempo stimato: 10 minuti</div>
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">📅 Cosa Fare il Giorno Prima</h2>
+                
+                <div class="card bg-neutral-800 rounded-lg p-5 mb-4">
+                    <p class="text-neutral-300 text-sm mb-2">✅ 1. Rileggi il riassunto di 1 pagina</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ 2. Prova il discorso una volta</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ 3. Prepara i vestiti</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ 4. Prepara la borsa (tesi stampata, acqua, penne)</p>
+                    <p class="text-neutral-300 text-sm mb-2">✅ 5. Vai a dormire presto</p>
+                    <p class="text-neutral-300 text-sm">❌ NON guardare la tesi per ore. Non serve.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 49: CONGRATULAZIONI -->
+        <div class="page" data-page="49">
+            <div class="max-w-2xl mx-auto px-4 py-8 text-center">
+                <div class="w-full h-48 bg-gradient-to-br from-amber-500/30 to-green-500/20 rounded-xl mb-8 flex items-center justify-center">
+                    <i data-lucide="trophy" style="width:80px;height:80px;color:#f59e0b"></i>
+                </div>
+                <h2 class="heading-font font-bold text-3xl text-white mb-4">🎉 CONGRATULAZIONI!</h2>
+                <p class="text-neutral-300 text-lg leading-relaxed mb-4">Se sei arrivato fin qui e hai seguito il metodo, hai la tua tesi pronta. Hai fatto in 14 giorni ciò che molti non fanno in 6 mesi.</p>
+                <p class="text-neutral-300 text-lg leading-relaxed mb-6">Hai seguito il metodo. Hai fatto il lavoro. Ora vai a prenderti il tuo 10 e lode.</p>
+                <div class="bg-amber-500 rounded-xl p-6 inline-block">
+                    <p class="heading-font font-bold text-black text-xl">🎓 La laurea è tua.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagina 50: CHIUSURA -->
+        <div class="page" data-page="50">
+            <div class="max-w-2xl mx-auto px-4 py-8 text-center">
+                <h2 class="heading-font font-bold text-2xl text-white mb-4">📖 Fine del Metodo</h2>
+                <p class="text-neutral-300 leading-relaxed mb-4">Questo metodo non funziona se lo leggi soltanto. Funziona se lo applichi.</p>
+                <p class="text-neutral-300 leading-relaxed mb-6">La differenza tra te e chi si laurea con 110 e lode non è l'intelligenza. È l'esecuzione.</p>
+                <div class="bg-amber-500 rounded-xl p-6 inline-block">
+                    <p class="heading-font font-bold text-black text-lg">🚀 Chiudi questo ebook e apri il documento. Ora.</p>
+                </div>
+            </div>
+        </div>
 
     </main>
 
+    <!-- ==================== JAVASCRIPT COMPLETO ==================== -->
     <script>
-        // ==================== DATI DELLE PAGINE ====================
-        const TOTAL_PAGES = 70;
+        const TOTAL_PAGES = 50;
         let currentPage = 1;
 
-        // Struttura dei moduli con lezioni aggiuntive
-        const modulesData = [
-            {
-                id: 'm1',
-                title: 'Modulo 1: Fondamenta e Struttura',
-                days: 'Giorno 1-2',
-                lessons: [
-                    {
-                        title: 'Il Paradosso della Perfezione',
-                        flash: 'La tesi perfetta è la tesi consegnata. Il resto è masturbazione intellettuale.',
-                        content: 'Blocchi perché punti alla tesi da 110 e lode. Smetti. Punti alla sufficienza dignitosa. La differenza tra un 100 e un 108 non la legge nessuno. Il relatore vuole solo vedere che hai capito il metodo.',
-                        prompt: 'Agisci come il mio supervisore di tesi spietato. Sto scrivendo una tesi su [ARGOMENTO]. Il mio relatore è [TIPO: pignolo/assente/pressante]. Dammi 3 obiezioni immediate che potrebbe farmi e come prevenirle. Non accettare scuse.',
-                        notebooklm: 'Carica il PDF della tua bozza (anche se è solo una pagina). Chiedi: "Dove sto procrastinando invece di argomentare?" L\'IA ti mostrerà i punti deboli in 30 secondi.',
-                        checklist: ['Ho definito l\'obiettivo minimo sindacale (es. 95/110)', 'Ho scritto la prima frase brutta della tesi', 'Ho impostato un timer di 25 minuti'],
-                        quiz: { question: 'Qual è la prima cosa da fare quando senti panico da tesi?', options: ['Aspettare l\'ispirazione', 'Scrivere comunque, anche male', 'Cambiare argomento'], correct: 1 }
-                    },
-                    {
-                        title: 'Setting del Timer: 14 Giorni',
-                        flash: 'Il tempo non è il problema. La mancanza di deadline è il problema.',
-                        content: '14 giorni non sono un limite: sono il tuo migliore alleato. Ogni giorno senza scadenza è un giorno di procrastinazione. Dividi: 4 giorni per strutturare, 7 per scrivere, 3 per rifinire.',
-                        prompt: 'Crea un piano giornaliero di 14 giorni per scrivere una tesi su [ARGOMENTO]. So che ho solo 14 giorni. Dividi il lavoro in task specifici per ogni giorno. Ogni giorno deve avere un deliverable concreto. Sii brutale nella pianificazione.',
-                        notebooklm: 'Carica la tua bozza attuale e chiedi: "Genera un piano di lavoro per completare questa tesi in 14 giorni. Elenca le sezioni mancanti e il tempo stimato per ognuna."',
-                        checklist: ['Ho segnato la data di consegna sul calendario', 'Ho diviso i 14 giorni in 3 blocchi', 'Ho eliminato gli impegni non essenziali'],
-                        quiz: { question: 'Perché 14 giorni funzionano meglio di 3 mesi?', options: ['Perché il relatore preferisce tesi veloci', 'Perché non avrai tempo di scrivere abbastanza', 'Perché la deadline vicina elimina la procrastinazione'], correct: 2 }
-                    },
-                    {
-                        title: 'Gestione del Panico',
-                        flash: 'Il panico è il tuo corpo che ti dice che stai pensando troppo. Rispondi scrivendo una frase.',
-                        content: 'Quando il panico arriva, non scappare. Trasformalo in azione meccanica. Apri il documento. Scrivi una frase stupida. Poi un\'altra. Il panico muore quando le dita si muovono.',
-                        prompt: 'Sono in panico per la mia tesi su [ARGOMENTO]. Non riesco ad andare avanti. Fammi 3 domande semplici a cui posso rispondere subito senza pensare. Poi trasformale in un paragrafo introduttivo.',
-                        notebooklm: 'Apri NotebookLM e carica un articolo qualsiasi sul tuo argomento. Chiedi: "Riassumi questo in 5 punti semplici." Usa quei punti come scheletro per il paragrafo.',
-                        checklist: ['Ho aperto il documento anche se non avevo voglia', 'Ho scritto almeno 3 frasi, anche brutte', 'Ho chiesto aiuto a NotebookLM invece di bloccarmi'],
-                        quiz: { question: 'Cosa fare quando il panico ti blocca davanti allo schermo?', options: ['Scrivere una frase qualsiasi per rompere il ghiaccio', 'Chiudere il computer e riprovare domani', 'Cercare ispirazione sui social'], correct: 0 }
-                    }
-                ]
-            },
-            // Altri moduli verrebbero aggiunti qui...
-        ];
-
-        // TocData completo per l'indice
+        // Dati per l'indice
         const tocData = [
             {page:1,label:'Copertina'},
             {page:2,label:'Leggenda: Come Usare la Guida'},
             {page:3,label:'Leggenda: NotebookLM Step-by-Step'},
             {page:4,label:'Leggenda: Google Scholar Step-by-Step'},
             {page:5,label:'Setup Ambiente (Zero Distrazioni)'},
-            {page:6,label:'Mindset: Scardinare Credenze'},
-            {page:7,label:'Mindset: Trasformazione Garantita'},
+            {page:6,label:'Mindset: Lezione Audio'},
+            {page:7,label:'Mindset: Scardinare Credenze'},
             {page:8,label:'Brainstorming: Scegliere Argomento'},
             {page:9,label:'Brainstorming: Trovare il Gap'},
-            // Moduli 1-7 con lezioni...
+            {page:10,label:'M1: Briefing Fondamenta'},
+            {page:11,label:'M1: Paradosso della Perfezione'},
+            {page:12,label:'M1: Timer 14 Giorni'},
+            {page:13,label:'M1: Gestione del Panico'},
+            {page:14,label:'M2: Briefing Ricerca Fonti'},
+            {page:15,label:'M2: Google Scholar Avanzato'},
+            {page:16,label:'M2: Scrematura Veloce'},
+            {page:17,label:'M2: Database Fonti'},
+            {page:18,label:'M2: Organizzazione NotebookLM'},
+            {page:19,label:'M2: Riepilogo'},
+            {page:20,label:'M3: Briefing Scrittura'},
+            {page:21,label:'M3: Metodo Pezzo per Pezzo'},
+            {page:22,label:'M3: 10 Pagine al Giorno'},
+            {page:23,label:'M3: Superare Pagina Bianca'},
+            {page:24,label:'M3: Struttura Capitolo'},
+            {page:25,label:'M3: Riepilogo'},
+            {page:26,label:'M4: Briefing Editing'},
+            {page:27,label:'M4: Editing Anti-Professore'},
+            {page:28,label:'M4: Formattazione Automatica'},
+            {page:29,label:'M4: Checklist Citazioni'},
+            {page:30,label:'M4: Revisione Finale'},
+            {page:31,label:'M5: Briefing Presentazione'},
+            {page:32,label:'M5: Slide Minimali'},
+            {page:33,label:'M5: Discorso 5 Minuti'},
+            {page:34,label:'M5: Domande Killer'},
+            {page:35,label:'M6: Briefing Rifiniture'},
+            {page:36,label:'M6: Anti-Plagio'},
+            {page:37,label:'M6: Stampa e Burocrazia'},
+            {page:38,label:'M7: Briefing Consegna'},
+            {page:39,label:'M7: Post-Consegna'},
+            {page:40,label:'M7: Giorno Discussione'},
+            {page:41,label:'FAQ'},
+            {page:42,label:'Errori da Evitare'},
+            {page:43,label:'Checklist Finale Completa'},
+            {page:44,label:'Consigli dai Relatori'},
+            {page:45,label:'Template Email Relatore'},
+            {page:46,label:'Come Chiedere Feedback'},
+            {page:47,label:'Gestione Stress'},
+            {page:48,label:'Cosa Fare il Giorno Prima'},
+            {page:49,label:'Congratulazioni'},
+            {page:50,label:'Chiusura'}
         ];
 
-        // ==================== FUNZIONI JS ====================
         function init() {
             buildTOC();
             loadChecks();
@@ -523,16 +2181,10 @@
 
         function buildTOC() {
             const list = document.getElementById('toc-list');
-            const coverToc = document.getElementById('cover-toc');
             tocData.forEach(item => {
                 const li = document.createElement('li');
-                li.innerHTML = `<button class="w-full text-left py-2 px-3 rounded hover:bg-neutral-800 text-neutral-300 hover:text-amber-400 transition" onclick="goToPage(${item.page})">${item.label}</button>`;
+                li.innerHTML = `<button class="w-full text-left py-2 px-3 rounded hover:bg-neutral-800 text-neutral-300 hover:text-amber-400 transition text-sm" onclick="goToPage(${item.page})">${item.label}</button>`;
                 list.appendChild(li);
-                if (coverToc) {
-                    const coverLi = document.createElement('li');
-                    coverLi.innerHTML = `<button class="w-full text-left py-1 px-2 rounded hover:bg-neutral-700 text-neutral-400 hover:text-amber-400 transition" onclick="goToPage(${item.page})">${item.label}</button>`;
-                    coverToc.appendChild(coverLi);
-                }
             });
         }
 
@@ -583,13 +2235,21 @@
         }
 
         function loadChecks() {
-            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(cb => {
-                const key = 'tesi_' + Math.random().toString(36).substr(2, 5);
+            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach((cb, index) => {
+                const key = 'tesi_check_' + index;
                 cb.checked = localStorage.getItem(key) === '1';
                 cb.addEventListener('change', () => {
                     localStorage.setItem(key, cb.checked ? '1' : '0');
                 });
             });
+        }
+
+        function playAudioMindset() {
+            alert('🎧 Lezione Audio Mindset\n\n[NOTA: Inserisci qui il tuo file audio MP3]\n\nDurata: 8 minuti\n\nNella versione finale, questo pulsante riprodurrà il file audio caricato.');
+        }
+
+        function playAudioBriefing(modulo) {
+            alert('🎧 Briefing Modulo ' + modulo + '\n\n[NOTA: Inserisci qui il tuo file audio MP3]\n\nNella versione finale, questo pulsante riprodurrà il briefing audio del modulo.');
         }
 
         document.addEventListener('DOMContentLoaded', init);
