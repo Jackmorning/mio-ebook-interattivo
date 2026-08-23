@@ -2243,24 +2243,24 @@ Cordiali saluti,
                 });
             });
         }
-        // ==================== PLAYER AUDIO SEMPLICE ====================
+        // ==================== PLAYER AUDIO CON DEBUG ====================
         let currentAudio = null;
+        let currentAudioId = null;
+
+        function log(msg) {
+            console.log("[AUDIO DEBUG]", msg);
+        }
 
         function playAudioMindset() {
+            log("=== CLICK SU MINDSET ===");
             const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
-            
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-            
-            currentAudio = new Audio(audioUrl);
-            currentAudio.play().catch(function(err) {
-                console.log("Errore:", err);
-            });
+            log("URL: " + audioUrl);
+            toggleAudio(audioUrl, 'mindset');
         }
 
         function playAudioBriefing(modulo) {
+            log("=== CLICK SU MODULO " + modulo + " ===");
+            
             const files = {
                 1: "briefing-modulo-1-fondamenta.mp3",
                 2: "briefing-modulo-2-ricerca.mp3",
@@ -2272,22 +2272,121 @@ Cordiali saluti,
             };
 
             const fileName = files[modulo];
-            if (!fileName) return;
+            log("Nome file: " + fileName);
+            
+            if (!fileName) {
+                log("ERRORE: Nessun file trovato per modulo " + modulo);
+                return;
+            }
 
             const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/" + fileName;
+            log("URL completo: " + audioUrl);
             
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-            
-            currentAudio = new Audio(audioUrl);
-            currentAudio.play().catch(function(err) {
-                console.log("Errore:", err);
-            });
+            toggleAudio(audioUrl, 'modulo-' + modulo);
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        function toggleAudio(url, id) {
+            log("--- TOGGLE AUDIO ---");
+            log("ID: " + id);
+            log("URL: " + url);
+            
+            // Se c'è già un audio in riproduzione
+            if (currentAudio) {
+                log("C'è un audio precedente. Lo fermo.");
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+                currentAudioId = null;
+            }
+
+            // Creo il nuovo audio
+            log("Creo nuovo oggetto Audio...");
+            const audio = new Audio();
+            audio.src = url;
+            audio.preload = "auto";
+            
+            log("Oggetto Audio creato");
+            log("src: " + audio.src);
+            
+            currentAudio = audio;
+            currentAudioId = id;
+
+            // Provo a riprodurre
+            log("Provo a riprodurre...");
+            
+            audio.play()
+                .then(() => {
+                    log("✅ RIPRODUZIONE INIZIATA CORRETTAMENTE");
+                    log("Durata: " + audio.duration + " secondi");
+                })
+                .catch(err => {
+                    log("❌ ERRORE RIPRODUZIONE:");
+                    log("Messaggio: " + err.message);
+                    log("Nome errore: " + err.name);
+                    log("Errore completo: " + JSON.stringify(err));
+                    
+                    // Provo a ricaricare l'audio
+                    log("Riprovo con un nuovo Audio()...");
+                    const audio2 = new Audio(url);
+                    currentAudio = audio2;
+                    audio2.play()
+                        .then(() => {
+                            log("✅ SECONDO TENTATIVO RIUSCITO");
+                        })
+                        .catch(err2 => {
+                            log("❌ ANCHE IL SECONDO TENTATIVO HA FALLITO");
+                            log("Errore 2: " + err2.message);
+                        });
+                });
+
+            // Eventi audio
+            audio.onloadedmetadata = function() {
+                log("📊 METADATI CARICATI. Durata: " + audio.duration + "s");
+            };
+
+            audio.oncanplay = function() {
+                log("✅ AUDIO PRONTO PER LA RIPRODUZIONE");
+            };
+
+            audio.onerror = function() {
+                log("❌ ERRORE CARICAMENTO AUDIO");
+                log("Error code: " + audio.error.code);
+                log("Error message: " + audio.error.message);
+            };
+
+            audio.onended = function() {
+                log("🏁 AUDIO FINITO");
+                currentAudio = null;
+                currentAudioId = null;
+            };
+
+            audio.onpause = function() {
+                log("⏸️ AUDIO IN PAUSA");
+            };
+
+            audio.onplay = function() {
+                log("▶️ AUDIO IN RIPRODUZIONE");
+            };
+        }
+
+        function stopAudio() {
+            log("=== STOP AUDIO ===");
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                log("Audio fermato");
+                currentAudio = null;
+                currentAudioId = null;
+            } else {
+                log("Nessun audio da fermare");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            log("=== DOM CARICATO ===");
+            log("Funzioni audio pronte");
+            init();
+        });
     </script>
 </body>
 </html>
