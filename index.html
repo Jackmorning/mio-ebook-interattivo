@@ -2243,20 +2243,29 @@ Cordiali saluti,
                 });
             });
         }
+        // ==================== PLAYER AUDIO CORRETTO ====================
+        let currentAudio = null;
 
-function playAudioMindset() {
+        function playAudioMindset() {
             const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
+            
+            // Ferma audio precedente
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            
             const player = new Audio(audioUrl);
+            currentAudio = player;
             player.play().catch(err => console.log("Errore riproduzione:", err));
         }
 
         function playAudioBriefing(modulo) {
-            // Mappa i moduli ai rispettivi nomi di file esatti basati sui tuoi nuovi link
             const files = {
                 1: "briefing-modulo-1-fondamenta.mp3",
                 2: "briefing-modulo-2-ricerca.mp3",
                 3: "briefing-modulo-3-scrittura.mp3",
-                4: "briefing-modulo-4-editing.mp3", // (anche se manca nei link, lo lasciamo pronto nel caso lo carichi)
+                4: "briefing-modulo-4-editing.mp3",
                 5: "briefing-modulo-5-presentazione.mp3",
                 6: "briefing-modulo-6-rifiniture.mp3",
                 7: "briefing-modulo-7-consegna.mp3"
@@ -2265,10 +2274,25 @@ function playAudioMindset() {
             const fileName = files[modulo];
             if (!fileName) return;
 
-            // Il percorso ora punta direttamente dentro "Tesi Flash/" senza sottocartelle
+            // Ferma audio precedente
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+
+            // Il percorso punta a Tesi Flash/ senza sottocartelle
             const audioUrl = `https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/${fileName}`;
             const player = new Audio(audioUrl);
+            currentAudio = player;
             player.play().catch(err => console.log("Errore riproduzione:", err));
+        }
+
+        function stopAudio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', init);
