@@ -2243,7 +2243,7 @@ Cordiali saluti,
                 });
             });
         }
-         // ==================== PLAYER AUDIO COMPLETO ====================
+        // ==================== PLAYER AUDIO COMPLETO ====================
         let currentAudio = null;
         let currentAudioId = null;
 
@@ -2266,7 +2266,7 @@ Cordiali saluti,
             const fileName = files[modulo];
             if (!fileName) return;
 
-            const audioUrl = `https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/${fileName}`;
+            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/" + fileName;
             toggleAudio(audioUrl, 'modulo-' + modulo);
         }
 
@@ -2276,14 +2276,12 @@ Cordiali saluti,
             // Se clicco sullo stesso audio
             if (currentAudioId === id && currentAudio) {
                 if (currentAudio.paused) {
-                    // Riprendi
                     currentAudio.play();
                     if (clickedBox) {
                         clickedBox.classList.add('active');
                         clickedBox.classList.remove('paused', 'stopped');
                     }
                 } else {
-                    // Pausa
                     currentAudio.pause();
                     if (clickedBox) {
                         clickedBox.classList.add('paused');
