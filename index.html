@@ -2244,12 +2244,30 @@ Cordiali saluti,
             });
         }
 
-        function playAudioMindset() {
-            alert('🎧 Lezione Audio Mindset\n\n[NOTA: Inserisci qui il tuo file audio MP3]\n\nDurata: 8 minuti\n\nNella versione finale, questo pulsante riprodurrà il file audio caricato.');
+function playAudioMindset() {
+            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio/mindset-lezione-audio.mp3";
+            const player = new Audio(audioUrl);
+            player.play().catch(err => console.log("Errore riproduzione:", err));
         }
 
         function playAudioBriefing(modulo) {
-            alert('🎧 Briefing Modulo ' + modulo + '\n\n[NOTA: Inserisci qui il tuo file audio MP3]\n\nNella versione finale, questo pulsante riprodurrà il briefing audio del modulo.');
+            // Mappa i moduli ai rispettivi nomi di file esatti che hai caricato
+            const files = {
+                1: "briefing-modulo-1-fondamenta.mp3",
+                2: "briefing-modulo-2-ricerca.mp3",
+                3: "briefing-modulo-3-scrittura.mp3",
+                4: "briefing-modulo-4-editing.mp3",
+                5: "briefing-modulo-5-presentazione.mp3",
+                6: "briefing-modulo-6-rifiniture.mp3",
+                7: "briefing-modulo-7-consegna.mp3"
+            };
+
+            const fileName = files[modulo];
+            if (!fileName) return;
+
+            const audioUrl = `https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/audio%20modulo%20${modulo}/${fileName}`;
+            const player = new Audio(audioUrl);
+            player.play().catch(err => console.log("Errore riproduzione:", err));
         }
 
         document.addEventListener('DOMContentLoaded', init);
