@@ -37,6 +37,30 @@
         .audio-box { border: 1px solid #f59e0b; background: rgba(245,158,11,0.05); border-radius: 8px; padding: 16px; margin: 16px 0; cursor: pointer; }
         .audio-box .label { color: #fbbf24; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
         .time-badge { display: inline-block; background: rgba(245,158,11,0.2); color: #fbbf24; font-size: 0.75em; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; }
+
+        /* ==================== PLAYER AUDIO CONTROLS ==================== */
+    .audio-box.active {
+        border-color: #22c55e !important;
+        background: rgba(34,197,94,0.1) !important;
+    }
+    
+    .audio-box.paused {
+        border-color: #f59e0b !important;
+        background: rgba(245,158,11,0.1) !important;
+    }
+    
+    .audio-box.error {
+        border-color: #ef4444 !important;
+        background: rgba(239,68,68,0.1) !important;
+    }
+    
+    .audio-progress-bar {
+        cursor: pointer;
+    }
+    
+    .audio-progress-fill {
+        transition: width 0.3s ease;
+    }    
     </style>
 </head>
 <body class="min-h-screen w-full">
