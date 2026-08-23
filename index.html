@@ -2243,13 +2243,14 @@ Cordiali saluti,
                 });
             });
         }
-        // ==================== PLAYER AUDIO COMPLETO ====================
+        // ==================== PLAYER AUDIO CON PROXY ====================
         let currentAudio = null;
         let currentAudioId = null;
 
         function playAudioMindset() {
-            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
-            toggleAudio(audioUrl, 'mindset');
+            const fileUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
+            const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(fileUrl);
+            toggleAudio(proxyUrl, 'mindset');
         }
 
         function playAudioBriefing(modulo) {
@@ -2266,8 +2267,9 @@ Cordiali saluti,
             const fileName = files[modulo];
             if (!fileName) return;
 
-            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/" + fileName;
-            toggleAudio(audioUrl, 'modulo-' + modulo);
+            const fileUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/" + fileName;
+            const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(fileUrl);
+            toggleAudio(proxyUrl, 'modulo-' + modulo);
         }
 
         function toggleAudio(url, id) {
@@ -2308,7 +2310,10 @@ Cordiali saluti,
             }
 
             // Crea il nuovo audio
-            const audio = new Audio(url);
+            const audio = new Audio();
+            audio.src = url;
+            audio.preload = "auto";
+            
             currentAudio = audio;
             currentAudioId = id;
 
@@ -2324,7 +2329,7 @@ Cordiali saluti,
                     clickedBox.classList.remove('loading');
                     clickedBox.classList.add('stopped');
                 }
-                alert("Errore nella riproduzione audio. Verifica il link.");
+                alert("Errore riproduzione audio: " + err.message);
             });
 
             // Quando l'audio finisce
@@ -2336,7 +2341,7 @@ Cordiali saluti,
                 currentAudioId = null;
             };
 
-            // Se l'utente mette in pausa manualmente
+            // Pausa manuale
             audio.onpause = function() {
                 if (clickedBox) {
                     clickedBox.classList.remove('active', 'loading');
@@ -2344,7 +2349,7 @@ Cordiali saluti,
                 }
             };
 
-            // Se l'utente riprende manualmente
+            // Ripresa manuale
             audio.onplay = function() {
                 if (clickedBox) {
                     clickedBox.classList.remove('paused', 'stopped', 'loading');
