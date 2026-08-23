@@ -2245,18 +2245,18 @@ Cordiali saluti,
         }
 
 function playAudioMindset() {
-            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio/mindset-lezione-audio.mp3";
+            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
             const player = new Audio(audioUrl);
             player.play().catch(err => console.log("Errore riproduzione:", err));
         }
 
         function playAudioBriefing(modulo) {
-            // Mappa i moduli ai rispettivi nomi di file esatti che hai caricato
+            // Mappa i moduli ai rispettivi nomi di file esatti basati sui tuoi nuovi link
             const files = {
                 1: "briefing-modulo-1-fondamenta.mp3",
                 2: "briefing-modulo-2-ricerca.mp3",
                 3: "briefing-modulo-3-scrittura.mp3",
-                4: "briefing-modulo-4-editing.mp3",
+                4: "briefing-modulo-4-editing.mp3", // (anche se manca nei link, lo lasciamo pronto nel caso lo carichi)
                 5: "briefing-modulo-5-presentazione.mp3",
                 6: "briefing-modulo-6-rifiniture.mp3",
                 7: "briefing-modulo-7-consegna.mp3"
@@ -2265,7 +2265,8 @@ function playAudioMindset() {
             const fileName = files[modulo];
             if (!fileName) return;
 
-            const audioUrl = `https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/audio%20modulo%20${modulo}/${fileName}`;
+            // Il percorso ora punta direttamente dentro "Tesi Flash/" senza sottocartelle
+            const audioUrl = `https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/${fileName}`;
             const player = new Audio(audioUrl);
             player.play().catch(err => console.log("Errore riproduzione:", err));
         }
