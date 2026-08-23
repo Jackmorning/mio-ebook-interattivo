@@ -2243,9 +2243,10 @@ Cordiali saluti,
                 });
             });
         }
-        // ==================== PLAYER AUDIO FINALE ====================
+        // ==================== PLAYER AUDIO AVANZATO ====================
         let currentAudio = null;
         let currentAudioId = null;
+        let currentAudioButton = null;
 
         function log(msg) {
             console.log("[AUDIO]", msg);
@@ -2257,7 +2258,6 @@ Cordiali saluti,
         }
 
         function playAudioBriefing(modulo) {
-            // Converte 'm4' in 4
             if (typeof modulo === 'string') {
                 modulo = parseInt(modulo.replace('m', ''));
             }
@@ -2280,12 +2280,16 @@ Cordiali saluti,
         }
 
         function toggleAudio(url, id) {
-            // Se clicco sullo stesso audio
+            const clickedBox = event.target.closest('.audio-box');
+            
+            // Se clicco sullo stesso audio → PLAY/PAUSA
             if (currentAudioId === id && currentAudio) {
                 if (currentAudio.paused) {
                     currentAudio.play();
+                    updateAudioUI(clickedBox, 'playing');
                 } else {
                     currentAudio.pause();
+                    updateAudioUI(clickedBox, 'paused');
                 }
                 return;
             }
@@ -2296,30 +2300,157 @@ Cordiali saluti,
                 currentAudio.currentTime = 0;
                 currentAudio = null;
                 currentAudioId = null;
+                if (currentAudioButton) {
+                    resetAudioBox(currentAudioButton);
+                }
             }
 
             // Crea nuovo audio
             const audio = new Audio(url);
             currentAudio = audio;
             currentAudioId = id;
+            currentAudioButton = clickedBox;
 
-            audio.play().catch(err => {
+            // Mostra UI di caricamento
+            if (clickedBox) {
+                showAudioControls(clickedBox);
+            }
+
+            // Riproduci
+            audio.play().then(() => {
+                updateAudioUI(clickedBox, 'playing');
+            }).catch(err => {
                 console.log("Errore:", err.message);
+                updateAudioUI(clickedBox, 'error');
             });
 
+            // Aggiorna barra di avanzamento
+            audio.ontimeupdate = function() {
+                updateProgressBar(clickedBox, audio.currentTime, audio.duration);
+            };
+
+            // Quando l'audio finisce
             audio.onended = function() {
+                updateAudioUI(clickedBox, 'ended');
                 currentAudio = null;
                 currentAudioId = null;
+                currentAudioButton = null;
             };
         }
 
-        function stopAudio() {
+        // Mostra i controlli nel box audio
+        function showAudioControls(box) {
+            if (!box) return;
+            box.innerHTML = `
+                <p class="label">🎧 PLAYER AUDIO</p>
+                <div class="audio-progress-bar" style="width:100%; height:6px; background:#333; border-radius:3px; margin:10px 0; cursor:pointer;">
+                    <div class="audio-progress-fill" style="width:0%; height:100%; background:#f59e0b; border-radius:3px; transition:width 0.3s;"></div>
+                </div>
+                <div class="audio-time-display" style="font-size:0.75em; color:#999; text-align:center;">
+                    0:00 / 0:00
+                </div>
+                <div style="display:flex; gap:8px; justify-content:center; margin-top:10px;">
+                    <button onclick="event.stopPropagation(); rewindAudio(15);" style="padding:8px 12px; background:#333; color:#fff; border-radius:6px; font-size:0.8em;">⏪ -15s</button>
+                    <button onclick="event.stopPropagation(); togglePlayPause();" style="padding:8px 12px; background:#f59e0b; color:#000; border-radius:6px; font-size:0.8em; font-weight:bold;">⏸️ PAUSA</button>
+                    <button onclick="event.stopPropagation(); forwardAudio(15);" style="padding:8px 12px; background:#333; color:#fff; border-radius:6px; font-size:0.8em;">+15s ⏩</button>
+                    <button onclick="event.stopPropagation(); restartAudio();" style="padding:8px 12px; background:#333; color:#fff; border-radius:6px; font-size:0.8em;">🔄</button>
+                    <button onclick="event.stopPropagation(); stopAudioFromBox();" style="padding:8px 12px; background:#ef4444; color:#fff; border-radius:6px; font-size:0.8em;">⏹️ STOP</button>
+                </div>
+            `;
+        }
+
+        // Aggiorna la barra di avanzamento
+        function updateProgressBar(box, currentTime, duration) {
+            if (!box) return;
+            const fill = box.querySelector('.audio-progress-fill');
+            const display = box.querySelector('.audio-time-display');
+            if (fill && display && duration) {
+                const percent = (currentTime / duration) * 100;
+                fill.style.width = percent + '%';
+                display.textContent = formatTime(currentTime) + ' / ' + formatTime(duration);
+            }
+        }
+
+        // Formatta il tempo in mm:ss
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
+        }
+
+        // Aggiorna lo stato visivo del box
+        function updateAudioUI(box, state) {
+            if (!box) return;
+            if (state === 'playing') {
+                box.classList.add('active');
+                box.classList.remove('paused', 'error');
+            } else if (state === 'paused') {
+                box.classList.add('paused');
+                box.classList.remove('active', 'error');
+            } else if (state === 'error') {
+                box.classList.add('error');
+                box.classList.remove('active', 'paused');
+            } else if (state === 'ended') {
+                box.classList.remove('active', 'paused', 'error');
+            }
+        }
+
+        // Reset del box audio
+        function resetAudioBox(box) {
+            if (!box) return;
+            box.innerHTML = `
+                <p class="label">▶️ RIPRODUCI AUDIO</p>
+                <p class="text-neutral-300 text-sm mt-2">🎧 Clicca per ascoltare</p>
+            `;
+            box.classList.remove('active', 'paused', 'error');
+        }
+
+        // Controlli audio
+        function togglePlayPause() {
+            if (currentAudio) {
+                if (currentAudio.paused) {
+                    currentAudio.play();
+                    updateAudioUI(currentAudioButton, 'playing');
+                } else {
+                    currentAudio.pause();
+                    updateAudioUI(currentAudioButton, 'paused');
+                }
+            }
+        }
+
+        function rewindAudio(seconds) {
+            if (currentAudio) {
+                currentAudio.currentTime = Math.max(0, currentAudio.currentTime - seconds);
+            }
+        }
+
+        function forwardAudio(seconds) {
+            if (currentAudio) {
+                currentAudio.currentTime = Math.min(currentAudio.duration, currentAudio.currentTime + seconds);
+            }
+        }
+
+        function restartAudio() {
+            if (currentAudio) {
+                currentAudio.currentTime = 0;
+                currentAudio.play();
+                updateAudioUI(currentAudioButton, 'playing');
+            }
+        }
+
+        function stopAudioFromBox() {
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
+                resetAudioBox(currentAudioButton);
                 currentAudio = null;
                 currentAudioId = null;
+                currentAudioButton = null;
             }
+        }
+
+        function stopAudio() {
+            stopAudioFromBox();
         }
 
         document.addEventListener('DOMContentLoaded', init);
