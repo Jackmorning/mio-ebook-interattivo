@@ -2243,14 +2243,21 @@ Cordiali saluti,
                 });
             });
         }
-        // ==================== PLAYER AUDIO CON PROXY ====================
+        // ==================== PLAYER AUDIO SEMPLICE ====================
         let currentAudio = null;
-        let currentAudioId = null;
 
         function playAudioMindset() {
-            const fileUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
-            const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(fileUrl);
-            toggleAudio(proxyUrl, 'mindset');
+            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/mindset-lezione-audio.mp3";
+            
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+            
+            currentAudio = new Audio(audioUrl);
+            currentAudio.play().catch(function(err) {
+                console.log("Errore:", err);
+            });
         }
 
         function playAudioBriefing(modulo) {
@@ -2267,108 +2274,17 @@ Cordiali saluti,
             const fileName = files[modulo];
             if (!fileName) return;
 
-            const fileUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/" + fileName;
-            const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(fileUrl);
-            toggleAudio(proxyUrl, 'modulo-' + modulo);
-        }
-
-        function toggleAudio(url, id) {
-            const clickedBox = event.target.closest('.audio-box');
+            const audioUrl = "https://pub-d611435da0cf421f9f7a107897ba5dd0.r2.dev/Tesi%20Flash/" + fileName;
             
-            // Se clicco sullo stesso audio
-            if (currentAudioId === id && currentAudio) {
-                if (currentAudio.paused) {
-                    currentAudio.play();
-                    if (clickedBox) {
-                        clickedBox.classList.add('active');
-                        clickedBox.classList.remove('paused', 'stopped');
-                    }
-                } else {
-                    currentAudio.pause();
-                    if (clickedBox) {
-                        clickedBox.classList.add('paused');
-                        clickedBox.classList.remove('active', 'stopped');
-                    }
-                }
-                return;
-            }
-
-            // Ferma l'audio precedente
             if (currentAudio) {
                 currentAudio.pause();
-                currentAudio.currentTime = 0;
                 currentAudio = null;
-                currentAudioId = null;
-                document.querySelectorAll('.audio-box').forEach(b => {
-                    b.classList.remove('active', 'paused', 'loading', 'stopped');
-                });
             }
-
-            // Mostra stato di caricamento
-            if (clickedBox) {
-                clickedBox.classList.add('loading');
-            }
-
-            // Crea il nuovo audio
-            const audio = new Audio();
-            audio.src = url;
-            audio.preload = "auto";
             
-            currentAudio = audio;
-            currentAudioId = id;
-
-            // Riproduci
-            audio.play().then(() => {
-                if (clickedBox) {
-                    clickedBox.classList.remove('loading');
-                    clickedBox.classList.add('active');
-                }
-            }).catch(err => {
-                console.error("Errore riproduzione:", err);
-                if (clickedBox) {
-                    clickedBox.classList.remove('loading');
-                    clickedBox.classList.add('stopped');
-                }
-                alert("Errore riproduzione audio: " + err.message);
+            currentAudio = new Audio(audioUrl);
+            currentAudio.play().catch(function(err) {
+                console.log("Errore:", err);
             });
-
-            // Quando l'audio finisce
-            audio.onended = function() {
-                if (clickedBox) {
-                    clickedBox.classList.remove('active', 'paused', 'loading');
-                }
-                currentAudio = null;
-                currentAudioId = null;
-            };
-
-            // Pausa manuale
-            audio.onpause = function() {
-                if (clickedBox) {
-                    clickedBox.classList.remove('active', 'loading');
-                    clickedBox.classList.add('paused');
-                }
-            };
-
-            // Ripresa manuale
-            audio.onplay = function() {
-                if (clickedBox) {
-                    clickedBox.classList.remove('paused', 'stopped', 'loading');
-                    clickedBox.classList.add('active');
-                }
-            };
-        }
-
-        function stopAudio() {
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                currentAudio = null;
-                currentAudioId = null;
-                document.querySelectorAll('.audio-box').forEach(b => {
-                    b.classList.remove('active', 'paused', 'loading');
-                    b.classList.add('stopped');
-                });
-            }
         }
 
         document.addEventListener('DOMContentLoaded', init);
