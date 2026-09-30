@@ -2346,7 +2346,9 @@ Cordiali saluti,
                     </div>
                     <div class="flex items-center gap-2">
                         <label class="text-neutral-400 text-xs">Personalizzato:</label>
-                        <input type="number" id="quiz-num-custom" min="1" max="50" value="10" class="w-20 bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1 text-white text-xs focus:border-amber-500 focus:outline-none">
+                        <input type="number" id="quiz-num-custom" min="1" max="200" value="10"
+                               onkeydown="if(event.key==='Enter'){s83_setNumDomande(parseInt(this.value)||10);}"
+                               class="w-20 bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1 text-white text-xs focus:border-amber-500 focus:outline-none">
                         <button onclick="s83_setNumDomande(parseInt(document.getElementById('quiz-num-custom').value) || 10)" class="bg-amber-500 text-black font-bold text-xs px-3 py-1 rounded-lg hover:bg-amber-400 transition">OK</button>
                     </div>
                     <p class="text-neutral-500 text-[10px] mt-2" id="quiz-num-display">Domande selezionate: 10</p>
@@ -2595,6 +2597,8 @@ Cordiali saluti,
         if (modale) modale.style.display = 'none';
         const modaleQm = document.getElementById('s83-modal-qm');
         if (modaleQm) modaleQm.style.display = 'none';
+
+        s83_setNumDomande(10);
     }
 
     if (document.readyState === 'loading') {
@@ -2611,6 +2615,8 @@ Cordiali saluti,
         const caratteri = testo.length;
         const parole = testo ? testo.split(/\s+/).filter(w => w.length > 0).length : 0;
         contatore.textContent = caratteri + ' caratteri · ' + parole + ' parole';
+        // Aggiorna anche il conteggio delle domande disponibili
+        s83_aggiornaDisplayNumDomande();
     }
 
     // ============================================================
@@ -2924,6 +2930,7 @@ Cordiali saluti,
         document.getElementById('fc-domanda').value = '';
         document.getElementById('fc-risposta').value = '';
         s83_renderFlashcard();
+        s83_aggiornaDisplayNumDomande();
         s83_toast('➕ Flashcard aggiunta');
     }
     window.aggiungiFlashcard = s83_aggiungiFlashcard;
@@ -2965,6 +2972,7 @@ Cordiali saluti,
 
         s83_salvaFlashcard();
         s83_renderFlashcard();
+        s83_aggiornaDisplayNumDomande();
         s83_toast('🤖 Generate ' + generate + ' flashcard (' + scartate + ' frasi non adatte)');
     }
     window.generaFlashcardDaTesto = s83_generaFlashcardDaTesto;
@@ -3219,6 +3227,7 @@ Cordiali saluti,
         s83_flashcard = s83_flashcard.filter(f => f.id !== id);
         s83_salvaFlashcard();
         s83_renderFlashcard();
+        s83_aggiornaDisplayNumDomande();
     }
     window.rimuoviFlashcard = s83_rimuoviFlashcard;
 
@@ -3227,6 +3236,7 @@ Cordiali saluti,
             s83_flashcard = [];
             s83_salvaFlashcard();
             s83_renderFlashcard();
+            s83_aggiornaDisplayNumDomande();
         }
     }
     window.resetFlashcard = s83_resetFlashcard;
@@ -3384,26 +3394,65 @@ Cordiali saluti,
     let s83_numDomande = 10;
 
     function s83_setNumDomande(n) {
-        if (n < 1) n = 1;
-        if (n > 50) n = 50;
+        if (isNaN(n) || n < 1) n = 1;
+        if (n > 200) n = 200;
         s83_numDomande = n;
+
+        // Sincronizza TUTTI i pulsanti
         document.querySelectorAll('.s83-num-btn').forEach(btn => {
             const isAttivo = parseInt(btn.dataset.num) === n;
             btn.className = 's83-num-btn font-bold text-xs py-2 rounded-lg transition ' +
                 (isAttivo ? 'bg-amber-500 text-black' : 'bg-neutral-900 border border-neutral-700 text-neutral-300 hover:bg-neutral-700');
         });
-        const display = document.getElementById('quiz-num-display');
-        if (display) display.textContent = 'Domande selezionate: ' + n;
+
+        // Sincronizza il campo personalizzato
         const custom = document.getElementById('quiz-num-custom');
-        if (custom) custom.value = n;
+        if (custom && parseInt(custom.value) !== n) custom.value = n;
+
+        // Aggiorna il display
+        s83_aggiornaDisplayNumDomande();
     }
     window.s83_setNumDomande = s83_setNumDomande;
+
+    function s83_contaDomandeDisponibili() {
+        let totale = 0;
+
+        if (s83_flashcard.length >= 4) {
+            totale += s83_flashcard.length;
+        }
+
+        const editor = document.getElementById('testo-evidenzia');
+        if (editor) {
+            const testo = editor.innerText || editor.textContent || '';
+            const frasi = testo.split(/(?<=[.!?])\s+/).map(f => f.trim()).filter(f => f.length > 40 && f.length < 300);
+            totale += frasi.length;
+        }
+
+        return totale;
+    }
+    window.s83_contaDomandeDisponibili = s83_contaDomandeDisponibili;
+
+    function s83_aggiornaDisplayNumDomande() {
+        const display = document.getElementById('quiz-num-display');
+        if (!display) return;
+        const disponibili = s83_contaDomandeDisponibili();
+        if (s83_numDomande > disponibili) {
+            display.innerHTML = `⚠️ Hai chiesto <strong class="text-amber-400">${s83_numDomande}</strong> domande, ma al momento ne hai a disposizione solo <strong class="text-amber-400">${disponibili}</strong>. Verranno generate tutte quelle disponibili.`;
+            display.className = 'text-amber-400 text-[10px] mt-2';
+        } else {
+            display.innerHTML = `✅ Domande selezionate: <strong class="text-white">${s83_numDomande}</strong> (disponibili: ${disponibili})`;
+            display.className = 'text-neutral-500 text-[10px] mt-2';
+        }
+    }
+    window.s83_aggiornaDisplayNumDomande = s83_aggiornaDisplayNumDomande;
 
     function s83_generaDomandeQuiz() {
         const domande = [];
 
+        // A. Dalle flashcard — genera 1 domanda per ogni flashcard
         if (s83_flashcard.length >= 4) {
-            s83_flashcard.forEach(fc => {
+            const flashcardMescolate = [...s83_flashcard].sort(() => Math.random() - 0.5);
+            flashcardMescolate.forEach(fc => {
                 const altri = s83_flashcard.filter(f => f.id !== fc.id);
                 const distrattori = altri.sort(() => Math.random() - 0.5).slice(0, 3).map(f => f.risposta);
                 if (distrattori.length < 3) return;
@@ -3413,18 +3462,27 @@ Cordiali saluti,
             });
         }
 
+        // B. Dal testo — genera 1 domanda per OGNI frase significativa
         const editor = document.getElementById('testo-evidenzia');
         if (editor) {
             const testoIntero = editor.innerText || editor.textContent || '';
-            const frasi = testoIntero.split(/(?<=[.!?])\s+/).map(f => f.trim()).filter(f => f.length > 40 && f.length < 300);
-            frasi.slice(0, 10).forEach(frase => {
+            const frasi = testoIntero
+                .split(/(?<=[.!?])\s+/)
+                .map(f => f.trim())
+                .filter(f => f.length > 40 && f.length < 300);
+
+            const frasiMescolate = frasi.sort(() => Math.random() - 0.5);
+
+            frasiMescolate.forEach(frase => {
                 const parole = frase.split(' ');
                 if (parole.length < 10) return;
+
                 const taglio = Math.floor(parole.length * 0.6);
                 const primaParte = parole.slice(0, taglio).join(' ');
                 const parteMancante = parole.slice(taglio, taglio + 4).join(' ');
                 const resto = parole.slice(taglio + 4).join(' ');
                 if (parteMancante.length < 3) return;
+
                 const distrattori = ['nessuna delle precedenti', 'tutte le precedenti', 'non è specificato'];
                 const opzioni = [parteMancante, ...distrattori].sort(() => Math.random() - 0.5);
                 const corretta = opzioni.indexOf(parteMancante);
@@ -3432,8 +3490,8 @@ Cordiali saluti,
             });
         }
 
-        const mescolate = domande.sort(() => Math.random() - 0.5);
-        return mescolate.slice(0, s83_numDomande);
+        const tutteMescolate = domande.sort(() => Math.random() - 0.5);
+        return tutteMescolate.slice(0, s83_numDomande);
     }
 
     function s83_avviaQuiz() {
@@ -3442,6 +3500,15 @@ Cordiali saluti,
             alert('Non riesco a generare il quiz.\n\nPer creare un quiz hai bisogno di:\n• Almeno 4 flashcard\n• OPPURE del testo caricato nell\'area "Evidenzia"');
             return;
         }
+
+        if (domande.length < s83_numDomande) {
+            const continua = confirm(
+                `⚠️ Hai chiesto ${s83_numDomande} domande, ma al momento ne ho potute generare solo ${domande.length}.\n\n` +
+                `Vuoi continuare con ${domande.length} domande?`
+            );
+            if (!continua) return;
+        }
+
         s83_quizStato.domandeGenerate = domande;
         s83_quizStato.indice = 0;
         s83_quizStato.punteggio = 0;
@@ -3836,15 +3903,11 @@ Cordiali saluti,
         s83_resetStudio();
         s83_resetQuiz();
         s83_resetQuizManuale();
+        s83_aggiornaDisplayNumDomande();
 
         s83_toast('🗑️ Tutto pulito');
     }
     window.pulisciTutto = s83_pulisciTutto;
-
-    // Inizializza valore default numero domande
-    document.addEventListener('DOMContentLoaded', function() {
-        s83_setNumDomande(10);
-    });
 </script>
 
     </main>
