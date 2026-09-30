@@ -2135,7 +2135,7 @@ Cordiali saluti,
             </div>
         </div>
 
-        <!-- ========== PAGINA 83: STRUMENTI DI STUDIO ATTIVO ========== -->
+<!-- ========== PAGINA 83: STRUMENTI DI STUDIO ATTIVO ========== -->
 <div class="page" data-page="83">
     <div class="max-w-2xl mx-auto px-4 py-8">
         <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -2147,7 +2147,7 @@ Cordiali saluti,
         </h2>
 
         <p class="text-neutral-300 text-sm leading-relaxed mb-4">
-            Quattro strumenti integrati per trasformare la lettura passiva in <strong class="text-white">apprendimento attivo</strong>. Evidenzia, crea flashcard, studia con la ripetizione spaziata e mettiti alla prova con i quiz.
+            Quattro strumenti integrati per trasformare la lettura passiva in <strong class="text-white">apprendimento attivo</strong>.
         </p>
 
         <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6 flex items-center gap-3">
@@ -2172,38 +2172,35 @@ Cordiali saluti,
             </div>
         </div>
 
-        <!-- ============================================================
-             STRUMENTO 1: EVIDENZIA
-             ============================================================ -->
+        <!-- STRUMENTO 1: EVIDENZIA -->
         <div id="strumento-evidenzia" class="strumento-container bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="highlighter" style="width:20px;height:20px;"></i> Evidenzia il tuo materiale
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Seleziona il testo nell'area qui sotto e clicca "Evidenzia" (o usa il tasto destro) per salvare i punti chiave.</p>
+            <p class="text-neutral-400 text-xs mb-4">Seleziona il testo qui sotto e clicca "Evidenzia" per colorarlo. Le evidenziazioni vengono salvate automaticamente.</p>
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
-                <textarea id="testo-evidenzia" placeholder="Incolla qui il tuo testo di studio..." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-3 text-white text-sm focus:border-amber-500 focus:outline-none h-48 resize-y"></textarea>
+                <div id="testo-evidenzia" contenteditable="true" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-3 text-white text-sm focus:border-amber-500 focus:outline-none h-48 overflow-y-auto" style="min-height:12rem;">
+                    Incolla qui il tuo testo di studio...
+                </div>
             </div>
 
             <div class="flex gap-2 mb-4 flex-wrap">
-                <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia selezione</button>
-                <button onclick="rimuoviEvidenziazione()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">🧹 Pulisci tutto</button>
-                <button onclick="salvaTestoEvidenziato()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva</button>
+                <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia</button>
+                <button onclick="rimuoviTutteEvidenziazioni()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">🧹 Pulisci evidenziazioni</button>
+                <button onclick="salvaTesto()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva testo</button>
+                <button onclick="caricaTesto()" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-500 transition text-sm">📂 Carica testo</button>
             </div>
 
-            <div id="lista-evidenziazioni" class="space-y-2 max-h-60 overflow-y-auto">
-                <p class="text-neutral-500 text-xs text-center">Nessuna evidenziazione salvata.</p>
-            </div>
+            <div id="lista-evidenziazioni" class="space-y-2 max-h-60 overflow-y-auto"></div>
         </div>
 
-        <!-- ============================================================
-             STRUMENTO 2: FLASHCARD
-             ============================================================ -->
+        <!-- STRUMENTO 2: FLASHCARD -->
         <div id="strumento-flashcard" class="strumento-container bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6 hidden">
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="layers" style="width:20px;height:20px;"></i> Genera Flashcard
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Crea flashcard di qualità in pochi secondi. Inserisci domanda e risposta, poi esercitati.</p>
+            <p class="text-neutral-400 text-xs mb-4">Crea flashcard di qualità in pochi secondi.</p>
 
             <div class="space-y-3 mb-4">
                 <div>
@@ -2212,7 +2209,7 @@ Cordiali saluti,
                 </div>
                 <div>
                     <label class="text-neutral-300 text-xs font-bold mb-1 block">💡 Risposta</label>
-                    <input type="text" id="fc-risposta" placeholder="es. La media calcolata tenendo conto dei CFU di ogni esame." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    <input type="text" id="fc-risposta" placeholder="es. La media calcolata tenendo conto dei CFU." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
                 </div>
                 <button onclick="aggiungiFlashcard()" class="w-full bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:bg-amber-400 transition text-sm">
                     ➕ Aggiungi Flashcard
@@ -2221,9 +2218,7 @@ Cordiali saluti,
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
                 <p class="text-neutral-300 text-xs font-bold mb-2">📚 Le tue flashcard (<span id="fc-count">0</span>)</p>
-                <div id="lista-flashcard" class="space-y-2 max-h-60 overflow-y-auto">
-                    <p class="text-neutral-500 text-xs text-center">Nessuna flashcard creata.</p>
-                </div>
+                <div id="lista-flashcard" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
@@ -2232,14 +2227,12 @@ Cordiali saluti,
             </div>
         </div>
 
-        <!-- ============================================================
-             STRUMENTO 3: STUDIA (RIPETIZIONE SPAZIATA)
-             ============================================================ -->
+        <!-- STRUMENTO 3: STUDIA -->
         <div id="strumento-studio" class="strumento-container bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6 hidden">
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="brain" style="width:20px;height:20px;"></i> Studia Efficacemente
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Ripetizione spaziata: le carte che sbagli tornano più spesso, quelle che sai passano avanti.</p>
+            <p class="text-neutral-400 text-xs mb-4">Ripetizione spaziata: le carte che sbagli tornano più spesso.</p>
 
             <div id="studio-area" class="bg-neutral-900/60 rounded-lg p-8 text-center mb-4 min-h-[200px] flex flex-col items-center justify-center">
                 <p id="studio-fase" class="text-neutral-400 text-xs mb-3">Premi START per iniziare</p>
@@ -2254,8 +2247,8 @@ Cordiali saluti,
                 <p id="studio-progresso" class="text-neutral-500 text-xs mt-3"></p>
             </div>
 
-            <div id="studio-bottoni" class="grid grid-cols-2 gap-2 mb-3 hidden">
-                <button onclick="studioRivela()" class="col-span-2 bg-blue-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-blue-500 transition text-sm">👁️ Rivela risposta</button>
+            <div id="studio-bottoni" class="grid grid-cols-1 gap-2 mb-3 hidden">
+                <button onclick="studioRivela()" class="bg-blue-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-blue-500 transition text-sm">👁️ Rivela risposta</button>
             </div>
             <div id="studio-valutazione" class="grid grid-cols-3 gap-2 mb-3 hidden">
                 <button onclick="studioValuta('facile')" class="bg-green-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-green-500 transition text-sm">😎 Facile</button>
@@ -2270,14 +2263,12 @@ Cordiali saluti,
             </div>
         </div>
 
-        <!-- ============================================================
-             STRUMENTO 4: QUIZ
-             ============================================================ -->
+        <!-- STRUMENTO 4: QUIZ -->
         <div id="strumento-quiz" class="strumento-container bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6 hidden">
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="help-circle" style="width:20px;height:20px;"></i> Quiz
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Metti alla prova le tue conoscenze con domande a risposta multipla.</p>
+            <p class="text-neutral-400 text-xs mb-4">Metti alla prova le tue conoscenze.</p>
 
             <div id="quiz-container" class="bg-neutral-900/60 rounded-lg p-5 mb-4">
                 <p id="quiz-domanda" class="text-white font-bold text-sm mb-4">Premi START per iniziare</p>
@@ -2293,10 +2284,9 @@ Cordiali saluti,
             <p id="quiz-punteggio" class="text-center mt-3 font-bold text-sm text-amber-400"></p>
         </div>
 
-        <!-- NOTE FINALI -->
         <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 mb-4">
             <p class="text-neutral-400 text-xs leading-relaxed">
-                💡 <strong class="text-white">Consiglio:</strong> Usa prima "Evidenzia" per estrarre i concetti chiave, poi trasforma quegli appunti in "Flashcard". Infine, usa "Studia" e "Quiz" per verificare se hai davvero imparato.
+                💡 <strong class="text-white">Consiglio:</strong> Usa "Evidenzia" per estrarre i concetti chiave, trasformali in "Flashcard", poi usa "Studia" e "Quiz" per verificare.
             </p>
         </div>
 
@@ -2308,10 +2298,10 @@ Cordiali saluti,
     // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 83)
     // ============================================================
 
-    // --- Utility per mostrare lo strumento selezionato ---
     function mostraStrumento(nome) {
         document.querySelectorAll('.strumento-container').forEach(el => el.classList.add('hidden'));
-        document.getElementById('strumento-' + nome).classList.remove('hidden');
+        const target = document.getElementById('strumento-' + nome);
+        if (target) target.classList.remove('hidden');
 
         document.querySelectorAll('.btn-strumento').forEach(btn => {
             btn.className = 'btn-strumento bg-neutral-900 text-neutral-300 font-bold text-xs py-3 px-2 rounded-lg transition hover:bg-neutral-700';
@@ -2325,78 +2315,112 @@ Cordiali saluti,
     // ============================================================
     // 1. EVIDENZIA
     // ============================================================
-    let evidenziazioni = JSON.parse(localStorage.getItem('tesiflash_studio_evidenzia') || '[]');
+    let evidenziazioni = [];
 
     function evidenziaSelezione() {
-        const textarea = document.getElementById('testo-evidenzia');
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const selectedText = textarea.value.substring(start, end);
-
-        if (!selectedText.trim()) {
-            alert('Seleziona del testo da evidenziare.');
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
+            alert('Seleziona prima del testo da evidenziare.');
             return;
         }
 
-        // Evidenzia visivamente nel textarea (non possibile direttamente, ma salviamo la selezione)
-        // Per semplicità salviamo la stringa selezionata
-        evidenziazioni.push({
-            id: Date.now(),
-            testo: selectedText.trim(),
-            data: new Date().toISOString()
-        });
-        salvaEvidenziazioni();
-        renderEvidenziazioni();
-
-        // Deseleziona
-        textarea.setSelectionRange(start, end);
-    }
-
-    function rimuoviEvidenziazione() {
-        if (confirm('Cancellare tutte le evidenziazioni?')) {
-            evidenziazioni = [];
-            salvaEvidenziazioni();
-            renderEvidenziazioni();
+        const range = sel.getRangeAt(0);
+        const editor = document.getElementById('testo-evidenzia');
+        if (!editor.contains(range.commonAncestorContainer)) {
+            alert('Seleziona del testo dentro l\'area di studio.');
+            return;
         }
+
+        const span = document.createElement('span');
+        span.style.backgroundColor = '#f59e0b';
+        span.style.color = '#000';
+        span.style.borderRadius = '3px';
+        span.style.padding = '0 2px';
+        span.className = 'evidenziato';
+
+        try {
+            range.surroundContents(span);
+        } catch (e) {
+            // Se la selezione attraversa più elementi, estrai e re-inserisci
+            const testo = range.toString();
+            range.deleteContents();
+            span.textContent = testo;
+            range.insertNode(span);
+        }
+
+        sel.removeAllRanges();
+        aggiornaListaEvidenziazioni();
+        salvaTesto();
     }
 
-    function salvaEvidenziazioni() {
-        localStorage.setItem('tesiflash_studio_evidenzia', JSON.stringify(evidenziazioni));
-    }
-
-    function salvaTestoEvidenziato() {
-        const testo = document.getElementById('testo-evidenzia').value;
-        localStorage.setItem('tesiflash_studio_testo', testo);
-        alert('Testo salvato nel browser!');
-    }
-
-    function renderEvidenziazioni() {
+    function aggiornaListaEvidenziazioni() {
+        const editor = document.getElementById('testo-evidenzia');
+        const spans = editor.querySelectorAll('.evidenziato');
         const container = document.getElementById('lista-evidenziazioni');
-        if (evidenziazioni.length === 0) {
-            container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna evidenziazione salvata.</p>';
+
+        if (spans.length === 0) {
+            container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna evidenziazione.</p>';
             return;
         }
-        container.innerHTML = evidenziazioni.map(e => `
+
+        container.innerHTML = Array.from(spans).map((s, i) => `
             <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 flex justify-between items-start gap-2">
-                <p class="text-amber-200 text-xs flex-1 break-words">"${e.testo}"</p>
-                <button onclick="rimuoviEvidenziazioneSingola(${e.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">✕</button>
+                <p class="text-amber-200 text-xs flex-1 break-words">"${s.textContent}"</p>
+                <button onclick="rimuoviEvidenziazione(${i})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">✕</button>
             </div>
         `).join('');
     }
 
-    function rimuoviEvidenziazioneSingola(id) {
-        evidenziazioni = evidenziazioni.filter(e => e.id !== id);
-        salvaEvidenziazioni();
-        renderEvidenziazioni();
+    function rimuoviEvidenziazione(index) {
+        const editor = document.getElementById('testo-evidenzia');
+        const spans = editor.querySelectorAll('.evidenziato');
+        if (spans[index]) {
+            const span = spans[index];
+            const parent = span.parentNode;
+            while (span.firstChild) parent.insertBefore(span.firstChild, span);
+            parent.removeChild(span);
+            parent.normalize();
+        }
+        aggiornaListaEvidenziazioni();
+        salvaTesto();
     }
 
-    // Carica testo salvato
-    document.addEventListener('DOMContentLoaded', function() {
-        const testoSalvato = localStorage.getItem('tesiflash_studio_testo');
-        if (testoSalvato) {
-            document.getElementById('testo-evidenzia').value = testoSalvato;
+    function rimuoviTutteEvidenziazioni() {
+        if (!confirm('Rimuovere tutte le evidenziazioni?')) return;
+        const editor = document.getElementById('testo-evidenzia');
+        editor.querySelectorAll('.evidenziato').forEach(span => {
+            const parent = span.parentNode;
+            while (span.firstChild) parent.insertBefore(span.firstChild, span);
+            parent.removeChild(span);
+            parent.normalize();
+        });
+        aggiornaListaEvidenziazioni();
+        salvaTesto();
+    }
+
+    function salvaTesto() {
+        const editor = document.getElementById('testo-evidenzia');
+        localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
+    }
+
+    function caricaTesto() {
+        const salvato = localStorage.getItem('tesiflash_studio_testo');
+        if (salvato) {
+            document.getElementById('testo-evidenzia').innerHTML = salvato;
+            aggiornaListaEvidenziazioni();
+        } else {
+            alert('Nessun testo salvato trovato.');
         }
-        renderEvidenziazioni();
+    }
+
+    // Carica automaticamente all'avvio
+    document.addEventListener('DOMContentLoaded', function() {
+        const salvato = localStorage.getItem('tesiflash_studio_testo');
+        if (salvato) {
+            document.getElementById('testo-evidenzia').innerHTML = salvato;
+        }
+        aggiornaListaEvidenziazioni();
+        renderFlashcard();
     });
 
     // ============================================================
@@ -2414,10 +2438,9 @@ Cordiali saluti,
         }
 
         flashcard.push({
-            id: Date.now(),
+            id: Date.now() + Math.random(),
             domanda: domanda,
             risposta: risposta,
-            // Per la ripetizione spaziata: livello di difficoltà (0 = mai vista, 1 = facile, 2 = medio, 3 = difficile)
             livello: 0,
             ultimaVisita: null
         });
@@ -2430,12 +2453,16 @@ Cordiali saluti,
 
     function salvaFlashcard() {
         localStorage.setItem('tesiflash_studio_flashcard', JSON.stringify(flashcard));
-        document.getElementById('fc-count').textContent = flashcard.length;
+        const counter = document.getElementById('fc-count');
+        if (counter) counter.textContent = flashcard.length;
     }
 
     function renderFlashcard() {
         const container = document.getElementById('lista-flashcard');
-        document.getElementById('fc-count').textContent = flashcard.length;
+        const counter = document.getElementById('fc-count');
+        if (counter) counter.textContent = flashcard.length;
+
+        if (!container) return;
 
         if (flashcard.length === 0) {
             container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna flashcard creata.</p>';
@@ -2445,12 +2472,18 @@ Cordiali saluti,
         container.innerHTML = flashcard.map(f => `
             <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 flex justify-between items-start gap-2">
                 <div class="flex-1">
-                    <p class="text-white text-xs font-bold">${f.domanda}</p>
-                    <p class="text-neutral-400 text-xs mt-1">${f.risposta}</p>
+                    <p class="text-white text-xs font-bold">${escapeHtml(f.domanda)}</p>
+                    <p class="text-neutral-400 text-xs mt-1">${escapeHtml(f.risposta)}</p>
                 </div>
                 <button onclick="rimuoviFlashcard(${f.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
             </div>
         `).join('');
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     function rimuoviFlashcard(id) {
@@ -2472,13 +2505,12 @@ Cordiali saluti,
             alert('Crea almeno una flashcard prima di studiare.');
             return;
         }
-        // Passa allo strumento "Studia"
         mostraStrumento('studio');
         avviaStudio();
     }
 
     // ============================================================
-    // 3. STUDIA (RIPETIZIONE SPAZIATA)
+    // 3. STUDIA
     // ============================================================
     let studioStato = {
         mazzo: [],
@@ -2493,7 +2525,6 @@ Cordiali saluti,
             return;
         }
 
-        // Ordina il mazzo: prima le carte con livello più alto (più difficili), poi quelle mai viste
         studioStato.mazzo = [...flashcard].sort((a, b) => {
             if (a.livello === 0 && b.livello !== 0) return 1;
             if (a.livello !== 0 && b.livello === 0) return -1;
@@ -2508,7 +2539,6 @@ Cordiali saluti,
         document.getElementById('studio-bottoni').classList.remove('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
         document.getElementById('studio-risposta-box').classList.add('hidden');
-        document.getElementById('studio-risposta').textContent = '—';
 
         mostraCartaStudio();
     }
@@ -2543,7 +2573,6 @@ Cordiali saluti,
         if (!studioStato.attivo || !studioStato.rispostaMostrata) return;
 
         const carta = studioStato.mazzo[studioStato.indice];
-        // Aggiorna il livello di difficoltà nella flashcard originale
         const originale = flashcard.find(f => f.id === carta.id);
         if (originale) {
             if (livello === 'facile') originale.livello = 1;
@@ -2592,12 +2621,12 @@ Cordiali saluti,
     const QUIZ_DOMANDE = [
         {
             domanda: "Cos'è la media ponderata?",
-            opzioni: ["La media dei voti senza considerare i CFU", "La media dei voti considerando i CFU di ogni esame", "La media dei voti degli ultimi 3 esami", "La media dei voti più alti"],
+            opzioni: ["La media dei voti senza considerare i CFU", "La media dei voti considerando i CFU di ogni esame", "La media degli ultimi 3 esami", "La media dei voti più alti"],
             corretta: 1
         },
         {
             domanda: "Cosa indica il voto di partenza?",
-            opzioni: ["Il voto che vorresti ottenere", "La media dei voti in trentesimi", "Il voto base da cui parti per la laurea, calcolato sulla media", "Il voto minimo per laurearsi"],
+            opzioni: ["Il voto che vorresti ottenere", "La media in trentesimi", "Il voto base calcolato sulla media per la laurea", "Il voto minimo per laurearsi"],
             corretta: 2
         },
         {
@@ -2657,7 +2686,6 @@ Cordiali saluti,
         const d = quizStato.domandeOrdinate[quizStato.indice];
         const feedback = document.getElementById('quiz-feedback');
 
-        // Disabilita tutti i pulsanti
         document.querySelectorAll('#quiz-opzioni button').forEach((btn, i) => {
             btn.style.pointerEvents = 'none';
             if (i === d.corretta) {
@@ -2702,13 +2730,6 @@ Cordiali saluti,
         document.getElementById('quiz-feedback').textContent = '';
         document.getElementById('quiz-punteggio').textContent = '';
     }
-
-    // Inizializza la pagina 83
-    document.addEventListener('DOMContentLoaded', function() {
-        renderFlashcard();
-        // Mostra di default lo strumento "Evidenzia"
-        // (già visibile perché non ha la classe hidden)
-    });
 </script>
 
     </main>
