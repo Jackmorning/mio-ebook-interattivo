@@ -2197,7 +2197,6 @@ Cordiali saluti,
                 </div>
             </div>
 
-            <!-- Input file nascosto -->
             <input type="file" id="file-input" accept=".txt,.md,.csv,.json,text/plain" style="display:none;" onchange="s83_importaFile(event)">
 
             <div class="flex gap-2 mb-4 flex-wrap">
@@ -2340,7 +2339,7 @@ Cordiali saluti,
 <script>
     // ============================================================
     // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 51)
-    // Prefisso s83_ per evitare conflitti
+    // Prefisso s83_ per evitare conflitti con il resto dell'app
     // ============================================================
 
     function s83_init() {
@@ -2484,7 +2483,6 @@ Cordiali saluti,
     }
     window.caricaTesto = s83_caricaTesto;
 
-    // IMPORTA FILE DAL COMPUTER
     function s83_importaFile(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -2493,7 +2491,6 @@ Cordiali saluti,
         reader.onload = function(e) {
             const contenuto = e.target.result;
             const editor = document.getElementById('testo-evidenzia');
-            // Preserva gli a-capo sostituendoli con <br>
             editor.innerHTML = s83_escapeHtml(contenuto).replace(/\n/g, '<br>');
             s83_aggiornaListaEvidenziazioni();
             s83_salvaTesto(true);
@@ -2503,12 +2500,10 @@ Cordiali saluti,
             alert('Errore nella lettura del file.');
         };
         reader.readAsText(file);
-        // Resetta input per permettere di ricaricare lo stesso file
         event.target.value = '';
     }
     window.s83_importaFile = s83_importaFile;
 
-    // STAMPA SOLO IL TESTO
     function s83_stampaTesto() {
         const editor = document.getElementById('testo-evidenzia');
         const contenuto = editor.innerHTML;
@@ -2553,7 +2548,7 @@ Cordiali saluti,
     }
 
     // ============================================================
-    // 2. FLASHCARD — generazione MIGLIORATA
+    // 2. FLASHCARD — Generazione potenziata
     // ============================================================
     let s83_flashcard = JSON.parse(localStorage.getItem('tesiflash_studio_flashcard') || '[]');
 
@@ -2583,19 +2578,19 @@ Cordiali saluti,
     }
     window.aggiungiFlashcard = s83_aggiungiFlashcard;
 
-    // GENERAZIONE MIGLIORATA: analizza il testo con pattern accademici
     function s83_generaFlashcardDaTesto() {
         const editor = document.getElementById('testo-evidenzia');
         if (!editor) return;
 
         const evidenziati = Array.from(editor.querySelectorAll('.evidenziato')).map(s => s.textContent.trim()).filter(t => t.length > 10);
 
-        // Estrai tutto il testo come frasi
         const testoIntero = editor.innerText || editor.textContent || '';
+        // Split migliorato: separa su punto, punto esclamativo, punto interrogativo E su <br>
         const frasi = testoIntero
+            .replace(/\n+/g, ' . ')
             .split(/(?<=[.!?])\s+/)
             .map(f => f.trim())
-            .filter(f => f.length > 40 && f.length < 500);
+            .filter(f => f.length > 25 && f.length < 500);
 
         let generate = 0;
         let scartate = 0;
@@ -2613,11 +2608,9 @@ Cordiali saluti,
             });
         }
 
-        // Priorità 2: frasi del testo
-        if (generate < 5 && frasi.length > 0) {
-            // Prendi fino a 15 frasi per avere più probabilità di trovare concetti
-            const frasiScelte = frasi.slice(0, 15);
-            frasiScelte.forEach(frase => {
+        // Priorità 2: TUTTE le frasi del testo
+        if (frasi.length > 0) {
+            frasi.forEach(frase => {
                 const fc = s83_estraiFlashcard(frase);
                 if (fc) {
                     s83_flashcard.push(fc);
@@ -2639,49 +2632,108 @@ Cordiali saluti,
     }
     window.generaFlashcardDaTesto = s83_generaFlashcardDaTesto;
 
-    // ESTRAZIONE INTELLIGENTE: riconosce pattern accademici
+    // ESTRAZIONE AVANZATA
     function s83_estraiFlashcard(frase) {
         frase = frase.trim();
-        if (frase.length < 20) return null;
+        if (frase.length < 25) return null;
 
-        const pulita = frase.replace(/\s+/g, ' ').replace(/^(Inoltre|Inoltre,|Pertanto|Quindi|Tuttavia|Comunque|Invece|Dunque|Quindi,)\s+/i, '');
+        let pulita = frase
+            .replace(/\s+/g, ' ')
+            .replace(/^(Inoltre|Pertanto|Quindi|Tuttavia|Comunque|Invece|Dunque|Inoltre,|Pertanto,|Quindi,)\s+/i, '')
+            .replace(/^[-•*]\s*/, '')
+            .trim();
 
-        // Pattern 1: DEFINIZIONI — "X è Y", "X sono Y", "X significa Y", "X si definisce come Y"
-        const patternDef = pulita.match(/^(.{3,100}?)\s+(è|sono|significa|indica|consiste in|consiste nel|si definisce come|si riferisce a|rappresenta|costituisce)\s+(.{10,300})$/i);
-        if (patternDef) {
-            const soggetto = s83_pulisciSoggetto(patternDef[1]);
-            const verbo = patternDef[2].toLowerCase();
-            const predicato = patternDef[3].trim().replace(/[.,;]$/, '');
+        if (pulita.endsWith('?')) return null;
 
-            // Evita soggetti vaghi
-            if (soggetto.length < 3 || /^(esso|essa|questo|questa|ciò|egli|ella)$/i.test(soggetto)) {
-                // Usa l'intera prima parte come soggetto
-                return {
-                    id: Date.now() + Math.random(),
-                    domanda: `Cosa ${verbo} "${patternDef[1].trim()}"?`,
-                    risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
-                    livello: 0,
-                    ultimaVisita: null,
-                    origine: 'auto'
-                };
-            }
-
+        // PATTERN 1: Due punti — "X: Y"
+        const patternDuePunti = pulita.match(/^(.{5,100}?):\s+(.{15,400})$/);
+        if (patternDuePunti) {
+            const titolo = patternDuePunti[1].trim();
+            const contenuto = patternDuePunti[2].trim().replace(/[.,;]$/, '');
             return {
                 id: Date.now() + Math.random(),
-                domanda: `Cosa ${verbo} ${soggetto}?`,
-                risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
+                domanda: `Cosa riguarda "${titolo}"?`,
+                risposta: contenuto.charAt(0).toUpperCase() + contenuto.slice(1),
                 livello: 0,
                 ultimaVisita: null,
                 origine: 'auto'
             };
         }
 
-        // Pattern 2: SUDDIVISIONI — "X si divide in Y", "X comprende Y", "X è composto da Y"
-        const patternDiv = pulita.match(/^(.{3,80}?)\s+(si divide in|si suddivide in|comprende|è composto da|è costituito da|include|contiene)\s+(.{10,250})$/i);
+        // PATTERN 2: Verbi accademici
+        const verbiAccademici = [
+            'rappresenta', 'costituisce', 'richiede', 'richiedono', 'garantisce', 'garantiscono',
+            'si configura come', 'si presta a', 'si prestano a', 'agevola', 'agevolano',
+            'facilita', 'facilitano', 'permette di', 'permettono di', 'consente di', 'consentono di',
+            'implica', 'comporta', 'determina', 'determinano', 'favorisce', 'favoriscono',
+            'si basa su', 'si fonda su', 'si fondano su', 'dipende da', 'dipendono da',
+            'contribuisce a', 'contribuiscono a', 'porta a', 'portano a',
+            'si articola in', 'si articolano in', 'si sviluppa attraverso', 'si sviluppa in',
+            'è volto a', 'è volta a', 'sono volti a', 'sono volte a',
+            'mira a', 'mirano a', 'serve a', 'servono a'
+        ];
+
+        for (const verbo of verbiAccademici) {
+            const regex = new RegExp(`^(.{5,120}?)\\s+${verbo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+(.{15,400})$`, 'i');
+            const match = pulita.match(regex);
+            if (match) {
+                const soggetto = s83_pulisciSoggetto(match[1]);
+                const predicato = match[2].trim().replace(/[.,;]$/, '');
+                if (soggetto.length >= 3 && predicato.length >= 10) {
+                    let domanda;
+                    if (/^rappresenta|^costituisce/i.test(verbo)) {
+                        domanda = `Cosa ${verbo} ${soggetto}?`;
+                    } else if (/^richiede|^richiedono/i.test(verbo)) {
+                        domanda = `Cosa richiede ${soggetto}?`;
+                    } else if (/^garantisce|^garantiscono/i.test(verbo)) {
+                        domanda = `Cosa garantisce ${soggetto}?`;
+                    } else if (/^permette|^permettono|^consente|^consentono/i.test(verbo)) {
+                        domanda = `Cosa permette ${soggetto}?`;
+                    } else if (/^serve a|^servono a|^mira a|^mirano a/i.test(verbo)) {
+                        domanda = `A cosa serve ${soggetto}?`;
+                    } else if (/^si basa su|^si fonda su|^dipende da/i.test(verbo)) {
+                        domanda = `Su cosa si basa ${soggetto}?`;
+                    } else if (/^si articola in|^si sviluppa/i.test(verbo)) {
+                        domanda = `Come si articola ${soggetto}?`;
+                    } else {
+                        domanda = `In che modo ${soggetto} ${verbo}?`;
+                    }
+                    return {
+                        id: Date.now() + Math.random(),
+                        domanda: domanda,
+                        risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
+                        livello: 0,
+                        ultimaVisita: null,
+                        origine: 'auto'
+                    };
+                }
+            }
+        }
+
+        // PATTERN 3: Definizioni — "X è Y"
+        const patternDef = pulita.match(/^(.{3,100}?)\s+(è|sono|significa|indica|consiste in|consiste nel|si definisce come|si riferisce a|si intende per|si intende con)\s+(.{10,400})$/i);
+        if (patternDef) {
+            const soggetto = s83_pulisciSoggetto(patternDef[1]);
+            const verbo = patternDef[2].toLowerCase();
+            const predicato = patternDef[3].trim().replace(/[.,;]$/, '');
+            if (soggetto.length >= 3 && predicato.length >= 10) {
+                return {
+                    id: Date.now() + Math.random(),
+                    domanda: `Cosa ${verbo} ${soggetto}?`,
+                    risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
+                    livello: 0,
+                    ultimaVisita: null,
+                    origine: 'auto'
+                };
+            }
+        }
+
+        // PATTERN 4: Suddivisioni
+        const patternDiv = pulita.match(/^(.{5,80}?)\s+(si divide in|si suddivide in|comprende|è composto da|è costituito da|include|contiene|si articola in)\s+(.{10,300})$/i);
         if (patternDiv) {
             return {
                 id: Date.now() + Math.random(),
-                domanda: `In cosa ${patternDiv[2].toLowerCase().replace('si ', '')} ${patternDiv[1].trim()}?`,
+                domanda: `In cosa ${patternDiv[2].toLowerCase().replace('si ', '')} ${s83_pulisciSoggetto(patternDiv[1])}?`,
                 risposta: patternDiv[3].trim().replace(/[.,;]$/, ''),
                 livello: 0,
                 ultimaVisita: null,
@@ -2689,7 +2741,7 @@ Cordiali saluti,
             };
         }
 
-        // Pattern 3: CAUSE — "X perché Y", "X poiché Y"
+        // PATTERN 5: Cause
         const patternCausa = pulita.match(/^(.{10,100}?)\s+(perché|poiché|in quanto|dato che|in virtù di)\s+(.{15,300})$/i);
         if (patternCausa) {
             return {
@@ -2702,8 +2754,8 @@ Cordiali saluti,
             };
         }
 
-        // Pattern 4: ATTRIBUZIONI — "Secondo [Autore], X è Y"
-        const patternAttr = pulita.match(/^(Secondo|Stando a|Come afferma|Come sostiene)\s+(.{2,50}?)[,]\s+(.{15,300})$/i);
+        // PATTERN 6: Attribuzioni
+        const patternAttr = pulita.match(/^(Secondo|Stando a|Come afferma|Come sostiene|Come evidenzia)\s+(.{2,60}?)[,]\s+(.{15,300})$/i);
         if (patternAttr) {
             return {
                 id: Date.now() + Math.random(),
@@ -2715,8 +2767,8 @@ Cordiali saluti,
             };
         }
 
-        // Pattern 5: CARATTERISTICHE — "X è caratterizzato da Y", "X presenta Y"
-        const patternCar = pulita.match(/^(.{3,80}?)\s+(è caratterizzato da|è caratterizzata da|presenta|mostra|ha come caratteristica)\s+(.{10,250})$/i);
+        // PATTERN 7: Caratteristiche
+        const patternCar = pulita.match(/^(.{3,80}?)\s+(è caratterizzato da|è caratterizzata da|presenta|mostra|si contraddistingue per)\s+(.{10,250})$/i);
         if (patternCar) {
             return {
                 id: Date.now() + Math.random(),
@@ -2728,20 +2780,7 @@ Cordiali saluti,
             };
         }
 
-        // Pattern 6: OBIETTIVI — "X serve a Y", "X ha lo scopo di Y"
-        const patternFine = pulita.match(/^(.{3,80}?)\s+(serve a|ha lo scopo di|ha l'obiettivo di|mira a|si propone di)\s+(.{10,250})$/i);
-        if (patternFine) {
-            return {
-                id: Date.now() + Math.random(),
-                domanda: `A cosa serve ${s83_pulisciSoggetto(patternFine[1])}?`,
-                risposta: patternFine[3].trim().replace(/[.,;]$/, ''),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
-            };
-        }
-
-        // Pattern 7: DATE — "Nel [anno], è successo X"
+        // PATTERN 8: Date
         const patternData = pulita.match(/^(Nel|Nell'anno|A partire dal)\s+(\d{4})[,]?\s+(.{15,250})$/i);
         if (patternData) {
             return {
@@ -2754,7 +2793,25 @@ Cordiali saluti,
             };
         }
 
-        // Nessun pattern riconosciuto — meglio non generare che generare spazzatura
+        // FALLBACK: Trasforma comunque la frase in flashcard generica
+        if (pulita.length >= 50 && pulita.length <= 350) {
+            const parole = pulita.split(' ');
+            const lunghezzaConcetto = Math.min(8, Math.ceil(parole.length / 3));
+            const concetto = parole.slice(0, lunghezzaConcetto).join(' ').replace(/[.,;:]$/, '');
+            const resto = parole.slice(lunghezzaConcetto).join(' ').trim();
+
+            if (concetto.length >= 15 && resto.length >= 20) {
+                return {
+                    id: Date.now() + Math.random(),
+                    domanda: `Cosa si può dire riguardo a "${concetto}"?`,
+                    risposta: resto.charAt(0).toUpperCase() + resto.slice(1),
+                    livello: 0,
+                    ultimaVisita: null,
+                    origine: 'auto'
+                };
+            }
+        }
+
         return null;
     }
 
@@ -2796,7 +2853,6 @@ Cordiali saluti,
         `).join('');
     }
 
-    // MODIFICA FLASHCARD ESISTENTE
     function s83_modificaFlashcard(id) {
         const fc = s83_flashcard.find(f => f.id === id);
         if (!fc) return;
@@ -3109,7 +3165,7 @@ Cordiali saluti,
     window.resetQuiz = s83_resetQuiz;
 
     // ============================================================
-    // AZIONI GLOBALI: STAMPA TUTTO + PULISCI TUTTO
+    // AZIONI GLOBALI
     // ============================================================
     function s83_stampaTutto() {
         const testo = document.getElementById('testo-evidenzia').innerHTML;
@@ -3163,7 +3219,6 @@ Cordiali saluti,
             return;
         }
 
-        // Svuota tutto
         s83_flashcard = [];
         localStorage.removeItem('tesiflash_studio_flashcard');
         localStorage.removeItem('tesiflash_studio_testo');
