@@ -3910,11 +3910,902 @@ Cordiali saluti,
     window.pulisciTutto = s83_pulisciTutto;
 </script>
 
+        <!-- ========== PAGINA 52: REGISTRO COLLOQUI CON IL RELATORE ========== -->
+<div class="page" data-page="84">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+        <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="clipboard-list" style="width:16px;height:16px;"></i> Modulo Extra & Toolkit
+        </span>
+        <div class="time-badge mb-3">⏱️ Tempo di utilizzo: 5 minuti per colloquio</div>
+        <h2 class="heading-font font-bold text-2xl md:text-3xl text-white mb-4 flex items-center gap-2">
+            <i data-lucide="users" style="width:28px;height:28px;color:#f59e0b;"></i> Registro Colloqui con il Relatore
+        </h2>
+
+        <div class="bg-gradient-to-br from-blue-500/10 to-neutral-800 border border-blue-500/30 rounded-xl p-5 mb-5">
+            <p class="text-blue-300 font-bold text-sm mb-2 flex items-center gap-2">
+                <i data-lucide="sparkles" style="width:18px;height:18px;"></i> Il tuo diario di lavoro professionale
+            </p>
+            <p class="text-neutral-300 text-sm leading-relaxed mb-2">
+                Tieni traccia di <strong class="text-white">ogni colloquio con il relatore</strong>: cosa avete discusso, cosa ti ha chiesto, cosa hai consegnato.
+            </p>
+            <p class="text-neutral-400 text-xs leading-relaxed">
+                🎯 Niente più "cosa mi aveva detto?". Ogni indicazione resta al suo posto. E il relatore apprezza chi è organizzato.
+            </p>
+        </div>
+
+        <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6 flex items-center gap-3">
+            <i data-lucide="shield-check" style="width:24px;height:24px;color:#22c55e;"></i>
+            <div>
+                <p class="text-green-400 font-bold text-sm">🔒 Dati sul tuo dispositivo</p>
+                <p class="text-neutral-400 text-xs">Tutto salvato nel tuo browser. Nessun account, nessun server.</p>
+            </div>
+        </div>
+
+        <div class="flash-strategy mb-6">
+            <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Il relatore dimentica. Tu no. Scrivi tutto."</p>
+        </div>
+
+        <!-- FORM NUOVO COLLOQUIO -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="plus-circle" style="width:20px;height:20px;"></i> Nuovo colloquio
+            </h3>
+
+            <div class="space-y-3 mb-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-neutral-300 text-xs font-bold mb-1 block">📅 Data</label>
+                        <input type="date" id="rc-data" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="text-neutral-300 text-xs font-bold mb-1 block">🕐 Ora (facoltativa)</label>
+                        <input type="time" id="rc-ora" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">👤 Con chi</label>
+                    <input type="text" id="rc-relatore" placeholder="es. Prof. Rossi" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">🎤 Tipo di incontro</label>
+                    <select id="rc-tipo" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                        <option value="presenza">🏢 In presenza</option>
+                        <option value="video">🎥 Videocall</option>
+                        <option value="email">📧 Email</option>
+                        <option value="telefono">📞 Telefono</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">💬 Argomenti discussi</label>
+                    <textarea id="rc-argomenti" rows="3" placeholder="es. Definito il perimetro della ricerca sul capitolo 2. Discusso il metodo di campionamento." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">✅ Cosa ha chiesto il relatore</label>
+                    <textarea id="rc-richieste" rows="3" placeholder="Una richiesta per riga:&#10;Trovare 20 fonti su X&#10;Riscrivere introduzione capitolo 2&#10;Inviare indice aggiornato" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+                    <p class="text-neutral-500 text-[10px] mt-1">💡 Una richiesta per riga</p>
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">📎 Cosa ho consegnato</label>
+                    <input type="text" id="rc-consegnato" placeholder="es. PDF con indice provvisorio" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-neutral-300 text-xs font-bold mb-1 block">➡️ Prossima azione</label>
+                        <input type="text" id="rc-prossima" placeholder="es. Inviare indice aggiornato" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="text-neutral-300 text-xs font-bold mb-1 block">📅 Scadenza</label>
+                        <input type="date" id="rc-scadenza" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <button onclick="rc_aggiungiColloquio()" class="w-full bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:bg-amber-400 transition text-sm">
+                    ➕ Salva colloquio
+                </button>
+            </div>
+        </div>
+
+        <!-- STATISTICHE -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="bar-chart-2" style="width:20px;height:20px;"></i> Statistiche
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 text-center">
+                    <p class="text-neutral-400 text-[10px] mb-1">Colloqui Totali</p>
+                    <p id="rc-stat-totale" class="text-xl font-bold text-blue-400">0</p>
+                </div>
+                <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 text-center">
+                    <p class="text-neutral-400 text-[10px] mb-1">Ultimo Contatto</p>
+                    <p id="rc-stat-ultimo" class="text-sm font-bold text-amber-400">—</p>
+                </div>
+                <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 text-center">
+                    <p class="text-neutral-400 text-[10px] mb-1">To-do Aperti</p>
+                    <p id="rc-stat-todo" class="text-xl font-bold text-red-400">0</p>
+                </div>
+                <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 text-center">
+                    <p class="text-neutral-400 text-[10px] mb-1">In Presenza</p>
+                    <p id="rc-stat-presenza" class="text-xl font-bold text-green-400">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTA COLLOQUI -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="history" style="width:20px;height:20px;"></i> Storico colloqui
+            </h3>
+            <div id="rc-lista" class="space-y-3">
+                <p class="text-neutral-500 text-xs text-center">Nessun colloquio registrato. Aggiungi il primo!</p>
+            </div>
+        </div>
+
+        <!-- AZIONI -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="download" style="width:20px;height:20px;"></i> Azioni
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <button onclick="rc_stampa()" class="bg-neutral-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-neutral-600 transition text-sm">
+                    🖨️ Stampa / PDF
+                </button>
+                <button onclick="rc_esporta()" class="bg-teal-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-teal-500 transition text-sm">
+                    📥 Export JSON
+                </button>
+                <button onclick="rc_reset()" class="bg-red-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-red-600 transition text-sm">
+                    🗑️ Azzera tutto
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 mb-4">
+            <p class="text-neutral-400 text-xs leading-relaxed">
+                💡 <strong class="text-white">Consiglio:</strong> Prima di ogni colloquio, rileggi le richieste in sospeso. Alla fine del colloquio, compila il form <strong class="text-white">mentre sei ancora fresco</strong>. Dopo 2 ore avrai già dimenticato la metà delle cose.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // LOGICA REGISTRO COLLOQUI (PAGINA 84)
+    // ============================================================
+
+    let rc_colloqui = JSON.parse(localStorage.getItem('tesiflash_registro_colloqui') || '[]');
+
+    function rc_init() {
+        rc_render();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', rc_init);
+    } else {
+        rc_init();
+    }
+
+    function rc_aggiungiColloquio() {
+        const data = document.getElementById('rc-data').value;
+        const ora = document.getElementById('rc-ora').value;
+        const relatore = document.getElementById('rc-relatore').value.trim();
+        const tipo = document.getElementById('rc-tipo').value;
+        const argomenti = document.getElementById('rc-argomenti').value.trim();
+        const richieste = document.getElementById('rc-richieste').value.trim();
+        const consegnato = document.getElementById('rc-consegnato').value.trim();
+        const prossima = document.getElementById('rc-prossima').value.trim();
+        const scadenza = document.getElementById('rc-scadenza').value;
+
+        if (!data) { alert('Inserisci la data del colloquio.'); return; }
+        if (!relatore) { alert('Inserisci il nome del relatore.'); return; }
+
+        const colloquio = {
+            id: Date.now() + Math.random(),
+            data: data,
+            ora: ora,
+            relatore: relatore,
+            tipo: tipo,
+            argomenti: argomenti,
+            richieste: richieste.split('\n').map(r => r.trim()).filter(r => r.length > 0),
+            consegnato: consegnato,
+            prossima: prossima,
+            scadenza: scadenza,
+            creato: new Date().toISOString()
+        };
+
+        rc_colloqui.push(colloquio);
+        rc_colloqui.sort((a, b) => new Date(b.data) - new Date(a.data));
+        rc_salva();
+
+        // Reset form
+        document.getElementById('rc-data').value = '';
+        document.getElementById('rc-ora').value = '';
+        document.getElementById('rc-relatore').value = '';
+        document.getElementById('rc-argomenti').value = '';
+        document.getElementById('rc-richieste').value = '';
+        document.getElementById('rc-consegnato').value = '';
+        document.getElementById('rc-prossima').value = '';
+        document.getElementById('rc-scadenza').value = '';
+
+        rc_render();
+        rc_toast('📋 Colloquio salvato');
+    }
+    window.rc_aggiungiColloquio = rc_aggiungiColloquio;
+
+    function rc_salva() {
+        localStorage.setItem('tesiflash_registro_colloqui', JSON.stringify(rc_colloqui));
+    }
+
+    function rc_render() {
+        rc_renderStatistiche();
+        rc_renderLista();
+    }
+
+    function rc_renderStatistiche() {
+        const totale = rc_colloqui.length;
+        const presenza = rc_colloqui.filter(c => c.tipo === 'presenza').length;
+        const todoAperti = rc_colloqui.reduce((sum, c) => sum + (c.richieste ? c.richieste.length : 0), 0);
+
+        document.getElementById('rc-stat-totale').textContent = totale;
+        document.getElementById('rc-stat-presenza').textContent = presenza;
+        document.getElementById('rc-stat-todo').textContent = todoAperti;
+
+        if (totale > 0) {
+            const ultimo = rc_colloqui[0];
+            const dataUltimo = new Date(ultimo.data);
+            const oggi = new Date();
+            oggi.setHours(0, 0, 0, 0);
+            dataUltimo.setHours(0, 0, 0, 0);
+            const giorniFa = Math.floor((oggi - dataUltimo) / (1000 * 60 * 60 * 24));
+            if (giorniFa === 0) document.getElementById('rc-stat-ultimo').textContent = 'Oggi';
+            else if (giorniFa === 1) document.getElementById('rc-stat-ultimo').textContent = 'Ieri';
+            else document.getElementById('rc-stat-ultimo').textContent = giorniFa + ' giorni fa';
+        } else {
+            document.getElementById('rc-stat-ultimo').textContent = '—';
+        }
+    }
+
+    function rc_renderLista() {
+        const container = document.getElementById('rc-lista');
+        if (rc_colloqui.length === 0) {
+            container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessun colloquio registrato. Aggiungi il primo!</p>';
+            return;
+        }
+
+        const iconeTipo = {
+            presenza: { icona: '🏢', colore: 'bg-green-500/20 border-green-500/40 text-green-300', nome: 'In presenza' },
+            video: { icona: '🎥', colore: 'bg-blue-500/20 border-blue-500/40 text-blue-300', nome: 'Videocall' },
+            email: { icona: '📧', colore: 'bg-purple-500/20 border-purple-500/40 text-purple-300', nome: 'Email' },
+            telefono: { icona: '📞', colore: 'bg-orange-500/20 border-orange-500/40 text-orange-300', nome: 'Telefono' }
+        };
+
+        container.innerHTML = rc_colloqui.map((c, i) => {
+            const tipo = iconeTipo[c.tipo] || iconeTipo.presenza;
+            const dataFormattata = new Date(c.data).toLocaleDateString('it-IT', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+            const richiesteHtml = c.richieste && c.richieste.length > 0 ? `
+                <div class="mt-2 bg-neutral-900/60 rounded-lg p-2">
+                    <p class="text-neutral-400 text-[10px] uppercase font-bold mb-1">✅ Cosa ha chiesto</p>
+                    <ul class="space-y-0.5">
+                        ${c.richieste.map((r, idx) => `
+                            <li class="flex items-start gap-2 text-xs">
+                                <input type="checkbox" class="mt-0.5 accent-green-500 flex-shrink-0" data-idx="${i}-${idx}" onchange="rc_toggleRichiesta(${i}, ${idx})" ${rc_richiestaFatta(c.id, idx) ? 'checked' : ''}>
+                                <span class="text-neutral-300 ${rc_richiestaFatta(c.id, idx) ? 'line-through opacity-50' : ''}">${rc_escapeHtml(r)}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            ` : '';
+
+            return `
+                <div class="bg-neutral-900/60 rounded-lg border border-neutral-800 overflow-hidden">
+                    <div class="p-4">
+                        <div class="flex justify-between items-start gap-3 mb-2">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1 flex-wrap">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${tipo.colore}">${tipo.icona} ${tipo.nome}</span>
+                                    <span class="text-neutral-500 text-[10px]">${dataFormattata}${c.ora ? ' · ' + c.ora : ''}</span>
+                                </div>
+                                <p class="text-white text-sm font-bold">${rc_escapeHtml(c.relatore)}</p>
+                            </div>
+                            <button onclick="rc_rimuovi(${c.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0" title="Elimina">🗑️</button>
+                        </div>
+
+                        ${c.argomenti ? `
+                            <div class="mt-2">
+                                <p class="text-neutral-400 text-[10px] uppercase font-bold mb-1">💬 Argomenti discussi</p>
+                                <p class="text-neutral-300 text-xs leading-relaxed">${rc_escapeHtml(c.argomenti)}</p>
+                            </div>
+                        ` : ''}
+
+                        ${richiesteHtml}
+
+                        ${c.consegnato ? `
+                            <div class="mt-2">
+                                <p class="text-neutral-400 text-[10px] uppercase font-bold mb-1">📎 Consegnato</p>
+                                <p class="text-green-400 text-xs">✓ ${rc_escapeHtml(c.consegnato)}</p>
+                            </div>
+                        ` : ''}
+
+                        ${c.prossima ? `
+                            <div class="mt-3 bg-amber-500/10 border border-amber-500/30 rounded-lg p-2">
+                                <p class="text-amber-300 text-[10px] uppercase font-bold mb-1">➡️ Prossima azione</p>
+                                <p class="text-white text-xs font-bold">${rc_escapeHtml(c.prossima)}</p>
+                                ${c.scadenza ? `<p class="text-amber-400 text-[10px] mt-1">📅 Scadenza: ${new Date(c.scadenza).toLocaleDateString('it-IT')}</p>` : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        if (window.lucide) lucide.createIcons();
+    }
+
+    // Traccia quali richieste sono state fatte (in localStorage separato)
+    let rc_richiesteFatte = JSON.parse(localStorage.getItem('tesiflash_richieste_fatte') || '{}');
+
+    function rc_richiestaFatta(colloquioId, idx) {
+        const key = colloquioId + '-' + idx;
+        return rc_richiesteFatte[key] === true;
+    }
+
+    function rc_toggleRichiesta(colloquioIdx, richiestaIdx) {
+        const colloquio = rc_colloqui[colloquioIdx];
+        if (!colloquio) return;
+        const key = colloquio.id + '-' + richiestaIdx;
+        rc_richiesteFatte[key] = !rc_richiesteFatte[key];
+        localStorage.setItem('tesiflash_richieste_fatte', JSON.stringify(rc_richiesteFatte));
+        rc_renderLista();
+        rc_renderStatistiche();
+    }
+    window.rc_toggleRichiesta = rc_toggleRichiesta;
+
+    function rc_rimuovi(id) {
+        if (!confirm('Eliminare questo colloquio dal registro?')) return;
+        rc_colloqui = rc_colloqui.filter(c => c.id !== id);
+        rc_salva();
+        rc_render();
+        rc_toast('🗑️ Colloquio eliminato');
+    }
+    window.rc_rimuovi = rc_rimuovi;
+
+    function rc_reset() {
+        if (!confirm('⚠️ Cancellare TUTTI i colloqui registrati?\n\nL\'operazione è irreversibile.')) return;
+        rc_colloqui = [];
+        rc_richiesteFatte = {};
+        localStorage.removeItem('tesiflash_registro_colloqui');
+        localStorage.removeItem('tesiflash_richieste_fatte');
+        rc_render();
+        rc_toast('🗑️ Registro azzerato');
+    }
+    window.rc_reset = rc_reset;
+
+    function rc_esporta() {
+        if (rc_colloqui.length === 0) { alert('Nessun colloquio da esportare.'); return; }
+        const dati = {
+            colloqui: rc_colloqui,
+            richiesteFatte: rc_richiesteFatte,
+            esportato: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(dati, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'registro-colloqui-' + new Date().toISOString().split('T')[0] + '.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        rc_toast('📥 Export completato');
+    }
+    window.rc_esporta = rc_esporta;
+
+    function rc_stampa() {
+        if (rc_colloqui.length === 0) { alert('Nessun colloquio da stampare.'); return; }
+
+        const iconeTipo = { presenza: '🏢', video: '🎥', email: '📧', telefono: '📞' };
+
+        const finestra = window.open('', '_blank');
+        finestra.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Registro Colloqui con il Relatore</title>
+                <style>
+                    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+                    body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; color: #000; background: #fff; }
+                    h1 { font-size: 22px; border-bottom: 3px solid #f59e0b; padding-bottom: 10px; margin-bottom: 10px; }
+                    .subtitle { color: #666; font-size: 12px; margin-bottom: 30px; }
+                    .colloquio { background: #f9fafb; border-left: 4px solid #3b82f6; padding: 16px 20px; margin-bottom: 20px; border-radius: 0 6px 6px 0; page-break-inside: avoid; }
+                    .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+                    .data { color: #666; font-size: 13px; }
+                    .relatore { font-weight: bold; font-size: 15px; color: #111; }
+                    .tipo { background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; }
+                    .sezione { margin-top: 10px; }
+                    .sezione-titolo { font-size: 11px; text-transform: uppercase; color: #888; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px; }
+                    .sezione-contenuto { font-size: 13px; color: #333; line-height: 1.5; }
+                    .richieste { list-style: none; padding: 0; margin: 0; }
+                    .richieste li { padding: 3px 0; font-size: 13px; color: #333; }
+                    .richieste li:before { content: "☐ "; color: #666; }
+                    .prossima { background: #fef3c7; border-left: 3px solid #f59e0b; padding: 8px 12px; border-radius: 0 4px 4px 0; margin-top: 10px; }
+                    .prossima .label { font-size: 10px; text-transform: uppercase; color: #92400e; font-weight: bold; }
+                    .prossima .valore { font-size: 13px; color: #111; font-weight: bold; margin-top: 2px; }
+                    @media print { body { margin: 20px; } }
+                </style>
+            </head>
+            <body>
+                <h1>📋 Registro Colloqui con il Relatore</h1>
+                <p class="subtitle">Esportato il ${new Date().toLocaleDateString('it-IT')} alle ${new Date().toLocaleTimeString('it-IT')} · ${rc_colloqui.length} colloqui registrati</p>
+
+                ${rc_colloqui.map(c => `
+                    <div class="colloquio">
+                        <div class="header">
+                            <div>
+                                <div class="relatore">${rc_escapeHtml(c.relatore)}</div>
+                                <div class="data">${new Date(c.data).toLocaleDateString('it-IT', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}${c.ora ? ' · ore ' + c.ora : ''}</div>
+                            </div>
+                            <span class="tipo">${iconeTipo[c.tipo] || '📝'} ${c.tipo}</span>
+                        </div>
+
+                        ${c.argomenti ? `
+                            <div class="sezione">
+                                <div class="sezione-titolo">💬 Argomenti discussi</div>
+                                <div class="sezione-contenuto">${rc_escapeHtml(c.argomenti)}</div>
+                            </div>
+                        ` : ''}
+
+                        ${c.richieste && c.richieste.length > 0 ? `
+                            <div class="sezione">
+                                <div class="sezione-titolo">✅ Cosa ha chiesto il relatore</div>
+                                <ul class="richieste">
+                                    ${c.richieste.map(r => `<li>${rc_escapeHtml(r)}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+
+                        ${c.consegnato ? `
+                            <div class="sezione">
+                                <div class="sezione-titolo">📎 Consegnato</div>
+                                <div class="sezione-contenuto">✓ ${rc_escapeHtml(c.consegnato)}</div>
+                            </div>
+                        ` : ''}
+
+                        ${c.prossima ? `
+                            <div class="prossima">
+                                <div class="label">➡️ Prossima azione</div>
+                                <div class="valore">${rc_escapeHtml(c.prossima)}</div>
+                                ${c.scadenza ? `<div style="font-size:11px;color:#92400e;margin-top:3px;">📅 Scadenza: ${new Date(c.scadenza).toLocaleDateString('it-IT')}</div>` : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('')}
+            </body>
+            </html>
+        `);
+        finestra.document.close();
+        setTimeout(() => { finestra.print(); }, 500);
+        rc_toast('🖨️ Aperta finestra di stampa');
+    }
+    window.rc_stampa = rc_stampa;
+
+    function rc_escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function rc_toast(msg) {
+        let toast = document.getElementById('rc-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'rc-toast';
+            toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;background:#22c55e;color:#fff;padding:10px 18px;border-radius:8px;font-weight:bold;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:opacity 0.3s;opacity:0;pointer-events:none;';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        clearTimeout(window.rc_toastTimeout);
+        window.rc_toastTimeout = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+    }
+</script>
+
+
+<!-- ========== PAGINA 85: DIARIO DELLA TESI ========== -->
+<div class="page" data-page="53">
+    <div class="max-w-2xl mx-auto px-4 py-8">
+        <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="book-heart" style="width:16px;height:16px;"></i> Modulo Extra & Toolkit
+        </span>
+        <div class="time-badge mb-3">⏱️ Tempo di utilizzo: 2 minuti per tappa</div>
+        <h2 class="heading-font font-bold text-2xl md:text-3xl text-white mb-4 flex items-center gap-2">
+            <i data-lucide="milestone" style="width:28px;height:28px;color:#f59e0b;"></i> Diario della Tesi
+        </h2>
+
+        <div class="bg-gradient-to-br from-pink-500/10 to-neutral-800 border border-pink-500/30 rounded-xl p-5 mb-5">
+            <p class="text-pink-300 font-bold text-sm mb-2 flex items-center gap-2">
+                <i data-lucide="sparkles" style="width:18px;height:18px;"></i> Il viaggio della tua tesi, giorno per giorno
+            </p>
+            <p class="text-neutral-300 text-sm leading-relaxed mb-2">
+                Non solo numeri e scadenze. Qui racconti <strong class="text-white">il viaggio emozionale</strong> della tua tesi: quando hai scelto l'argomento, la prima riunione, il primo capitolo, il panico, la consegna.
+            </p>
+            <p class="text-neutral-400 text-xs leading-relaxed">
+                🎯 Alla fine, sarà il ricordo più bello della tua laurea.
+            </p>
+        </div>
+
+        <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6 flex items-center gap-3">
+            <i data-lucide="shield-check" style="width:24px;height:24px;color:#22c55e;"></i>
+            <div>
+                <p class="text-green-400 font-bold text-sm">🔒 Dati sul tuo dispositivo</p>
+                <p class="text-neutral-400 text-xs">Tutto salvato nel tuo browser. Nessun account, nessun server.</p>
+            </div>
+        </div>
+
+        <div class="flash-strategy mb-6">
+            <p class="text-amber-200 font-semibold">⚡ FLASH STRATEGY: "Un giorno dirai: 'L'ho scritta io'. E sarà bellissimo."</p>
+        </div>
+
+        <!-- CONTATORE GIORNI -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div>
+                    <p class="text-neutral-400 text-[10px] mb-1">🎯 Inizio</p>
+                    <p id="dt-stat-inizio" class="text-sm font-bold text-white">—</p>
+                </div>
+                <div>
+                    <p class="text-neutral-400 text-[10px] mb-1">📆 Giorni passati</p>
+                    <p id="dt-stat-giorni" class="text-2xl font-bold text-amber-400">0</p>
+                </div>
+                <div>
+                    <p class="text-neutral-400 text-[10px] mb-1">📍 Tappe</p>
+                    <p id="dt-stat-tappe" class="text-2xl font-bold text-blue-400">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM NUOVA TAPPA -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="plus-circle" style="width:20px;height:20px;"></i> Nuova tappa
+            </h3>
+
+            <div class="space-y-3 mb-4">
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">🎨 Tipo di tappa</label>
+                    <div class="grid grid-cols-3 sm:grid-cols-4 gap-2" id="dt-tipi">
+                        <button onclick="dt_setTipo('inizio')" data-tipo="inizio" class="dt-tipo-btn bg-amber-500 text-black font-bold text-[10px] py-2 px-1 rounded-lg transition">🎯 Inizio</button>
+                        <button onclick="dt_setTipo('ricerca')" data-tipo="ricerca" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">🔍 Ricerca</button>
+                        <button onclick="dt_setTipo('colloquio')" data-tipo="colloquio" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">🧠 Colloquio</button>
+                        <button onclick="dt_setTipo('scrittura')" data-tipo="scrittura" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">✍️ Scrittura</button>
+                        <button onclick="dt_setTipo('revisione')" data-tipo="revisione" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">🔄 Revisione</button>
+                        <button onclick="dt_setTipo('consegna')" data-tipo="consegna" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">📤 Consegna</button>
+                        <button onclick="dt_setTipo('discussione')" data-tipo="discussione" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">🎓 Discussione</button>
+                        <button onclick="dt_setTipo('panico')" data-tipo="panico" class="dt-tipo-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-[10px] py-2 px-1 rounded-lg transition hover:bg-neutral-700">😰 Panico</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">📅 Data</label>
+                    <input type="date" id="dt-data" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">📝 Titolo della tappa</label>
+                    <input type="text" id="dt-titolo" placeholder="es. Primo colloquio con il relatore" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="text-neutral-300 text-xs font-bold mb-1 block">💭 Come mi sono sentito</label>
+                    <textarea id="dt-note" rows="3" placeholder="es. Ero agitatissimo ma il prof è stato gentile. Mi ha detto di cercare più fonti internazionali..." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+                </div>
+
+                <button onclick="dt_aggiungiTappa()" class="w-full bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:bg-amber-400 transition text-sm">
+                    ➕ Aggiungi al diario
+                </button>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-4 flex items-center gap-2">
+                <i data-lucide="route" style="width:20px;height:20px;"></i> La tua timeline
+            </h3>
+            <div id="dt-timeline" class="relative">
+                <p class="text-neutral-500 text-xs text-center">Nessuna tappa registrata. Inizia il tuo diario!</p>
+            </div>
+        </div>
+
+        <!-- AZIONI -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="download" style="width:20px;height:20px;"></i> Azioni
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <button onclick="dt_stampa()" class="bg-neutral-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-neutral-600 transition text-sm">
+                    🖨️ Stampa / PDF
+                </button>
+                <button onclick="dt_esporta()" class="bg-teal-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-teal-500 transition text-sm">
+                    📥 Export JSON
+                </button>
+                <button onclick="dt_reset()" class="bg-red-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-red-600 transition text-sm">
+                    🗑️ Azzera tutto
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 mb-4">
+            <p class="text-neutral-400 text-xs leading-relaxed">
+                💡 <strong class="text-white">Consiglio:</strong> Non aspettare la fine per scrivere. Aggiungi una tappa <strong class="text-white">oggi stesso</strong>, anche solo "ho aperto Word e ho scritto la prima frase". Tra un anno, rileggere questo diario ti farà sorridere.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // ============================================================
+    // LOGICA DIARIO DELLA TESI (PAGINA 85)
+    // ============================================================
+
+    let dt_tappe = JSON.parse(localStorage.getItem('tesiflash_diario_tesi') || '[]');
+    let dt_tipoCorrente = 'inizio';
+
+    function dt_init() {
+        dt_render();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', dt_init);
+    } else {
+        dt_init();
+    }
+
+    function dt_setTipo(tipo) {
+        dt_tipoCorrente = tipo;
+        document.querySelectorAll('.dt-tipo-btn').forEach(btn => {
+            const isAttivo = btn.dataset.tipo === tipo;
+            btn.className = 'dt-tipo-btn font-bold text-[10px] py-2 px-1 rounded-lg transition ' +
+                (isAttivo ? 'bg-amber-500 text-black' : 'bg-neutral-900 border border-neutral-700 text-neutral-300 hover:bg-neutral-700');
+        });
+    }
+    window.dt_setTipo = dt_setTipo;
+
+    function dt_aggiungiTappa() {
+        const data = document.getElementById('dt-data').value;
+        const titolo = document.getElementById('dt-titolo').value.trim();
+        const note = document.getElementById('dt-note').value.trim();
+
+        if (!data) { alert('Inserisci la data della tappa.'); return; }
+        if (!titolo) { alert('Inserisci il titolo della tappa.'); return; }
+
+        const tappa = {
+            id: Date.now() + Math.random(),
+            data: data,
+            tipo: dt_tipoCorrente,
+            titolo: titolo,
+            note: note,
+            creato: new Date().toISOString()
+        };
+
+        dt_tappe.push(tappa);
+        dt_tappe.sort((a, b) => new Date(a.data) - new Date(b.data));
+        dt_salva();
+
+        document.getElementById('dt-data').value = '';
+        document.getElementById('dt-titolo').value = '';
+        document.getElementById('dt-note').value = '';
+
+        dt_render();
+        dt_toast('📔 Tappa aggiunta al diario');
+    }
+    window.dt_aggiungiTappa = dt_aggiungiTappa;
+
+    function dt_salva() {
+        localStorage.setItem('tesiflash_diario_tesi', JSON.stringify(dt_tappe));
+    }
+
+    function dt_render() {
+        dt_renderStatistiche();
+        dt_renderTimeline();
+    }
+
+    function dt_renderStatistiche() {
+        const totale = dt_tappe.length;
+        document.getElementById('dt-stat-tappe').textContent = totale;
+
+        if (totale > 0) {
+            const prima = dt_tappe[0];
+            const primaData = new Date(prima.data);
+            document.getElementById('dt-stat-inizio').textContent = primaData.toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' });
+
+            const oggi = new Date();
+            oggi.setHours(0, 0, 0, 0);
+            primaData.setHours(0, 0, 0, 0);
+            const giorni = Math.floor((oggi - primaData) / (1000 * 60 * 60 * 24));
+            document.getElementById('dt-stat-giorni').textContent = giorni;
+        } else {
+            document.getElementById('dt-stat-inizio').textContent = '—';
+            document.getElementById('dt-stat-giorni').textContent = '0';
+        }
+    }
+
+    function dt_renderTimeline() {
+        const container = document.getElementById('dt-timeline');
+        if (dt_tappe.length === 0) {
+            container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna tappa registrata. Inizia il tuo diario!</p>';
+            return;
+        }
+
+        const iconeTipo = {
+            inizio: { icona: '🎯', colore: 'bg-amber-500', border: 'border-amber-500/50', bg: 'bg-amber-500/10' },
+            ricerca: { icona: '🔍', colore: 'bg-blue-500', border: 'border-blue-500/50', bg: 'bg-blue-500/10' },
+            colloquio: { icona: '🧠', colore: 'bg-purple-500', border: 'border-purple-500/50', bg: 'bg-purple-500/10' },
+            scrittura: { icona: '✍️', colore: 'bg-green-500', border: 'border-green-500/50', bg: 'bg-green-500/10' },
+            revisione: { icona: '🔄', colore: 'bg-cyan-500', border: 'border-cyan-500/50', bg: 'bg-cyan-500/10' },
+            consegna: { icona: '📤', colore: 'bg-pink-500', border: 'border-pink-500/50', bg: 'bg-pink-500/10' },
+            discussione: { icona: '🎓', colore: 'bg-emerald-500', border: 'border-emerald-500/50', bg: 'bg-emerald-500/10' },
+            panico: { icona: '😰', colore: 'bg-red-500', border: 'border-red-500/50', bg: 'bg-red-500/10' }
+        };
+
+        // Timeline ordinata dal più recente al più vecchio
+        const ordinate = [...dt_tappe].sort((a, b) => new Date(b.data) - new Date(a.data));
+
+        container.innerHTML = '<div class="relative pl-8">' +
+            '<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-neutral-700"></div>' +
+            ordinate.map((t, i) => {
+                const tipo = iconeTipo[t.tipo] || iconeTipo.inizio;
+                const dataFormattata = new Date(t.data).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
+
+                return `
+                    <div class="relative mb-6 last:mb-0">
+                        <div class="absolute -left-8 top-1 w-6 h-6 rounded-full ${tipo.colore} flex items-center justify-center text-xs border-2 border-neutral-900 shadow-lg">
+                            ${tipo.icona}
+                        </div>
+                        <div class="${tipo.bg} border ${tipo.border} rounded-lg p-4">
+                            <div class="flex justify-between items-start gap-2 mb-1">
+                                <p class="text-neutral-400 text-[10px] uppercase font-bold">${dataFormattata}</p>
+                                <button onclick="dt_rimuovi(${t.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0" title="Elimina">🗑️</button>
+                            </div>
+                            <p class="text-white text-sm font-bold mb-1">${dt_escapeHtml(t.titolo)}</p>
+                            ${t.note ? `<p class="text-neutral-300 text-xs leading-relaxed italic">"${dt_escapeHtml(t.note)}"</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('') +
+            '</div>';
+
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function dt_rimuovi(id) {
+        if (!confirm('Eliminare questa tappa dal diario?')) return;
+        dt_tappe = dt_tappe.filter(t => t.id !== id);
+        dt_salva();
+        dt_render();
+        dt_toast('🗑️ Tappa eliminata');
+    }
+    window.dt_rimuovi = dt_rimuovi;
+
+    function dt_reset() {
+        if (!confirm('⚠️ Cancellare TUTTO il diario?\n\nL\'operazione è irreversibile.')) return;
+        dt_tappe = [];
+        localStorage.removeItem('tesiflash_diario_tesi');
+        dt_render();
+        dt_toast('🗑️ Diario azzerato');
+    }
+    window.dt_reset = dt_reset;
+
+    function dt_esporta() {
+        if (dt_tappe.length === 0) { alert('Nessuna tappa da esportare.'); return; }
+        const dati = {
+            tappe: dt_tappe,
+            esportato: new Date().toISOString()
+        };
+        const blob = new Blob([JSON.stringify(dati, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'diario-tesi-' + new Date().toISOString().split('T')[0] + '.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        dt_toast('📥 Export completato');
+    }
+    window.dt_esporta = dt_esporta;
+
+    function dt_stampa() {
+        if (dt_tappe.length === 0) { alert('Nessuna tappa da stampare.'); return; }
+
+        const iconeTipo = { inizio: '🎯', ricerca: '🔍', colloquio: '🧠', scrittura: '✍️', revisione: '🔄', consegna: '📤', discussione: '🎓', panico: '😰' };
+        const ordinate = [...dt_tappe].sort((a, b) => new Date(a.data) - new Date(b.data));
+
+        const finestra = window.open('', '_blank');
+        finestra.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Diario della Tesi</title>
+                <style>
+                    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+                    body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
+                    h1 { font-size: 26px; text-align: center; margin-bottom: 10px; }
+                    .subtitle { text-align: center; color: #666; font-size: 13px; margin-bottom: 40px; font-style: italic; }
+                    .info { text-align: center; background: #fef3c7; padding: 12px; border-radius: 8px; margin-bottom: 40px; font-size: 14px; }
+                    .info strong { color: #92400e; }
+                    .timeline { position: relative; padding-left: 40px; }
+                    .timeline:before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+                    .tappa { position: relative; margin-bottom: 30px; page-break-inside: avoid; }
+                    .tappa-icona { position: absolute; left: -40px; top: 0; width: 32px; height: 32px; border-radius: 50%; background: #f59e0b; color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+                    .tappa-data { font-size: 11px; color: #888; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px; }
+                    .tappa-titolo { font-size: 16px; font-weight: bold; color: #111; margin-bottom: 8px; }
+                    .tappa-note { font-size: 13px; color: #444; font-style: italic; line-height: 1.5; background: #f9fafb; padding: 10px 14px; border-left: 3px solid #f59e0b; border-radius: 0 4px 4px 0; }
+                    @media print { body { margin: 20px; } }
+                </style>
+            </head>
+            <body>
+                <h1>📔 Diario della Tesi</h1>
+                <p class="subtitle">"Un giorno dirai: 'L'ho scritta io'. E sarà bellissimo."</p>
+
+                <div class="info">
+                    <strong>Iniziato il ${new Date(ordinate[0].data).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</strong><br>
+                    ${ordinate.length} tappe registrate · ${Math.floor((new Date() - new Date(ordinate[0].data)) / (1000 * 60 * 60 * 24))} giorni di viaggio
+                </div>
+
+                <div class="timeline">
+                    ${ordinate.map(t => `
+                        <div class="tappa">
+                            <div class="tappa-icona">${iconeTipo[t.tipo] || '📌'}</div>
+                            <div class="tappa-data">${new Date(t.data).toLocaleDateString('it-IT', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}</div>
+                            <div class="tappa-titolo">${dt_escapeHtml(t.titolo)}</div>
+                            ${t.note ? `<div class="tappa-note">"${dt_escapeHtml(t.note)}"</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+
+                <p style="text-align:center;margin-top:50px;color:#888;font-size:12px;font-style:italic;">— Fine del diario —</p>
+            </body>
+            </html>
+        `);
+        finestra.document.close();
+        setTimeout(() => { finestra.print(); }, 500);
+        dt_toast('🖨️ Aperta finestra di stampa');
+    }
+    window.dt_stampa = dt_stampa;
+
+    function dt_escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function dt_toast(msg) {
+        let toast = document.getElementById('dt-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'dt-toast';
+            toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;background:#22c55e;color:#fff;padding:10px 18px;border-radius:8px;font-weight:bold;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:opacity 0.3s;opacity:0;pointer-events:none;';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        clearTimeout(window.dt_toastTimeout);
+        window.dt_toastTimeout = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+    }
+</script>
+
     </main>
 
     <!-- ==================== JAVASCRIPT COMPLETO ==================== -->
     <script>
-        const TOTAL_PAGES = 51;
+        const TOTAL_PAGES = 53;
         let currentPage = 1;
 
         // Dati per l'indice
@@ -3969,7 +4860,9 @@ Cordiali saluti,
             {page:48,label:'Cosa Fare il Giorno Prima'},
             {page:49,label:'Congratulazioni'},
             {page:50,label:'Chiusura'},
-            {page:51, label:'🎓 Strumenti di Studio Attivo'}
+            {page:51, label:'🎓 Strumenti di Studio Attivo'},
+            {page:52, label:'📋 Registro Colloqui Relatore'},
+            {page:53, label:'📔 Diario della Tesi'}
         ];
 
         function init() {
