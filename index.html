@@ -2135,7 +2135,8 @@ Cordiali saluti,
             </div>
         </div>
 
-<!-- ========== PAGINA 51: STRUMENTI DI STUDIO ATTIVO ========== -->
+
+        <!-- ========== PAGINA 51: STRUMENTI DI STUDIO ATTIVO ========== -->
 <div class="page" data-page="51">
     <div class="max-w-2xl mx-auto px-4 py-8">
         <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -2196,7 +2197,7 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="highlighter" style="width:20px;height:20px;"></i> Evidenzia il tuo materiale
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Incolla il testo, importa un file o carica quello salvato in precedenza. Seleziona le parti importanti e clicca "Evidenzia".</p>
+            <p class="text-neutral-400 text-xs mb-4">Incolla il testo, importa un file o carica quello salvato. Seleziona le parti importanti e clicca "Evidenzia".</p>
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-3">
                 <div id="testo-evidenzia" contenteditable="true" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-3 text-white text-sm focus:border-amber-500 focus:outline-none h-48 overflow-y-auto" style="min-height:12rem;">
@@ -2210,25 +2211,24 @@ Cordiali saluti,
 
             <input type="file" id="file-input" accept=".txt,.md,.csv,.json,.docx" style="display:none;" onchange="s83_importaFile(event)">
 
-            <!-- PALETTE COLORI -->
-            <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2 mt-4">🎨 Colore evidenziazione</p>
-            <div class="flex gap-2 mb-3 flex-wrap" id="s83-palette">
-                <button onclick="s83_setColore('#facc15')" data-colore="#facc15" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-white scale-110 transition" style="background-color:#facc15;" title="Giallo"></button>
-                <button onclick="s83_setColore('#22c55e')" data-colore="#22c55e" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#22c55e;" title="Verde"></button>
-                <button onclick="s83_setColore('#3b82f6')" data-colore="#3b82f6" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#3b82f6;" title="Blu"></button>
-                <button onclick="s83_setColore('#ec4899')" data-colore="#ec4899" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#ec4899;" title="Rosa"></button>
-                <button onclick="s83_setColore('#f97316')" data-colore="#f97316" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#f97316;" title="Arancione"></button>
-                <span class="text-neutral-500 text-[10px] self-center ml-2">← Colore attivo</span>
+            <!-- PALETTE COLORI COMPATTA -->
+            <div class="flex items-center gap-2 mb-3 mt-4">
+                <span class="text-neutral-500 text-[9px] uppercase font-bold">🎨 Colore:</span>
+                <div class="flex gap-1.5" id="s83-palette">
+                    <button onclick="s83_setColore('#facc15')" data-colore="#facc15" class="s83-colore-btn w-7 h-7 rounded-md border-2 border-white transition" style="background-color:#facc15;" title="Giallo"></button>
+                    <button onclick="s83_setColore('#22c55e')" data-colore="#22c55e" class="s83-colore-btn w-7 h-7 rounded-md border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#22c55e;" title="Verde"></button>
+                    <button onclick="s83_setColore('#3b82f6')" data-colore="#3b82f6" class="s83-colore-btn w-7 h-7 rounded-md border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#3b82f6;" title="Blu"></button>
+                    <button onclick="s83_setColore('#ec4899')" data-colore="#ec4899" class="s83-colore-btn w-7 h-7 rounded-md border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#ec4899;" title="Rosa"></button>
+                    <button onclick="s83_setColore('#f97316')" data-colore="#f97316" class="s83-colore-btn w-7 h-7 rounded-md border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#f97316;" title="Arancione"></button>
+                </div>
             </div>
 
-            <!-- RIGA 1: AZIONI SUL TESTO -->
             <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2">📝 Azioni sul testo</p>
             <div class="grid grid-cols-2 gap-2 mb-3">
                 <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia selezione</button>
                 <button onclick="rimuoviTutteEvidenziazioni()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">🧹 Pulisci evidenziazioni</button>
             </div>
 
-            <!-- RIGA 2: SALVA / CARICA / IMPORTA / STAMPA -->
             <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2">💾 Salvataggio e importazione</p>
             <div class="grid grid-cols-2 gap-2">
                 <button onclick="salvaTesto()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva nel browser</button>
@@ -2246,7 +2246,7 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="layers" style="width:20px;height:20px;"></i> Genera Flashcard
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Aggiungi flashcard a mano oppure generane automaticamente dal testo. Le flashcard generate si possono modificare cliccandoci sopra.</p>
+            <p class="text-neutral-400 text-xs mb-4">Aggiungi flashcard a mano oppure generane automaticamente dal testo. Clicca su una flashcard per modificarla.</p>
 
             <div class="space-y-3 mb-4">
                 <div>
@@ -2325,20 +2325,104 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="help-circle" style="width:20px;height:20px;"></i> Quiz
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Metti alla prova le tue conoscenze. Il quiz viene generato automaticamente dalle tue flashcard e dal testo caricato.</p>
+            <p class="text-neutral-400 text-xs mb-4">Metti alla prova le tue conoscenze. Il quiz è generato dalle tue flashcard e dal testo, oppure puoi crearne uno manualmente.</p>
 
-            <div id="quiz-container" class="bg-neutral-900/60 rounded-lg p-5 mb-4">
-                <p id="quiz-domanda" class="text-white font-bold text-sm mb-4">Premi START per iniziare</p>
-                <div id="quiz-opzioni" class="space-y-2"></div>
-                <p id="quiz-feedback" class="text-sm mt-3 font-bold"></p>
+            <!-- TAB SELEZIONE MODALITÀ -->
+            <div class="flex bg-neutral-900 rounded-lg p-1 mb-4">
+                <button id="quiz-tab-auto" onclick="s83_quizTab('auto')" class="flex-1 text-xs font-bold py-2 rounded-md transition bg-amber-500 text-black">🤖 Automatico</button>
+                <button id="quiz-tab-manuale" onclick="s83_quizTab('manuale')" class="flex-1 text-xs font-bold py-2 rounded-md transition text-neutral-400 hover:text-white">✏️ Manuale</button>
             </div>
 
-            <div class="grid grid-cols-3 gap-2">
-                <button onclick="avviaQuiz()" class="bg-amber-500 text-black font-bold px-3 py-2 rounded-lg hover:bg-amber-400 text-sm">▶️ Start</button>
-                <button onclick="stopQuiz()" class="bg-red-600 text-white font-bold px-3 py-2 rounded-lg hover:bg-red-500 text-sm">⏹️ Stop</button>
-                <button onclick="resetQuiz()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-3 py-2 rounded-lg hover:bg-neutral-700 text-sm">🗑️ Reset</button>
+            <!-- ============ QUIZ AUTOMATICO ============ -->
+            <div id="quiz-panel-auto">
+                <!-- SELEZIONE NUMERO DOMANDE -->
+                <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
+                    <p class="text-neutral-300 text-xs font-bold mb-3">📊 Quante domande vuoi?</p>
+                    <div class="grid grid-cols-4 gap-2 mb-3">
+                        <button onclick="s83_setNumDomande(5)" data-num="5" class="s83-num-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-xs py-2 rounded-lg hover:bg-neutral-700 transition">5</button>
+                        <button onclick="s83_setNumDomande(10)" data-num="10" class="s83-num-btn bg-amber-500 text-black font-bold text-xs py-2 rounded-lg transition">10</button>
+                        <button onclick="s83_setNumDomande(15)" data-num="15" class="s83-num-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-xs py-2 rounded-lg hover:bg-neutral-700 transition">15</button>
+                        <button onclick="s83_setNumDomande(20)" data-num="20" class="s83-num-btn bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold text-xs py-2 rounded-lg hover:bg-neutral-700 transition">20</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="text-neutral-400 text-xs">Personalizzato:</label>
+                        <input type="number" id="quiz-num-custom" min="1" max="50" value="10" class="w-20 bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-1 text-white text-xs focus:border-amber-500 focus:outline-none">
+                        <button onclick="s83_setNumDomande(parseInt(document.getElementById('quiz-num-custom').value) || 10)" class="bg-amber-500 text-black font-bold text-xs px-3 py-1 rounded-lg hover:bg-amber-400 transition">OK</button>
+                    </div>
+                    <p class="text-neutral-500 text-[10px] mt-2" id="quiz-num-display">Domande selezionate: 10</p>
+                </div>
+
+                <div id="quiz-container" class="bg-neutral-900/60 rounded-lg p-5 mb-4">
+                    <p id="quiz-domanda" class="text-white font-bold text-sm mb-4">Premi START per iniziare</p>
+                    <div id="quiz-opzioni" class="space-y-2"></div>
+                    <p id="quiz-feedback" class="text-sm mt-3 font-bold"></p>
+                    <p id="quiz-contatore" class="text-center text-neutral-500 text-xs mt-3 hidden"></p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 mb-2">
+                    <button onclick="avviaQuiz()" class="bg-amber-500 text-black font-bold px-3 py-2 rounded-lg hover:bg-amber-400 text-sm">▶️ Start</button>
+                    <button onclick="stopQuiz()" class="bg-red-600 text-white font-bold px-3 py-2 rounded-lg hover:bg-red-500 text-sm">⏹️ Stop</button>
+                    <button onclick="resetQuiz()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-3 py-2 rounded-lg hover:bg-neutral-700 text-sm">🗑️ Reset</button>
+                </div>
+                <p id="quiz-punteggio" class="text-center mt-3 font-bold text-sm text-amber-400"></p>
             </div>
-            <p id="quiz-punteggio" class="text-center mt-3 font-bold text-sm text-amber-400"></p>
+
+            <!-- ============ QUIZ MANUALE ============ -->
+            <div id="quiz-panel-manuale" class="hidden">
+                <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
+                    <p class="text-neutral-300 text-xs font-bold mb-3">✏️ Crea le tue domande</p>
+
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label class="text-neutral-300 text-xs font-bold mb-1 block">❓ Domanda</label>
+                            <textarea id="qm-domanda" rows="2" placeholder="es. Qual è la differenza tra media aritmetica e ponderata?" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+                        </div>
+                        <div>
+                            <p class="text-neutral-300 text-xs font-bold mb-2">Risposte (indica quella corretta)</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="qm-corretta" value="0" checked class="accent-green-500">
+                                    <input type="text" id="qm-risp-0" placeholder="Risposta A (corretta)" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="qm-corretta" value="1" class="accent-green-500">
+                                    <input type="text" id="qm-risp-1" placeholder="Risposta B" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="qm-corretta" value="2" class="accent-green-500">
+                                    <input type="text" id="qm-risp-2" placeholder="Risposta C" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="qm-corretta" value="3" class="accent-green-500">
+                                    <input type="text" id="qm-risp-3" placeholder="Risposta D" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="s83_aggiungiQuizManuale()" class="w-full bg-green-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-green-500 transition text-sm">
+                            ➕ Aggiungi domanda
+                        </button>
+                    </div>
+
+                    <div class="border-t border-neutral-700 pt-3">
+                        <p class="text-neutral-300 text-xs font-bold mb-2">📚 Le tue domande (<span id="qm-count">0</span>)</p>
+                        <p class="text-neutral-500 text-[10px] mb-2">💡 Clicca su una domanda per modificarla</p>
+                        <div id="qm-lista" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <div class="bg-neutral-900/60 rounded-lg p-5 mb-4">
+                    <p id="qm-domanda-attiva" class="text-white font-bold text-sm mb-4">Premi START per iniziare</p>
+                    <div id="qm-opzioni" class="space-y-2"></div>
+                    <p id="qm-feedback" class="text-sm mt-3 font-bold"></p>
+                    <p id="qm-contatore" class="text-center text-neutral-500 text-xs mt-3 hidden"></p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="s83_avviaQuizManuale()" class="bg-amber-500 text-black font-bold px-3 py-2 rounded-lg hover:bg-amber-400 text-sm">▶️ Start quiz manuale</button>
+                    <button onclick="s83_resetQuizManuale()" class="bg-red-600 text-white font-bold px-3 py-2 rounded-lg hover:bg-red-500 text-sm">🗑️ Azzera tutto</button>
+                </div>
+                <p id="qm-punteggio" class="text-center mt-3 font-bold text-sm text-amber-400"></p>
+            </div>
         </div>
 
         <!-- AZIONI GLOBALI -->
@@ -2360,20 +2444,72 @@ Cordiali saluti,
                 </button>
             </div>
             <p class="text-neutral-500 text-[10px] mt-2">
-                "Pulisci tutto" cancella testo, evidenziazioni, flashcard e progressi. Operazione irreversibile.
+                "Pulisci tutto" cancella testo, evidenziazioni, flashcard, quiz manuali e progressi. Operazione irreversibile.
             </p>
+
+            <!-- PANNELLO ISTRUZIONI STAMPA COLORI -->
+            <div class="mt-4 border-t border-neutral-700 pt-4">
+                <button onclick="s83_toggleGuidaStampa()" class="text-neutral-300 text-xs font-bold hover:text-amber-400 transition flex items-center gap-2">
+                    <i data-lucide="info" style="width:14px;height:14px;"></i>
+                    <span>Non vedi i colori nell'anteprima di stampa? Clicca qui</span>
+                </button>
+
+                <div id="s83-guida-stampa" class="hidden mt-3 bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+                    <p class="text-blue-300 font-bold text-sm mb-3 flex items-center gap-2">
+                        🎨 Come attivare la stampa dei colori
+                    </p>
+                    <p class="text-neutral-300 text-xs leading-relaxed mb-3">
+                        I browser, per impostazione predefinita, <strong class="text-white">non stampano gli sfondi colorati</strong> per risparmiare inchiostro. È una protezione, non un errore. Ecco come attivarla:
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="bg-neutral-900/60 rounded-lg p-3">
+                            <p class="text-white font-bold text-xs mb-1">🔷 Chrome / Edge / Brave</p>
+                            <p class="text-neutral-400 text-xs leading-relaxed">
+                                Finestra di stampa → <strong class="text-white">"Altre impostazioni"</strong> (in basso a sinistra) → spunta <strong class="text-white">"Grafica di sfondo"</strong>
+                            </p>
+                        </div>
+
+                        <div class="bg-neutral-900/60 rounded-lg p-3">
+                            <p class="text-white font-bold text-xs mb-1">🦊 Firefox</p>
+                            <p class="text-neutral-400 text-xs leading-relaxed">
+                                Finestra di stampa → <strong class="text-white">"Imposta pagina"</strong> in alto → spunta <strong class="text-white">"Stampa sfondi e immagini"</strong>
+                            </p>
+                        </div>
+
+                        <div class="bg-neutral-900/60 rounded-lg p-3">
+                            <p class="text-white font-bold text-xs mb-1">🧭 Safari (Mac / iPhone / iPad)</p>
+                            <p class="text-neutral-400 text-xs leading-relaxed">
+                                Finestra di stampa → <strong class="text-white">"Mostra dettagli"</strong> → spunta <strong class="text-white">"Stampa sfondi"</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 mt-3">
+                        <p class="text-amber-300 text-xs leading-relaxed">
+                            💡 <strong>Consiglio:</strong> dopo aver salvato come PDF con l'opzione attiva, potrai <strong class="text-white">rimuovere la spunta</strong> per le stampe future. Il PDF mantiene i colori per sempre.
+                        </p>
+                    </div>
+
+                    <div class="flex justify-end mt-4">
+                        <button onclick="s83_nonMostrarePiu()" class="text-neutral-500 text-[10px] hover:text-neutral-300 transition underline">
+                            Non mostrare più questo avviso
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 mb-4">
             <p class="text-neutral-400 text-xs leading-relaxed">
-                💡 <strong class="text-white">Consiglio:</strong> Incolla un testo lungo in "Evidenzia", poi vai in "Flashcard" e clicca <strong class="text-purple-400">🤖 Genera dal testo</strong>. Le flashcard generate si possono modificare cliccandoci sopra. Infine usa "Studia" e "Quiz" per verificare.
+                💡 <strong class="text-white">Consiglio:</strong> Incolla un testo lungo in "Evidenzia", poi vai in "Flashcard" e clicca <strong class="text-purple-400">🤖 Genera dal testo</strong>. Clicca su una flashcard per modificarla. Infine usa "Studia" e "Quiz" per verificare.
             </p>
         </div>
 
     </div>
 </div>
 
-<!-- MODALE MODIFICA FLASHCARD (nascosto di default con style inline per sicurezza) -->
+<!-- MODALE MODIFICA FLASHCARD -->
 <div id="s83-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9998;align-items:center;justify-content:center;padding:16px;">
     <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-6 max-w-md w-full">
         <h3 class="text-amber-400 font-bold text-base mb-4">✏️ Modifica Flashcard</h3>
@@ -2394,6 +2530,44 @@ Cordiali saluti,
     </div>
 </div>
 
+<!-- MODALE MODIFICA QUIZ MANUALE -->
+<div id="s83-modal-qm" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9998;align-items:center;justify-content:center;padding:16px;">
+    <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <h3 class="text-amber-400 font-bold text-base mb-4">✏️ Modifica Domanda Quiz</h3>
+        <div class="space-y-3 mb-4">
+            <div>
+                <label class="text-neutral-300 text-xs font-bold mb-1 block">❓ Domanda</label>
+                <textarea id="s83-modal-qm-domanda" rows="2" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+            </div>
+            <div>
+                <p class="text-neutral-300 text-xs font-bold mb-2">Risposte (indica la corretta)</p>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="s83-qm-modal-corretta" value="0" class="accent-green-500">
+                        <input type="text" id="s83-modal-qm-risp-0" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="s83-qm-modal-corretta" value="1" class="accent-green-500">
+                        <input type="text" id="s83-modal-qm-risp-1" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="s83-qm-modal-corretta" value="2" class="accent-green-500">
+                        <input type="text" id="s83-modal-qm-risp-2" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="s83-qm-modal-corretta" value="3" class="accent-green-500">
+                        <input type="text" id="s83-modal-qm-risp-3" class="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <button onclick="s83_salvaModificaQM()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva</button>
+            <button onclick="s83_chiudiModaleQM()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">✕ Annulla</button>
+        </div>
+    </div>
+</div>
+
 <!-- MAMMOTH.JS per importare .docx -->
 <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
 
@@ -2410,20 +2584,17 @@ Cordiali saluti,
         s83_aggiornaListaEvidenziazioni();
         s83_renderFlashcard();
         s83_aggiornaContatore();
+        s83_renderListaQM();
 
-        // Ripristina il colore di evidenziazione salvato
         const coloreSalvato = localStorage.getItem('tesiflash_studio_colore');
-        if (coloreSalvato) {
-            s83_setColore(coloreSalvato);
-        }
+        if (coloreSalvato) s83_setColore(coloreSalvato);
 
-        if (editor) {
-            editor.addEventListener('input', s83_aggiornaContatore);
-        }
+        if (editor) editor.addEventListener('input', s83_aggiornaContatore);
 
-        // Assicura che il modale sia chiuso all'avvio
         const modale = document.getElementById('s83-modal');
         if (modale) modale.style.display = 'none';
+        const modaleQm = document.getElementById('s83-modal-qm');
+        if (modaleQm) modaleQm.style.display = 'none';
     }
 
     if (document.readyState === 'loading') {
@@ -2469,7 +2640,7 @@ Cordiali saluti,
         s83_coloreEvidenziazione = colore;
         document.querySelectorAll('#s83-palette .s83-colore-btn').forEach(btn => {
             const isAttivo = btn.dataset.colore === colore;
-            btn.className = 's83-colore-btn w-10 h-10 rounded-lg border-2 transition ' +
+            btn.className = 's83-colore-btn w-7 h-7 rounded-md border-2 transition ' +
                 (isAttivo ? 'border-white scale-110' : 'border-neutral-700 hover:border-neutral-400');
         });
         localStorage.setItem('tesiflash_studio_colore', colore);
@@ -2495,7 +2666,6 @@ Cordiali saluti,
 
         const span = document.createElement('span');
         span.style.backgroundColor = s83_coloreEvidenziazione;
-        // Testo bianco sui colori scuri, nero sui colori chiari
         const coloriSc = ['#3b82f6', '#22c55e', '#ec4899'];
         span.style.color = coloriSc.includes(s83_coloreEvidenziazione) ? '#fff' : '#000';
         span.style.borderRadius = '3px';
@@ -2575,9 +2745,7 @@ Cordiali saluti,
         const editor = document.getElementById('testo-evidenzia');
         if (!editor) return;
         localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
-        if (!silenzioso) {
-            s83_toast('💾 Testo salvato nel browser');
-        }
+        if (!silenzioso) s83_toast('💾 Testo salvato nel browser');
     }
     window.salvaTesto = s83_salvaTesto;
 
@@ -2646,6 +2814,7 @@ Cordiali saluti,
     window.s83_importaFile = s83_importaFile;
 
     function s83_stampaTesto() {
+        s83_mostraGuidaSePrimaVolta();
         const editor = document.getElementById('testo-evidenzia');
         const contenuto = editor.innerHTML;
 
@@ -2657,10 +2826,11 @@ Cordiali saluti,
                 <meta charset="UTF-8">
                 <title>Testo di Studio</title>
                 <style>
+                    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
                     body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
                     h1 { font-size: 18px; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; }
-                    .evidenziato { padding: 2px 4px; border-radius: 2px; }
-                    @media print { body { margin: 20px; } }
+                    .evidenziato { padding: 2px 4px; border-radius: 2px; display: inline; }
+                    @media print { body { margin: 20px; } * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; } }
                 </style>
             </head>
             <body>
@@ -2692,6 +2862,38 @@ Cordiali saluti,
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // ============================================================
+    // GUIDA STAMPA COLORI
+    // ============================================================
+    function s83_toggleGuidaStampa() {
+        const guida = document.getElementById('s83-guida-stampa');
+        if (!guida) return;
+        guida.classList.toggle('hidden');
+        if (window.lucide) lucide.createIcons();
+    }
+    window.s83_toggleGuidaStampa = s83_toggleGuidaStampa;
+
+    function s83_nonMostrarePiu() {
+        localStorage.setItem('tesiflash_studio_no_guida_stampa', '1');
+        const guida = document.getElementById('s83-guida-stampa');
+        if (guida) guida.classList.add('hidden');
+        s83_toast('👍 Non mostreremo più questo avviso');
+    }
+    window.s83_nonMostrarePiu = s83_nonMostrarePiu;
+
+    function s83_mostraGuidaSePrimaVolta() {
+        const maiVista = !localStorage.getItem('tesiflash_studio_no_guida_stampa');
+        const maiAperta = !localStorage.getItem('tesiflash_studio_guida_vista');
+        if (maiVista && maiAperta) {
+            const guida = document.getElementById('s83-guida-stampa');
+            if (guida) {
+                guida.classList.remove('hidden');
+                if (window.lucide) lucide.createIcons();
+            }
+            localStorage.setItem('tesiflash_studio_guida_vista', '1');
+        }
     }
 
     // ============================================================
@@ -2950,16 +3152,12 @@ Cordiali saluti,
         `).join('');
     }
 
-    // MODALE — apertura e chiusura corrette
     function s83_apriModale(id) {
         const fc = s83_flashcard.find(f => f.id === id);
         if (!fc) return;
-
         s83_modificaIdCorrente = id;
         document.getElementById('s83-modal-domanda').value = fc.domanda;
         document.getElementById('s83-modal-risposta').value = fc.risposta;
-
-        // Mostra il modale correttamente
         const modale = document.getElementById('s83-modal');
         modale.style.display = 'flex';
     }
@@ -2988,14 +3186,11 @@ Cordiali saluti,
     window.s83_salvaModifica = s83_salvaModifica;
 
     function s83_chiudiModale() {
-        // Nasconde il modale correttamente
-        const modale = document.getElementById('s83-modal');
-        modale.style.display = 'none';
+        document.getElementById('s83-modal').style.display = 'none';
         s83_modificaIdCorrente = null;
     }
     window.s83_chiudiModale = s83_chiudiModale;
 
-    // Chiudi il modale cliccando fuori (sullo sfondo scuro)
     document.addEventListener('DOMContentLoaded', function() {
         const modale = document.getElementById('s83-modal');
         if (modale) {
@@ -3003,13 +3198,20 @@ Cordiali saluti,
                 if (e.target === modale) s83_chiudiModale();
             });
         }
+        const modaleQm = document.getElementById('s83-modal-qm');
+        if (modaleQm) {
+            modaleQm.addEventListener('click', function(e) {
+                if (e.target === modaleQm) s83_chiudiModaleQM();
+            });
+        }
     });
 
-    // Chiudi il modale con ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const modale = document.getElementById('s83-modal');
             if (modale && modale.style.display === 'flex') s83_chiudiModale();
+            const modaleQm = document.getElementById('s83-modal-qm');
+            if (modaleQm && modaleQm.style.display === 'flex') s83_chiudiModaleQM();
         }
     });
 
@@ -3082,9 +3284,7 @@ Cordiali saluti,
         document.getElementById('studio-progresso').textContent = `Carta ${s83_studioStato.indice + 1} di ${s83_studioStato.mazzo.length}`;
 
         const progressBar = document.getElementById('studio-progress-bar');
-        if (progressBar) {
-            progressBar.style.width = ((s83_studioStato.indice) / s83_studioStato.mazzo.length * 100) + '%';
-        }
+        if (progressBar) progressBar.style.width = ((s83_studioStato.indice) / s83_studioStato.mazzo.length * 100) + '%';
 
         document.getElementById('studio-risposta-box').classList.add('hidden');
         document.getElementById('studio-bottoni').classList.remove('hidden');
@@ -3155,9 +3355,49 @@ Cordiali saluti,
     window.resetStudio = s83_resetStudio;
 
     // ============================================================
-    // QUIZ
+    // QUIZ - TAB AUTO / MANUALE
+    // ============================================================
+    function s83_quizTab(tab) {
+        const tabAuto = document.getElementById('quiz-tab-auto');
+        const tabManuale = document.getElementById('quiz-tab-manuale');
+        const panelAuto = document.getElementById('quiz-panel-auto');
+        const panelManuale = document.getElementById('quiz-panel-manuale');
+
+        if (tab === 'auto') {
+            tabAuto.className = 'flex-1 text-xs font-bold py-2 rounded-md transition bg-amber-500 text-black';
+            tabManuale.className = 'flex-1 text-xs font-bold py-2 rounded-md transition text-neutral-400 hover:text-white';
+            panelAuto.classList.remove('hidden');
+            panelManuale.classList.add('hidden');
+        } else {
+            tabAuto.className = 'flex-1 text-xs font-bold py-2 rounded-md transition text-neutral-400 hover:text-white';
+            tabManuale.className = 'flex-1 text-xs font-bold py-2 rounded-md transition bg-amber-500 text-black';
+            panelAuto.classList.add('hidden');
+            panelManuale.classList.remove('hidden');
+        }
+    }
+    window.s83_quizTab = s83_quizTab;
+
+    // ============================================================
+    // QUIZ AUTOMATICO
     // ============================================================
     let s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeGenerate: [] };
+    let s83_numDomande = 10;
+
+    function s83_setNumDomande(n) {
+        if (n < 1) n = 1;
+        if (n > 50) n = 50;
+        s83_numDomande = n;
+        document.querySelectorAll('.s83-num-btn').forEach(btn => {
+            const isAttivo = parseInt(btn.dataset.num) === n;
+            btn.className = 's83-num-btn font-bold text-xs py-2 rounded-lg transition ' +
+                (isAttivo ? 'bg-amber-500 text-black' : 'bg-neutral-900 border border-neutral-700 text-neutral-300 hover:bg-neutral-700');
+        });
+        const display = document.getElementById('quiz-num-display');
+        if (display) display.textContent = 'Domande selezionate: ' + n;
+        const custom = document.getElementById('quiz-num-custom');
+        if (custom) custom.value = n;
+    }
+    window.s83_setNumDomande = s83_setNumDomande;
 
     function s83_generaDomandeQuiz() {
         const domande = [];
@@ -3177,7 +3417,7 @@ Cordiali saluti,
         if (editor) {
             const testoIntero = editor.innerText || editor.textContent || '';
             const frasi = testoIntero.split(/(?<=[.!?])\s+/).map(f => f.trim()).filter(f => f.length > 40 && f.length < 300);
-            frasi.slice(0, 5).forEach(frase => {
+            frasi.slice(0, 10).forEach(frase => {
                 const parole = frase.split(' ');
                 if (parole.length < 10) return;
                 const taglio = Math.floor(parole.length * 0.6);
@@ -3192,7 +3432,8 @@ Cordiali saluti,
             });
         }
 
-        return domande.sort(() => Math.random() - 0.5);
+        const mescolate = domande.sort(() => Math.random() - 0.5);
+        return mescolate.slice(0, s83_numDomande);
     }
 
     function s83_avviaQuiz() {
@@ -3207,6 +3448,7 @@ Cordiali saluti,
         s83_quizStato.attivo = true;
         document.getElementById('quiz-punteggio').textContent = '';
         document.getElementById('quiz-feedback').textContent = '';
+        document.getElementById('quiz-contatore').classList.remove('hidden');
         s83_toast('❓ Quiz generato: ' + domande.length + ' domande');
         s83_mostraDomandaQuiz();
     }
@@ -3220,6 +3462,9 @@ Cordiali saluti,
         }
         const d = s83_quizStato.domandeGenerate[s83_quizStato.indice];
         document.getElementById('quiz-domanda').textContent = `${s83_quizStato.indice + 1}. ${d.domanda}`;
+        const contatore = document.getElementById('quiz-contatore');
+        if (contatore) contatore.textContent = `Domanda ${s83_quizStato.indice + 1} di ${s83_quizStato.domandeGenerate.length}`;
+
         const opzioniContainer = document.getElementById('quiz-opzioni');
         opzioniContainer.innerHTML = d.opzioni.map((op, i) => `
             <button onclick="rispondiQuiz(${i})" class="w-full text-left bg-neutral-900 border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">${s83_escapeHtml(op)}</button>
@@ -3271,15 +3516,232 @@ Cordiali saluti,
         document.getElementById('quiz-opzioni').innerHTML = '';
         document.getElementById('quiz-feedback').textContent = '';
         document.getElementById('quiz-punteggio').textContent = '';
+        const c = document.getElementById('quiz-contatore');
+        if (c) c.classList.add('hidden');
     }
     window.resetQuiz = s83_resetQuiz;
+
+    // ============================================================
+    // QUIZ MANUALE
+    // ============================================================
+    let s83_quizManuale = JSON.parse(localStorage.getItem('tesiflash_studio_quiz_manuale') || '[]');
+    let s83_qmStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
+    let s83_qmModificaId = null;
+
+    function s83_salvaQuizManuale() {
+        localStorage.setItem('tesiflash_studio_quiz_manuale', JSON.stringify(s83_quizManuale));
+        const counter = document.getElementById('qm-count');
+        if (counter) counter.textContent = s83_quizManuale.length;
+    }
+
+    function s83_aggiungiQuizManuale() {
+        const domanda = document.getElementById('qm-domanda').value.trim();
+        const risposte = [
+            document.getElementById('qm-risp-0').value.trim(),
+            document.getElementById('qm-risp-1').value.trim(),
+            document.getElementById('qm-risp-2').value.trim(),
+            document.getElementById('qm-risp-3').value.trim()
+        ];
+
+        if (!domanda) { alert('Inserisci la domanda.'); return; }
+
+        const rispostePiene = risposte.filter(r => r.length > 0);
+        if (rispostePiene.length < 2) { alert('Inserisci almeno 2 risposte.'); return; }
+
+        const radioCorretta = document.querySelector('input[name="qm-corretta"]:checked');
+        if (!radioCorretta) { alert('Indica quale risposta è corretta.'); return; }
+        const corretta = parseInt(radioCorretta.value);
+        if (!risposte[corretta]) { alert('La risposta corretta non può essere vuota.'); return; }
+
+        s83_quizManuale.push({
+            id: Date.now() + Math.random(),
+            domanda: domanda,
+            risposte: risposte,
+            corretta: corretta
+        });
+
+        s83_salvaQuizManuale();
+        document.getElementById('qm-domanda').value = '';
+        document.getElementById('qm-risp-0').value = '';
+        document.getElementById('qm-risp-1').value = '';
+        document.getElementById('qm-risp-2').value = '';
+        document.getElementById('qm-risp-3').value = '';
+        document.querySelector('input[name="qm-corretta"][value="0"]').checked = true;
+        s83_renderListaQM();
+        s83_toast('➕ Domanda aggiunta');
+    }
+    window.s83_aggiungiQuizManuale = s83_aggiungiQuizManuale;
+
+    function s83_renderListaQM() {
+        const container = document.getElementById('qm-lista');
+        const counter = document.getElementById('qm-count');
+        if (counter) counter.textContent = s83_quizManuale.length;
+        if (!container) return;
+
+        if (s83_quizManuale.length === 0) {
+            container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna domanda creata.</p>';
+            return;
+        }
+
+        container.innerHTML = s83_quizManuale.map((q, i) => `
+            <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 hover:border-amber-500/50 transition cursor-pointer" onclick="s83_apriModaleQM(${q.id})">
+                <div class="flex justify-between items-start gap-2">
+                    <div class="flex-1">
+                        <p class="text-white text-xs font-bold">${i + 1}. ${s83_escapeHtml(q.domanda)}</p>
+                        <p class="text-green-400 text-[10px] mt-1">✓ ${s83_escapeHtml(q.risposte[q.corretta])}</p>
+                        <p class="text-neutral-500 text-[10px] mt-1">✏️ clicca per modificare</p>
+                    </div>
+                    <button onclick="event.stopPropagation(); s83_rimuoviQM(${q.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function s83_rimuoviQM(id) {
+        s83_quizManuale = s83_quizManuale.filter(q => q.id !== id);
+        s83_salvaQuizManuale();
+        s83_renderListaQM();
+    }
+    window.s83_rimuoviQM = s83_rimuoviQM;
+
+    function s83_apriModaleQM(id) {
+        const q = s83_quizManuale.find(x => x.id === id);
+        if (!q) return;
+        s83_qmModificaId = id;
+        document.getElementById('s83-modal-qm-domanda').value = q.domanda;
+        for (let i = 0; i < 4; i++) {
+            document.getElementById('s83-modal-qm-risp-' + i).value = q.risposte[i] || '';
+            const radio = document.querySelector(`input[name="s83-qm-modal-corretta"][value="${i}"]`);
+            if (radio) radio.checked = (i === q.corretta);
+        }
+        const modale = document.getElementById('s83-modal-qm');
+        modale.style.display = 'flex';
+    }
+    window.s83_apriModaleQM = s83_apriModaleQM;
+
+    function s83_salvaModificaQM() {
+        if (!s83_qmModificaId) return;
+        const q = s83_quizManuale.find(x => x.id === s83_qmModificaId);
+        if (!q) return;
+
+        const domanda = document.getElementById('s83-modal-qm-domanda').value.trim();
+        const risposte = [
+            document.getElementById('s83-modal-qm-risp-0').value.trim(),
+            document.getElementById('s83-modal-qm-risp-1').value.trim(),
+            document.getElementById('s83-modal-qm-risp-2').value.trim(),
+            document.getElementById('s83-modal-qm-risp-3').value.trim()
+        ];
+        if (!domanda) { alert('Inserisci la domanda.'); return; }
+        const radioCorretta = document.querySelector('input[name="s83-qm-modal-corretta"]:checked');
+        if (!radioCorretta) { alert('Indica la risposta corretta.'); return; }
+        const corretta = parseInt(radioCorretta.value);
+        if (!risposte[corretta]) { alert('La risposta corretta non può essere vuota.'); return; }
+
+        q.domanda = domanda;
+        q.risposte = risposte;
+        q.corretta = corretta;
+        s83_salvaQuizManuale();
+        s83_renderListaQM();
+        s83_chiudiModaleQM();
+        s83_toast('✏️ Domanda modificata');
+    }
+    window.s83_salvaModificaQM = s83_salvaModificaQM;
+
+    function s83_chiudiModaleQM() {
+        document.getElementById('s83-modal-qm').style.display = 'none';
+        s83_qmModificaId = null;
+    }
+    window.s83_chiudiModaleQM = s83_chiudiModaleQM;
+
+    function s83_avviaQuizManuale() {
+        if (s83_quizManuale.length === 0) {
+            alert('Crea almeno una domanda prima di iniziare.');
+            return;
+        }
+
+        s83_qmStato.domandeOrdinate = [...s83_quizManuale].sort(() => Math.random() - 0.5);
+        s83_qmStato.indice = 0;
+        s83_qmStato.punteggio = 0;
+        s83_qmStato.attivo = true;
+        document.getElementById('qm-punteggio').textContent = '';
+        document.getElementById('qm-feedback').textContent = '';
+        document.getElementById('qm-contatore').classList.remove('hidden');
+        s83_mostraDomandaQM();
+    }
+    window.s83_avviaQuizManuale = s83_avviaQuizManuale;
+
+    function s83_mostraDomandaQM() {
+        if (!s83_qmStato.attivo) return;
+        if (s83_qmStato.indice >= s83_qmStato.domandeOrdinate.length) {
+            s83_fineQM();
+            return;
+        }
+        const d = s83_qmStato.domandeOrdinate[s83_qmStato.indice];
+        document.getElementById('qm-domanda-attiva').textContent = `${s83_qmStato.indice + 1}. ${d.domanda}`;
+        const contatore = document.getElementById('qm-contatore');
+        if (contatore) contatore.textContent = `Domanda ${s83_qmStato.indice + 1} di ${s83_qmStato.domandeOrdinate.length}`;
+
+        const risposteVisibili = d.risposte.map((r, i) => ({ testo: r, indiceOriginale: i })).filter(x => x.testo.length > 0);
+        const mescolate = risposteVisibili.sort(() => Math.random() - 0.5);
+
+        const container = document.getElementById('qm-opzioni');
+        container.innerHTML = mescolate.map(r => `
+            <button onclick="s83_rispondiQM(${r.indiceOriginale})" class="w-full text-left bg-neutral-900 border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">${s83_escapeHtml(r.testo)}</button>
+        `).join('');
+        document.getElementById('qm-feedback').textContent = '';
+    }
+
+    function s83_rispondiQM(indiceRisposta) {
+        if (!s83_qmStato.attivo) return;
+        const d = s83_qmStato.domandeOrdinate[s83_qmStato.indice];
+        const feedback = document.getElementById('qm-feedback');
+        document.querySelectorAll('#qm-opzioni button').forEach(btn => {
+            btn.style.pointerEvents = 'none';
+        });
+        if (indiceRisposta === d.corretta) {
+            s83_qmStato.punteggio++;
+            feedback.textContent = '✅ Esatto!';
+            feedback.style.color = '#22c55e';
+        } else {
+            feedback.textContent = `❌ Sbagliato. La risposta corretta era: ${d.risposte[d.corretta]}`;
+            feedback.style.color = '#ef4444';
+        }
+        s83_qmStato.indice++;
+        setTimeout(s83_mostraDomandaQM, 1800);
+    }
+    window.s83_rispondiQM = s83_rispondiQM;
+
+    function s83_fineQM() {
+        s83_qmStato.attivo = false;
+        document.getElementById('qm-domanda-attiva').textContent = '🎉 Quiz completato!';
+        document.getElementById('qm-opzioni').innerHTML = '';
+        document.getElementById('qm-feedback').textContent = '';
+        document.getElementById('qm-punteggio').textContent = `Punteggio: ${s83_qmStato.punteggio} / ${s83_qmStato.domandeOrdinate.length}`;
+    }
+
+    function s83_resetQuizManuale() {
+        if (!confirm('Cancellare tutte le domande create manualmente?')) return;
+        s83_quizManuale = [];
+        s83_salvaQuizManuale();
+        s83_renderListaQM();
+        s83_qmStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
+        document.getElementById('qm-domanda-attiva').textContent = 'Premi START per iniziare';
+        document.getElementById('qm-opzioni').innerHTML = '';
+        document.getElementById('qm-feedback').textContent = '';
+        document.getElementById('qm-punteggio').textContent = '';
+        const c = document.getElementById('qm-contatore');
+        if (c) c.classList.add('hidden');
+    }
+    window.s83_resetQuizManuale = s83_resetQuizManuale;
 
     // ============================================================
     // AZIONI GLOBALI
     // ============================================================
     function s83_stampaTutto() {
+        s83_mostraGuidaSePrimaVolta();
         const testo = document.getElementById('testo-evidenzia').innerHTML;
         const flashcard = s83_flashcard;
+        const quizManuale = s83_quizManuale;
 
         const finestra = window.open('', '_blank');
         finestra.document.write(`
@@ -3289,16 +3751,21 @@ Cordiali saluti,
                 <meta charset="UTF-8">
                 <title>Strumenti di Studio Attivo — Esportazione</title>
                 <style>
+                    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
                     body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
                     h1 { font-size: 22px; border-bottom: 3px solid #f59e0b; padding-bottom: 10px; margin-bottom: 30px; }
                     h2 { font-size: 16px; color: #b45309; margin-top: 30px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; }
-                    .evidenziato { padding: 2px 4px; border-radius: 2px; }
+                    .evidenziato { padding: 2px 4px; border-radius: 2px; display: inline; }
                     .fc { background: #f9fafb; border-left: 4px solid #f59e0b; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 6px 6px 0; page-break-inside: avoid; }
                     .fc .dom { font-weight: bold; color: #111; margin-bottom: 4px; }
                     .fc .ris { color: #555; }
                     .fc .num { color: #f59e0b; font-weight: bold; }
+                    .qm { background: #f9fafb; border-left: 4px solid #3b82f6; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 6px 6px 0; page-break-inside: avoid; }
+                    .qm .dom { font-weight: bold; color: #111; margin-bottom: 6px; }
+                    .qm .risp { color: #555; margin-left: 15px; font-size: 14px; }
+                    .qm .corretta { color: #16a34a; font-weight: bold; }
                     .testo-box { background: #fafafa; padding: 16px; border: 1px solid #e5e5e5; border-radius: 6px; }
-                    @media print { body { margin: 20px; } h2 { page-break-after: avoid; } }
+                    @media print { body { margin: 20px; } h2 { page-break-after: avoid; } * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; } }
                 </style>
             </head>
             <body>
@@ -3313,6 +3780,14 @@ Cordiali saluti,
                     <div class="fc">
                         <div class="dom"><span class="num">${i + 1}.</span> ${s83_escapeHtml(f.domanda)}</div>
                         <div class="ris">💡 ${s83_escapeHtml(f.risposta)}</div>
+                    </div>
+                `).join('')}
+
+                <h2>❓ Quiz Manuale (${quizManuale.length})</h2>
+                ${quizManuale.length === 0 ? '<em style="color:#999;">Nessuna domanda</em>' : quizManuale.map((q, i) => `
+                    <div class="qm">
+                        <div class="dom">${i + 1}. ${s83_escapeHtml(q.domanda)}</div>
+                        ${q.risposte.map((r, j) => r ? `<div class="risp ${j === q.corretta ? 'corretta' : ''}">${j === q.corretta ? '✓ ' : '○ '}${s83_escapeHtml(r)}</div>` : '').join('')}
                     </div>
                 `).join('')}
             </body>
@@ -3342,25 +3817,34 @@ Cordiali saluti,
     window.esportaFlashcard = s83_esportaFlashcard;
 
     function s83_pulisciTutto() {
-        if (!confirm('⚠️ ATTENZIONE!\n\nStai per cancellare:\n• Tutto il testo di studio\n• Tutte le evidenziazioni\n• Tutte le flashcard\n• Tutti i progressi\n\nL\'operazione è IRREVERSIBILE.\n\nContinuare?')) {
+        if (!confirm('⚠️ ATTENZIONE!\n\nStai per cancellare:\n• Tutto il testo di studio\n• Tutte le evidenziazioni\n• Tutte le flashcard\n• Tutti i quiz manuali\n• Tutti i progressi\n\nL\'operazione è IRREVERSIBILE.\n\nContinuare?')) {
             return;
         }
 
         s83_flashcard = [];
+        s83_quizManuale = [];
         localStorage.removeItem('tesiflash_studio_flashcard');
         localStorage.removeItem('tesiflash_studio_testo');
+        localStorage.removeItem('tesiflash_studio_quiz_manuale');
 
         document.getElementById('testo-evidenzia').innerHTML = 'Incolla qui il tuo testo di studio...';
 
         s83_renderFlashcard();
+        s83_renderListaQM();
         s83_aggiornaListaEvidenziazioni();
         s83_aggiornaContatore();
         s83_resetStudio();
         s83_resetQuiz();
+        s83_resetQuizManuale();
 
         s83_toast('🗑️ Tutto pulito');
     }
     window.pulisciTutto = s83_pulisciTutto;
+
+    // Inizializza valore default numero domande
+    document.addEventListener('DOMContentLoaded', function() {
+        s83_setNumDomande(10);
+    });
 </script>
 
     </main>
