@@ -2146,6 +2146,19 @@ Cordiali saluti,
             <i data-lucide="book-open" style="width:28px;height:28px;color:#f59e0b;"></i> Strumenti di Studio Attivo
         </h2>
 
+        <!-- INTRODUZIONE AGGIUNTA -->
+        <div class="bg-gradient-to-br from-purple-500/10 to-neutral-800 border border-purple-500/30 rounded-xl p-5 mb-5">
+            <p class="text-purple-300 font-bold text-sm mb-2 flex items-center gap-2">
+                <i data-lucide="sparkles" style="width:18px;height:18px;"></i> Non solo scrivere la tesi, ma anche ricordarla
+            </p>
+            <p class="text-neutral-300 text-sm leading-relaxed mb-2">
+                Con <strong class="text-white">Evidenzia</strong>, <strong class="text-white">Flashcard automatiche</strong>, <strong class="text-white">Ripetizione Spaziata</strong> e <strong class="text-white">Quiz intelligente</strong>, trasformi il materiale che leggi in <strong class="text-white">conoscenza che rimane</strong>.
+            </p>
+            <p class="text-neutral-400 text-xs leading-relaxed">
+                🎯 Perfetto per preparare l'esame di laurea, la discussione orale e — perché no — anche gli esami universitari.
+            </p>
+        </div>
+
         <p class="text-neutral-300 text-sm leading-relaxed mb-4">
             Quattro strumenti integrati per trasformare la lettura passiva in <strong class="text-white">apprendimento attivo</strong>.
         </p>
@@ -2200,7 +2213,7 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="layers" style="width:20px;height:20px;"></i> Genera Flashcard
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Crea flashcard di qualità in pochi secondi.</p>
+            <p class="text-neutral-400 text-xs mb-4">Crea flashcard di qualità in pochi secondi. Puoi aggiungerle a mano oppure generarle automaticamente dal testo caricato.</p>
 
             <div class="space-y-3 mb-4">
                 <div>
@@ -2211,9 +2224,14 @@ Cordiali saluti,
                     <label class="text-neutral-300 text-xs font-bold mb-1 block">💡 Risposta</label>
                     <input type="text" id="fc-risposta" placeholder="es. La media calcolata tenendo conto dei CFU." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
                 </div>
-                <button onclick="aggiungiFlashcard()" class="w-full bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:bg-amber-400 transition text-sm">
-                    ➕ Aggiungi Flashcard
-                </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <button onclick="aggiungiFlashcard()" class="bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:bg-amber-400 transition text-sm">
+                        ➕ Aggiungi Flashcard
+                    </button>
+                    <button onclick="generaFlashcardDaTesto()" class="bg-purple-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-purple-500 transition text-sm">
+                        🤖 Genera dal testo
+                    </button>
+                </div>
             </div>
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
@@ -2268,7 +2286,7 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="help-circle" style="width:20px;height:20px;"></i> Quiz
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Metti alla prova le tue conoscenze.</p>
+            <p class="text-neutral-400 text-xs mb-4">Metti alla prova le tue conoscenze. Il quiz viene generato automaticamente dalle tue flashcard e dal testo caricato.</p>
 
             <div id="quiz-container" class="bg-neutral-900/60 rounded-lg p-5 mb-4">
                 <p id="quiz-domanda" class="text-white font-bold text-sm mb-4">Premi START per iniziare</p>
@@ -2286,7 +2304,7 @@ Cordiali saluti,
 
         <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 mb-4">
             <p class="text-neutral-400 text-xs leading-relaxed">
-                💡 <strong class="text-white">Consiglio:</strong> Usa "Evidenzia" per estrarre i concetti chiave, trasformali in "Flashcard", poi usa "Studia" e "Quiz" per verificare.
+                💡 <strong class="text-white">Consiglio:</strong> Incolla un testo lungo in "Evidenzia", poi vai in "Flashcard" e clicca <strong class="text-purple-400">🤖 Genera dal testo</strong> per creare flashcard automatiche. Infine usa "Studia" e "Quiz" per verificare.
             </p>
         </div>
 
@@ -2296,8 +2314,7 @@ Cordiali saluti,
 <script>
     // ============================================================
     // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 51)
-    // Tutte le funzioni hanno prefisso s83_ per evitare conflitti
-    // con il resto dell'app (in particolare Pagina 82 - Pausa Mentale)
+    // Prefisso s83_ per evitare conflitti con il resto dell'app
     // ============================================================
 
     // --- INIZIALIZZAZIONE ---
@@ -2334,7 +2351,7 @@ Cordiali saluti,
     window.mostraStrumento = s83_mostraStrumento;
 
     // ============================================================
-    // 1. EVIDENZIA
+    // 1. EVIDENZIA + SALVA/CARICA
     // ============================================================
     function s83_evidenziaSelezione() {
         const sel = window.getSelection();
@@ -2368,7 +2385,7 @@ Cordiali saluti,
 
         sel.removeAllRanges();
         s83_aggiornaListaEvidenziazioni();
-        s83_salvaTesto();
+        s83_salvaTesto(true);
     }
     window.evidenziaSelezione = s83_evidenziaSelezione;
 
@@ -2402,7 +2419,7 @@ Cordiali saluti,
             parent.normalize();
         }
         s83_aggiornaListaEvidenziazioni();
-        s83_salvaTesto();
+        s83_salvaTesto(true);
     }
     window.rimuoviEvidenziazione = s83_rimuoviEvidenziazione;
 
@@ -2416,26 +2433,51 @@ Cordiali saluti,
             parent.normalize();
         });
         s83_aggiornaListaEvidenziazioni();
-        s83_salvaTesto();
+        s83_salvaTesto(true);
     }
     window.rimuoviTutteEvidenziazioni = s83_rimuoviTutteEvidenziazioni;
 
-    function s83_salvaTesto() {
+    function s83_salvaTesto(silenzioso) {
         const editor = document.getElementById('testo-evidenzia');
-        if (editor) localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
+        if (!editor) return;
+        localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
+        if (!silenzioso) {
+            const btn = window.event && window.event.target ? window.event.target : null;
+            if (btn && btn.tagName === 'BUTTON') {
+                const originale = btn.innerHTML;
+                btn.innerHTML = '✅ Salvato!';
+                setTimeout(() => { btn.innerHTML = originale; }, 1500);
+            }
+            s83_toast('💾 Testo salvato nel browser');
+        }
     }
     window.salvaTesto = s83_salvaTesto;
 
     function s83_caricaTesto() {
         const salvato = localStorage.getItem('tesiflash_studio_testo');
-        if (salvato) {
-            document.getElementById('testo-evidenzia').innerHTML = salvato;
-            s83_aggiornaListaEvidenziazioni();
-        } else {
-            alert('Nessun testo salvato trovato.');
+        if (!salvato) {
+            alert('Nessun testo salvato. Scrivi qualcosa e premi "Salva testo" prima.');
+            return;
         }
+        document.getElementById('testo-evidenzia').innerHTML = salvato;
+        s83_aggiornaListaEvidenziazioni();
+        s83_toast('📂 Testo caricato dal browser');
     }
     window.caricaTesto = s83_caricaTesto;
+
+    function s83_toast(msg) {
+        let toast = document.getElementById('s83-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 's83-toast';
+            toast.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;background:#22c55e;color:#fff;padding:10px 18px;border-radius:8px;font-weight:bold;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3);transition:opacity 0.3s;opacity:0;pointer-events:none;';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        clearTimeout(window.s83_toastTimeout);
+        window.s83_toastTimeout = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+    }
 
     // ============================================================
     // 2. FLASHCARD
@@ -2456,15 +2498,114 @@ Cordiali saluti,
             domanda: domanda,
             risposta: risposta,
             livello: 0,
-            ultimaVisita: null
+            ultimaVisita: null,
+            origine: 'manuale'
         });
 
         s83_salvaFlashcard();
         document.getElementById('fc-domanda').value = '';
         document.getElementById('fc-risposta').value = '';
         s83_renderFlashcard();
+        s83_toast('➕ Flashcard aggiunta');
     }
     window.aggiungiFlashcard = s83_aggiungiFlashcard;
+
+    function s83_generaFlashcardDaTesto() {
+        const editor = document.getElementById('testo-evidenzia');
+        if (!editor) return;
+
+        const evidenziati = Array.from(editor.querySelectorAll('.evidenziato')).map(s => s.textContent.trim()).filter(t => t.length > 10);
+
+        const testoIntero = editor.innerText || editor.textContent || '';
+        const frasi = testoIntero
+            .split(/(?<=[.!?])\s+/)
+            .map(f => f.trim())
+            .filter(f => f.length > 30 && f.length < 400);
+
+        let generate = 0;
+
+        if (evidenziati.length > 0) {
+            evidenziati.forEach(testo => {
+                const fc = s83_creaFlashcardDaFrase(testo);
+                if (fc) {
+                    s83_flashcard.push(fc);
+                    generate++;
+                }
+            });
+        }
+
+        if (generate < 3 && frasi.length > 0) {
+            const frasiScelte = frasi.slice(0, 8);
+            frasiScelte.forEach(frase => {
+                const fc = s83_creaFlashcardDaFrase(frase);
+                if (fc) {
+                    s83_flashcard.push(fc);
+                    generate++;
+                }
+            });
+        }
+
+        if (generate === 0) {
+            alert('Non riesco a generare flashcard.\n\nIncolla del testo più lungo (almeno qualche frase) nell\'area "Evidenzia" e riprova.');
+            return;
+        }
+
+        s83_salvaFlashcard();
+        s83_renderFlashcard();
+        s83_toast('🤖 Generate ' + generate + ' flashcard dal testo');
+    }
+    window.generaFlashcardDaTesto = s83_generaFlashcardDaTesto;
+
+    function s83_creaFlashcardDaFrase(frase) {
+        frase = frase.trim();
+        if (frase.length < 15) return null;
+
+        const pulita = frase.replace(/\s+/g, ' ');
+
+        const matchDefinizione = pulita.match(/^(.{3,80}?)\s+(è|sono|significa|indica|consiste|rappresenta|si riferisce a|si definisce come)\s+(.+)$/i);
+        if (matchDefinizione) {
+            const soggetto = matchDefinizione[1].trim();
+            const verbo = matchDefinizione[2].trim();
+            const predicato = matchDefinizione[3].trim();
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `Cosa ${verbo} ${soggetto}?`,
+                risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        const matchCausa = pulita.match(/^(.{10,100}?)\s+(perché|poiché|in quanto|dato che)\s+(.+)$/i);
+        if (matchCausa) {
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `Perché ${matchCausa[1].trim().toLowerCase()}?`,
+                risposta: matchCausa[3].trim().charAt(0).toUpperCase() + matchCausa[3].trim().slice(1),
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        const parole = pulita.split(' ');
+        if (parole.length >= 8) {
+            const meta = Math.floor(parole.length / 2);
+            const primaParte = parole.slice(0, meta).join(' ');
+            const secondaParte = parole.slice(meta).join(' ');
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `Completa: "${primaParte}..."`,
+                risposta: secondaParte,
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        return null;
+    }
 
     function s83_salvaFlashcard() {
         localStorage.setItem('tesiflash_studio_flashcard', JSON.stringify(s83_flashcard));
@@ -2488,6 +2629,7 @@ Cordiali saluti,
                 <div class="flex-1">
                     <p class="text-white text-xs font-bold">${s83_escapeHtml(f.domanda)}</p>
                     <p class="text-neutral-400 text-xs mt-1">${s83_escapeHtml(f.risposta)}</p>
+                    ${f.origine === 'auto' ? '<p class="text-purple-400 text-[10px] mt-1">🤖 generata automaticamente</p>' : ''}
                 </div>
                 <button onclick="rimuoviFlashcard(${f.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
             </div>
@@ -2633,42 +2775,107 @@ Cordiali saluti,
     window.resetStudio = s83_resetStudio;
 
     // ============================================================
-    // 4. QUIZ (funzioni rinominate per non collidere con Pagina 82)
+    // 4. QUIZ — Generato da flashcard + testo
     // ============================================================
-    const s83_QUIZ_DOMANDE = [
-        { domanda: "Cos'è la media ponderata?", opzioni: ["La media dei voti senza considerare i CFU", "La media dei voti considerando i CFU di ogni esame", "La media degli ultimi 3 esami", "La media dei voti più alti"], corretta: 1 },
-        { domanda: "Cosa indica il voto di partenza?", opzioni: ["Il voto che vorresti ottenere", "La media in trentesimi", "Il voto base calcolato sulla media per la laurea", "Il voto minimo per laurearsi"], corretta: 2 },
-        { domanda: "A cosa serve la ripetizione spaziata?", opzioni: ["A studiare tutto in una notte", "A ripetere le cose che sai già", "A distribuire lo studio nel tempo per ricordare meglio", "A leggere più velocemente"], corretta: 2 },
-        { domanda: "Cosa sono le flashcard?", opzioni: ["Schede con domanda e risposta per lo studio attivo", "Appunti disordinati", "Riassunti di libri", "Presentazioni PowerPoint"], corretta: 0 },
-        { domanda: "Perché è utile evidenziare un testo?", opzioni: ["Per decorare la pagina", "Per concentrarsi sui concetti chiave", "Per non doverlo rileggere", "Per copiare meglio"], corretta: 1 }
-    ];
+    let s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeGenerate: [] };
 
-    let s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
+    function s83_generaDomandeQuiz() {
+        const domande = [];
+
+        if (s83_flashcard.length >= 4) {
+            s83_flashcard.forEach(fc => {
+                const altri = s83_flashcard.filter(f => f.id !== fc.id);
+                const distrattori = altri
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(f => f.risposta);
+
+                if (distrattori.length < 3) return;
+
+                const opzioni = [fc.risposta, ...distrattori].sort(() => Math.random() - 0.5);
+                const corretta = opzioni.indexOf(fc.risposta);
+
+                domande.push({
+                    domanda: fc.domanda,
+                    opzioni: opzioni,
+                    corretta: corretta,
+                    origine: 'flashcard'
+                });
+            });
+        }
+
+        const editor = document.getElementById('testo-evidenzia');
+        if (editor) {
+            const testoIntero = editor.innerText || editor.textContent || '';
+            const frasi = testoIntero
+                .split(/(?<=[.!?])\s+/)
+                .map(f => f.trim())
+                .filter(f => f.length > 40 && f.length < 300);
+
+            frasi.slice(0, 5).forEach(frase => {
+                const parole = frase.split(' ');
+                if (parole.length < 10) return;
+
+                const taglio = Math.floor(parole.length * 0.6);
+                const primaParte = parole.slice(0, taglio).join(' ');
+                const parteMancante = parole.slice(taglio, taglio + 4).join(' ');
+                const resto = parole.slice(taglio + 4).join(' ');
+
+                if (parteMancante.length < 3) return;
+
+                const distrattori = [
+                    'nessuna delle precedenti',
+                    'tutte le precedenti',
+                    'non è specificato'
+                ];
+
+                const opzioni = [parteMancante, ...distrattori].sort(() => Math.random() - 0.5);
+                const corretta = opzioni.indexOf(parteMancante);
+
+                domande.push({
+                    domanda: `Completa: "${primaParte} ___ ${resto}"`,
+                    opzioni: opzioni,
+                    corretta: corretta,
+                    origine: 'testo'
+                });
+            });
+        }
+
+        return domande.sort(() => Math.random() - 0.5);
+    }
 
     function s83_avviaQuiz() {
-        s83_quizStato.domandeOrdinate = [...s83_QUIZ_DOMANDE].sort(() => Math.random() - 0.5);
+        const domande = s83_generaDomandeQuiz();
+
+        if (domande.length === 0) {
+            alert('Non riesco a generare il quiz.\n\nPer creare un quiz hai bisogno di:\n• Almeno 4 flashcard (per avere i distrattori)\n• OPPURE del testo caricato nell\'area "Evidenzia"\n\nAggiungi contenuti e riprova.');
+            return;
+        }
+
+        s83_quizStato.domandeGenerate = domande;
         s83_quizStato.indice = 0;
         s83_quizStato.punteggio = 0;
         s83_quizStato.attivo = true;
         document.getElementById('quiz-punteggio').textContent = '';
         document.getElementById('quiz-feedback').textContent = '';
+        s83_toast('❓ Quiz generato: ' + domande.length + ' domande');
         s83_mostraDomandaQuiz();
     }
     window.avviaQuiz = s83_avviaQuiz;
 
     function s83_mostraDomandaQuiz() {
         if (!s83_quizStato.attivo) return;
-        if (s83_quizStato.indice >= s83_quizStato.domandeOrdinate.length) {
+        if (s83_quizStato.indice >= s83_quizStato.domandeGenerate.length) {
             s83_fineQuiz();
             return;
         }
 
-        const d = s83_quizStato.domandeOrdinate[s83_quizStato.indice];
+        const d = s83_quizStato.domandeGenerate[s83_quizStato.indice];
         document.getElementById('quiz-domanda').textContent = `${s83_quizStato.indice + 1}. ${d.domanda}`;
 
         const opzioniContainer = document.getElementById('quiz-opzioni');
         opzioniContainer.innerHTML = d.opzioni.map((op, i) => `
-            <button onclick="rispondiQuiz(${i})" class="w-full text-left bg-neutral-900 border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">${op}</button>
+            <button onclick="rispondiQuiz(${i})" class="w-full text-left bg-neutral-900 border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">${s83_escapeHtml(op)}</button>
         `).join('');
 
         document.getElementById('quiz-feedback').textContent = '';
@@ -2676,7 +2883,7 @@ Cordiali saluti,
 
     function s83_rispondiQuiz(indice) {
         if (!s83_quizStato.attivo) return;
-        const d = s83_quizStato.domandeOrdinate[s83_quizStato.indice];
+        const d = s83_quizStato.domandeGenerate[s83_quizStato.indice];
         const feedback = document.getElementById('quiz-feedback');
 
         document.querySelectorAll('#quiz-opzioni button').forEach((btn, i) => {
@@ -2698,7 +2905,7 @@ Cordiali saluti,
         }
 
         s83_quizStato.indice++;
-        setTimeout(s83_mostraDomandaQuiz, 1500);
+        setTimeout(s83_mostraDomandaQuiz, 1800);
     }
     window.rispondiQuiz = s83_rispondiQuiz;
 
@@ -2707,7 +2914,7 @@ Cordiali saluti,
         document.getElementById('quiz-domanda').textContent = '🎉 Quiz completato!';
         document.getElementById('quiz-opzioni').innerHTML = '';
         document.getElementById('quiz-feedback').textContent = '';
-        document.getElementById('quiz-punteggio').textContent = `Punteggio: ${s83_quizStato.punteggio} / ${s83_quizStato.domandeOrdinate.length}`;
+        document.getElementById('quiz-punteggio').textContent = `Punteggio: ${s83_quizStato.punteggio} / ${s83_quizStato.domandeGenerate.length}`;
     }
 
     function s83_stopQuiz() {
@@ -2719,7 +2926,7 @@ Cordiali saluti,
     window.stopQuiz = s83_stopQuiz;
 
     function s83_resetQuiz() {
-        s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
+        s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeGenerate: [] };
         document.getElementById('quiz-domanda').textContent = 'Premi START per iniziare';
         document.getElementById('quiz-opzioni').innerHTML = '';
         document.getElementById('quiz-feedback').textContent = '';
