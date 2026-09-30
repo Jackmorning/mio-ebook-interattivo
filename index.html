@@ -2210,10 +2210,20 @@ Cordiali saluti,
 
             <input type="file" id="file-input" accept=".txt,.md,.csv,.json,.docx" style="display:none;" onchange="s83_importaFile(event)">
 
-            <!-- RIGA 1: AZIONI SUL TESTO -->
-            <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2 mt-4">📝 Azioni sul testo</p>
+                        <!-- RIGA 1: AZIONI SUL TESTO -->
+            <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2 mt-4">🎨 Colore evidenziazione</p>
+            <div class="flex gap-2 mb-3 flex-wrap" id="s83-palette">
+                <button onclick="s83_setColore('#facc15')" data-colore="#facc15" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-amber-400 transition" style="background-color:#facc15;" title="Giallo"></button>
+                <button onclick="s83_setColore('#22c55e')" data-colore="#22c55e" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#22c55e;" title="Verde"></button>
+                <button onclick="s83_setColore('#3b82f6')" data-colore="#3b82f6" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#3b82f6;" title="Blu"></button>
+                <button onclick="s83_setColore('#ec4899')" data-colore="#ec4899" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#ec4899;" title="Rosa"></button>
+                <button onclick="s83_setColore('#f97316')" data-colore="#f97316" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#f97316;" title="Arancione"></button>
+                <span class="text-neutral-500 text-[10px] self-center ml-2">← Colore attivo</span>
+            </div>
+
+            <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2">📝 Azioni sul testo</p>
             <div class="grid grid-cols-2 gap-2 mb-3">
-                <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia</button>
+                <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia selezione</button>
                 <button onclick="rimuoviTutteEvidenziazioni()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">🧹 Pulisci evidenziazioni</button>
             </div>
 
