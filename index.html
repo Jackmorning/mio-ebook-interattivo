@@ -2135,8 +2135,8 @@ Cordiali saluti,
             </div>
         </div>
 
-<!-- ========== PAGINA 83: STRUMENTI DI STUDIO ATTIVO ========== -->
-<div class="page" data-page="83">
+<!-- ========== PAGINA 51: STRUMENTI DI STUDIO ATTIVO ========== -->
+<div class="page" data-page="51">
     <div class="max-w-2xl mx-auto px-4 py-8">
         <span class="heading-font text-amber-400 text-sm font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
             <i data-lucide="graduation-cap" style="width:16px;height:16px;"></i> Modulo Extra & Toolkit
@@ -2295,11 +2295,31 @@ Cordiali saluti,
 
 <script>
     // ============================================================
-    // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 83)
+    // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 51)
+    // Tutte le funzioni hanno prefisso s83_ per evitare conflitti
+    // con il resto dell'app (in particolare Pagina 82 - Pausa Mentale)
     // ============================================================
 
-    function mostraStrumento(nome) {
-        document.querySelectorAll('.strumento-container').forEach(el => el.classList.add('hidden'));
+    // --- INIZIALIZZAZIONE ---
+    function s83_init() {
+        const salvato = localStorage.getItem('tesiflash_studio_testo');
+        const editor = document.getElementById('testo-evidenzia');
+        if (salvato && editor) editor.innerHTML = salvato;
+        s83_aggiornaListaEvidenziazioni();
+        s83_renderFlashcard();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', s83_init);
+    } else {
+        s83_init();
+    }
+
+    // ============================================================
+    // SELEZIONE STRUMENTO
+    // ============================================================
+    function s83_mostraStrumento(nome) {
+        document.querySelectorAll('#strumento-evidenzia, #strumento-flashcard, #strumento-studio, #strumento-quiz').forEach(el => el.classList.add('hidden'));
         const target = document.getElementById('strumento-' + nome);
         if (target) target.classList.remove('hidden');
 
@@ -2311,13 +2331,12 @@ Cordiali saluti,
 
         if (window.lucide) lucide.createIcons();
     }
+    window.mostraStrumento = s83_mostraStrumento;
 
     // ============================================================
     // 1. EVIDENZIA
     // ============================================================
-    let evidenziazioni = [];
-
-    function evidenziaSelezione() {
+    function s83_evidenziaSelezione() {
         const sel = window.getSelection();
         if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
             alert('Seleziona prima del testo da evidenziare.');
@@ -2341,7 +2360,6 @@ Cordiali saluti,
         try {
             range.surroundContents(span);
         } catch (e) {
-            // Se la selezione attraversa più elementi, estrai e re-inserisci
             const testo = range.toString();
             range.deleteContents();
             span.textContent = testo;
@@ -2349,15 +2367,17 @@ Cordiali saluti,
         }
 
         sel.removeAllRanges();
-        aggiornaListaEvidenziazioni();
-        salvaTesto();
+        s83_aggiornaListaEvidenziazioni();
+        s83_salvaTesto();
     }
+    window.evidenziaSelezione = s83_evidenziaSelezione;
 
-    function aggiornaListaEvidenziazioni() {
+    function s83_aggiornaListaEvidenziazioni() {
         const editor = document.getElementById('testo-evidenzia');
-        const spans = editor.querySelectorAll('.evidenziato');
         const container = document.getElementById('lista-evidenziazioni');
+        if (!editor || !container) return;
 
+        const spans = editor.querySelectorAll('.evidenziato');
         if (spans.length === 0) {
             container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna evidenziazione.</p>';
             return;
@@ -2371,7 +2391,7 @@ Cordiali saluti,
         `).join('');
     }
 
-    function rimuoviEvidenziazione(index) {
+    function s83_rimuoviEvidenziazione(index) {
         const editor = document.getElementById('testo-evidenzia');
         const spans = editor.querySelectorAll('.evidenziato');
         if (spans[index]) {
@@ -2381,11 +2401,12 @@ Cordiali saluti,
             parent.removeChild(span);
             parent.normalize();
         }
-        aggiornaListaEvidenziazioni();
-        salvaTesto();
+        s83_aggiornaListaEvidenziazioni();
+        s83_salvaTesto();
     }
+    window.rimuoviEvidenziazione = s83_rimuoviEvidenziazione;
 
-    function rimuoviTutteEvidenziazioni() {
+    function s83_rimuoviTutteEvidenziazioni() {
         if (!confirm('Rimuovere tutte le evidenziazioni?')) return;
         const editor = document.getElementById('testo-evidenzia');
         editor.querySelectorAll('.evidenziato').forEach(span => {
@@ -2394,41 +2415,34 @@ Cordiali saluti,
             parent.removeChild(span);
             parent.normalize();
         });
-        aggiornaListaEvidenziazioni();
-        salvaTesto();
+        s83_aggiornaListaEvidenziazioni();
+        s83_salvaTesto();
     }
+    window.rimuoviTutteEvidenziazioni = s83_rimuoviTutteEvidenziazioni;
 
-    function salvaTesto() {
+    function s83_salvaTesto() {
         const editor = document.getElementById('testo-evidenzia');
-        localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
+        if (editor) localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
     }
+    window.salvaTesto = s83_salvaTesto;
 
-    function caricaTesto() {
+    function s83_caricaTesto() {
         const salvato = localStorage.getItem('tesiflash_studio_testo');
         if (salvato) {
             document.getElementById('testo-evidenzia').innerHTML = salvato;
-            aggiornaListaEvidenziazioni();
+            s83_aggiornaListaEvidenziazioni();
         } else {
             alert('Nessun testo salvato trovato.');
         }
     }
-
-    // Carica automaticamente all'avvio
-    document.addEventListener('DOMContentLoaded', function() {
-        const salvato = localStorage.getItem('tesiflash_studio_testo');
-        if (salvato) {
-            document.getElementById('testo-evidenzia').innerHTML = salvato;
-        }
-        aggiornaListaEvidenziazioni();
-        renderFlashcard();
-    });
+    window.caricaTesto = s83_caricaTesto;
 
     // ============================================================
     // 2. FLASHCARD
     // ============================================================
-    let flashcard = JSON.parse(localStorage.getItem('tesiflash_studio_flashcard') || '[]');
+    let s83_flashcard = JSON.parse(localStorage.getItem('tesiflash_studio_flashcard') || '[]');
 
-    function aggiungiFlashcard() {
+    function s83_aggiungiFlashcard() {
         const domanda = document.getElementById('fc-domanda').value.trim();
         const risposta = document.getElementById('fc-risposta').value.trim();
 
@@ -2437,7 +2451,7 @@ Cordiali saluti,
             return;
         }
 
-        flashcard.push({
+        s83_flashcard.push({
             id: Date.now() + Math.random(),
             domanda: domanda,
             risposta: risposta,
@@ -2445,135 +2459,135 @@ Cordiali saluti,
             ultimaVisita: null
         });
 
-        salvaFlashcard();
+        s83_salvaFlashcard();
         document.getElementById('fc-domanda').value = '';
         document.getElementById('fc-risposta').value = '';
-        renderFlashcard();
+        s83_renderFlashcard();
     }
+    window.aggiungiFlashcard = s83_aggiungiFlashcard;
 
-    function salvaFlashcard() {
-        localStorage.setItem('tesiflash_studio_flashcard', JSON.stringify(flashcard));
+    function s83_salvaFlashcard() {
+        localStorage.setItem('tesiflash_studio_flashcard', JSON.stringify(s83_flashcard));
         const counter = document.getElementById('fc-count');
-        if (counter) counter.textContent = flashcard.length;
+        if (counter) counter.textContent = s83_flashcard.length;
     }
 
-    function renderFlashcard() {
+    function s83_renderFlashcard() {
         const container = document.getElementById('lista-flashcard');
         const counter = document.getElementById('fc-count');
-        if (counter) counter.textContent = flashcard.length;
-
+        if (counter) counter.textContent = s83_flashcard.length;
         if (!container) return;
 
-        if (flashcard.length === 0) {
+        if (s83_flashcard.length === 0) {
             container.innerHTML = '<p class="text-neutral-500 text-xs text-center">Nessuna flashcard creata.</p>';
             return;
         }
 
-        container.innerHTML = flashcard.map(f => `
+        container.innerHTML = s83_flashcard.map(f => `
             <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 flex justify-between items-start gap-2">
                 <div class="flex-1">
-                    <p class="text-white text-xs font-bold">${escapeHtml(f.domanda)}</p>
-                    <p class="text-neutral-400 text-xs mt-1">${escapeHtml(f.risposta)}</p>
+                    <p class="text-white text-xs font-bold">${s83_escapeHtml(f.domanda)}</p>
+                    <p class="text-neutral-400 text-xs mt-1">${s83_escapeHtml(f.risposta)}</p>
                 </div>
                 <button onclick="rimuoviFlashcard(${f.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
             </div>
         `).join('');
     }
 
-    function escapeHtml(text) {
+    function s83_escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
 
-    function rimuoviFlashcard(id) {
-        flashcard = flashcard.filter(f => f.id !== id);
-        salvaFlashcard();
-        renderFlashcard();
+    function s83_rimuoviFlashcard(id) {
+        s83_flashcard = s83_flashcard.filter(f => f.id !== id);
+        s83_salvaFlashcard();
+        s83_renderFlashcard();
     }
+    window.rimuoviFlashcard = s83_rimuoviFlashcard;
 
-    function resetFlashcard() {
+    function s83_resetFlashcard() {
         if (confirm('Cancellare tutte le flashcard?')) {
-            flashcard = [];
-            salvaFlashcard();
-            renderFlashcard();
+            s83_flashcard = [];
+            s83_salvaFlashcard();
+            s83_renderFlashcard();
         }
     }
+    window.resetFlashcard = s83_resetFlashcard;
 
-    function avviaStudioFlashcard() {
-        if (flashcard.length === 0) {
+    function s83_avviaStudioFlashcard() {
+        if (s83_flashcard.length === 0) {
             alert('Crea almeno una flashcard prima di studiare.');
             return;
         }
-        mostraStrumento('studio');
-        avviaStudio();
+        s83_mostraStrumento('studio');
+        s83_avviaStudio();
     }
+    window.avviaStudioFlashcard = s83_avviaStudioFlashcard;
 
     // ============================================================
     // 3. STUDIA
     // ============================================================
-    let studioStato = {
-        mazzo: [],
-        indice: 0,
-        attivo: false,
-        rispostaMostrata: false
-    };
+    let s83_studioStato = { mazzo: [], indice: 0, attivo: false, rispostaMostrata: false };
 
-    function avviaStudio() {
-        if (flashcard.length === 0) {
+    function s83_avviaStudio() {
+        if (s83_flashcard.length === 0) {
             alert('Crea almeno una flashcard prima di studiare.');
             return;
         }
 
-        studioStato.mazzo = [...flashcard].sort((a, b) => {
+        s83_studioStato.mazzo = [...s83_flashcard].sort((a, b) => {
             if (a.livello === 0 && b.livello !== 0) return 1;
             if (a.livello !== 0 && b.livello === 0) return -1;
             return b.livello - a.livello;
         });
 
-        studioStato.indice = 0;
-        studioStato.attivo = true;
-        studioStato.rispostaMostrata = false;
+        s83_studioStato.indice = 0;
+        s83_studioStato.attivo = true;
+        s83_studioStato.rispostaMostrata = false;
 
         document.getElementById('studio-fase').textContent = '📖 Studiando...';
         document.getElementById('studio-bottoni').classList.remove('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
         document.getElementById('studio-risposta-box').classList.add('hidden');
 
-        mostraCartaStudio();
+        s83_mostraCartaStudio();
     }
+    window.avviaStudio = s83_avviaStudio;
 
-    function mostraCartaStudio() {
-        if (!studioStato.attivo) return;
-        if (studioStato.indice >= studioStato.mazzo.length) {
-            fineStudio();
+    function s83_mostraCartaStudio() {
+        if (!s83_studioStato.attivo) return;
+        if (s83_studioStato.indice >= s83_studioStato.mazzo.length) {
+            s83_fineStudio();
             return;
         }
 
-        const carta = studioStato.mazzo[studioStato.indice];
+        const carta = s83_studioStato.mazzo[s83_studioStato.indice];
         document.getElementById('studio-domanda').textContent = carta.domanda;
         document.getElementById('studio-risposta').textContent = carta.risposta;
-        document.getElementById('studio-progresso').textContent = `Carta ${studioStato.indice + 1} di ${studioStato.mazzo.length}`;
+        document.getElementById('studio-progresso').textContent = `Carta ${s83_studioStato.indice + 1} di ${s83_studioStato.mazzo.length}`;
 
         document.getElementById('studio-risposta-box').classList.add('hidden');
         document.getElementById('studio-bottoni').classList.remove('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
-        studioStato.rispostaMostrata = false;
+        s83_studioStato.rispostaMostrata = false;
     }
 
-    function studioRivela() {
-        if (!studioStato.attivo) return;
+    function s83_studioRivela() {
+        if (!s83_studioStato.attivo) return;
         document.getElementById('studio-risposta-box').classList.remove('hidden');
         document.getElementById('studio-bottoni').classList.add('hidden');
         document.getElementById('studio-valutazione').classList.remove('hidden');
-        studioStato.rispostaMostrata = true;
+        s83_studioStato.rispostaMostrata = true;
     }
+    window.studioRivela = s83_studioRivela;
 
-    function studioValuta(livello) {
-        if (!studioStato.attivo || !studioStato.rispostaMostrata) return;
+    function s83_studioValuta(livello) {
+        if (!s83_studioStato.attivo || !s83_studioStato.rispostaMostrata) return;
 
-        const carta = studioStato.mazzo[studioStato.indice];
-        const originale = flashcard.find(f => f.id === carta.id);
+        const carta = s83_studioStato.mazzo[s83_studioStato.indice];
+        const originale = s83_flashcard.find(f => f.id === carta.id);
         if (originale) {
             if (livello === 'facile') originale.livello = 1;
             else if (livello === 'medio') originale.livello = 2;
@@ -2581,31 +2595,33 @@ Cordiali saluti,
             originale.ultimaVisita = new Date().toISOString();
         }
 
-        salvaFlashcard();
-        studioStato.indice++;
-        mostraCartaStudio();
+        s83_salvaFlashcard();
+        s83_studioStato.indice++;
+        s83_mostraCartaStudio();
     }
+    window.studioValuta = s83_studioValuta;
 
-    function fineStudio() {
-        studioStato.attivo = false;
+    function s83_fineStudio() {
+        s83_studioStato.attivo = false;
         document.getElementById('studio-fase').textContent = '🎉 Sessione completata!';
         document.getElementById('studio-domanda').textContent = 'Hai finito tutte le carte.';
         document.getElementById('studio-risposta-box').classList.add('hidden');
         document.getElementById('studio-bottoni').classList.add('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
         document.getElementById('studio-progresso').textContent = '';
-        renderFlashcard();
+        s83_renderFlashcard();
     }
 
-    function stopStudio() {
-        studioStato.attivo = false;
+    function s83_stopStudio() {
+        s83_studioStato.attivo = false;
         document.getElementById('studio-fase').textContent = '⏹️ Sessione interrotta';
         document.getElementById('studio-bottoni').classList.add('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
     }
+    window.stopStudio = s83_stopStudio;
 
-    function resetStudio() {
-        studioStato = { mazzo: [], indice: 0, attivo: false, rispostaMostrata: false };
+    function s83_resetStudio() {
+        s83_studioStato = { mazzo: [], indice: 0, attivo: false, rispostaMostrata: false };
         document.getElementById('studio-fase').textContent = 'Premi START per iniziare';
         document.getElementById('studio-domanda').textContent = '—';
         document.getElementById('studio-risposta').textContent = '—';
@@ -2614,64 +2630,41 @@ Cordiali saluti,
         document.getElementById('studio-valutazione').classList.add('hidden');
         document.getElementById('studio-progresso').textContent = '';
     }
+    window.resetStudio = s83_resetStudio;
 
     // ============================================================
-    // 4. QUIZ
+    // 4. QUIZ (funzioni rinominate per non collidere con Pagina 82)
     // ============================================================
-    const QUIZ_DOMANDE = [
-        {
-            domanda: "Cos'è la media ponderata?",
-            opzioni: ["La media dei voti senza considerare i CFU", "La media dei voti considerando i CFU di ogni esame", "La media degli ultimi 3 esami", "La media dei voti più alti"],
-            corretta: 1
-        },
-        {
-            domanda: "Cosa indica il voto di partenza?",
-            opzioni: ["Il voto che vorresti ottenere", "La media in trentesimi", "Il voto base calcolato sulla media per la laurea", "Il voto minimo per laurearsi"],
-            corretta: 2
-        },
-        {
-            domanda: "A cosa serve la ripetizione spaziata?",
-            opzioni: ["A studiare tutto in una notte", "A ripetere le cose che sai già", "A distribuire lo studio nel tempo per ricordare meglio", "A leggere più velocemente"],
-            corretta: 2
-        },
-        {
-            domanda: "Cosa sono le flashcard?",
-            opzioni: ["Schede con domanda e risposta per lo studio attivo", "Appunti disordinati", "Riassunti di libri", "Presentazioni PowerPoint"],
-            corretta: 0
-        },
-        {
-            domanda: "Perché è utile evidenziare un testo?",
-            opzioni: ["Per decorare la pagina", "Per concentrarsi sui concetti chiave", "Per non doverlo rileggere", "Per copiare meglio"],
-            corretta: 1
-        }
+    const s83_QUIZ_DOMANDE = [
+        { domanda: "Cos'è la media ponderata?", opzioni: ["La media dei voti senza considerare i CFU", "La media dei voti considerando i CFU di ogni esame", "La media degli ultimi 3 esami", "La media dei voti più alti"], corretta: 1 },
+        { domanda: "Cosa indica il voto di partenza?", opzioni: ["Il voto che vorresti ottenere", "La media in trentesimi", "Il voto base calcolato sulla media per la laurea", "Il voto minimo per laurearsi"], corretta: 2 },
+        { domanda: "A cosa serve la ripetizione spaziata?", opzioni: ["A studiare tutto in una notte", "A ripetere le cose che sai già", "A distribuire lo studio nel tempo per ricordare meglio", "A leggere più velocemente"], corretta: 2 },
+        { domanda: "Cosa sono le flashcard?", opzioni: ["Schede con domanda e risposta per lo studio attivo", "Appunti disordinati", "Riassunti di libri", "Presentazioni PowerPoint"], corretta: 0 },
+        { domanda: "Perché è utile evidenziare un testo?", opzioni: ["Per decorare la pagina", "Per concentrarsi sui concetti chiave", "Per non doverlo rileggere", "Per copiare meglio"], corretta: 1 }
     ];
 
-    let quizStato = {
-        indice: 0,
-        punteggio: 0,
-        attivo: false,
-        domandeOrdinate: []
-    };
+    let s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
 
-    function avviaQuiz() {
-        quizStato.domandeOrdinate = [...QUIZ_DOMANDE].sort(() => Math.random() - 0.5);
-        quizStato.indice = 0;
-        quizStato.punteggio = 0;
-        quizStato.attivo = true;
+    function s83_avviaQuiz() {
+        s83_quizStato.domandeOrdinate = [...s83_QUIZ_DOMANDE].sort(() => Math.random() - 0.5);
+        s83_quizStato.indice = 0;
+        s83_quizStato.punteggio = 0;
+        s83_quizStato.attivo = true;
         document.getElementById('quiz-punteggio').textContent = '';
         document.getElementById('quiz-feedback').textContent = '';
-        mostraDomandaQuiz();
+        s83_mostraDomandaQuiz();
     }
+    window.avviaQuiz = s83_avviaQuiz;
 
-    function mostraDomandaQuiz() {
-        if (!quizStato.attivo) return;
-        if (quizStato.indice >= quizStato.domandeOrdinate.length) {
-            fineQuiz();
+    function s83_mostraDomandaQuiz() {
+        if (!s83_quizStato.attivo) return;
+        if (s83_quizStato.indice >= s83_quizStato.domandeOrdinate.length) {
+            s83_fineQuiz();
             return;
         }
 
-        const d = quizStato.domandeOrdinate[quizStato.indice];
-        document.getElementById('quiz-domanda').textContent = `${quizStato.indice + 1}. ${d.domanda}`;
+        const d = s83_quizStato.domandeOrdinate[s83_quizStato.indice];
+        document.getElementById('quiz-domanda').textContent = `${s83_quizStato.indice + 1}. ${d.domanda}`;
 
         const opzioniContainer = document.getElementById('quiz-opzioni');
         opzioniContainer.innerHTML = d.opzioni.map((op, i) => `
@@ -2681,9 +2674,9 @@ Cordiali saluti,
         document.getElementById('quiz-feedback').textContent = '';
     }
 
-    function rispondiQuiz(indice) {
-        if (!quizStato.attivo) return;
-        const d = quizStato.domandeOrdinate[quizStato.indice];
+    function s83_rispondiQuiz(indice) {
+        if (!s83_quizStato.attivo) return;
+        const d = s83_quizStato.domandeOrdinate[s83_quizStato.indice];
         const feedback = document.getElementById('quiz-feedback');
 
         document.querySelectorAll('#quiz-opzioni button').forEach((btn, i) => {
@@ -2696,7 +2689,7 @@ Cordiali saluti,
         });
 
         if (indice === d.corretta) {
-            quizStato.punteggio++;
+            s83_quizStato.punteggio++;
             feedback.textContent = '✅ Esatto!';
             feedback.style.color = '#22c55e';
         } else {
@@ -2704,32 +2697,35 @@ Cordiali saluti,
             feedback.style.color = '#ef4444';
         }
 
-        quizStato.indice++;
-        setTimeout(mostraDomandaQuiz, 1500);
+        s83_quizStato.indice++;
+        setTimeout(s83_mostraDomandaQuiz, 1500);
     }
+    window.rispondiQuiz = s83_rispondiQuiz;
 
-    function fineQuiz() {
-        quizStato.attivo = false;
+    function s83_fineQuiz() {
+        s83_quizStato.attivo = false;
         document.getElementById('quiz-domanda').textContent = '🎉 Quiz completato!';
         document.getElementById('quiz-opzioni').innerHTML = '';
         document.getElementById('quiz-feedback').textContent = '';
-        document.getElementById('quiz-punteggio').textContent = `Punteggio: ${quizStato.punteggio} / ${quizStato.domandeOrdinate.length}`;
+        document.getElementById('quiz-punteggio').textContent = `Punteggio: ${s83_quizStato.punteggio} / ${s83_quizStato.domandeOrdinate.length}`;
     }
 
-    function stopQuiz() {
-        quizStato.attivo = false;
+    function s83_stopQuiz() {
+        s83_quizStato.attivo = false;
         document.getElementById('quiz-domanda').textContent = '⏹️ Quiz interrotto';
         document.getElementById('quiz-opzioni').innerHTML = '';
         document.getElementById('quiz-feedback').textContent = '';
     }
+    window.stopQuiz = s83_stopQuiz;
 
-    function resetQuiz() {
-        quizStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
+    function s83_resetQuiz() {
+        s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeOrdinate: [] };
         document.getElementById('quiz-domanda').textContent = 'Premi START per iniziare';
         document.getElementById('quiz-opzioni').innerHTML = '';
         document.getElementById('quiz-feedback').textContent = '';
         document.getElementById('quiz-punteggio').textContent = '';
     }
+    window.resetQuiz = s83_resetQuiz;
 </script>
 
     </main>
