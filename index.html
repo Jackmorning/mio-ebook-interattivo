@@ -2158,9 +2158,16 @@ Cordiali saluti,
             </p>
         </div>
 
-        <p class="text-neutral-300 text-sm leading-relaxed mb-4">
-            Quattro strumenti integrati per trasformare la lettura passiva in <strong class="text-white">apprendimento attivo</strong>.
-        </p>
+        <!-- AVVISO NO-AI -->
+        <div class="bg-amber-500/10 border border-amber-500/40 rounded-xl p-4 mb-5 flex items-start gap-3">
+            <i data-lucide="info" style="width:22px;height:22px;color:#f59e0b;flex-shrink:0;margin-top:2px;"></i>
+            <div>
+                <p class="text-amber-300 font-bold text-sm mb-1">⚙️ Nessuna Intelligenza Artificiale</p>
+                <p class="text-neutral-300 text-xs leading-relaxed">
+                    Tutte le <strong class="text-white">domande e risposte sono estratte direttamente dal testo</strong> che carichi, tramite pattern linguistici. <strong class="text-white">Nessun modello AI</strong> viene usato, quindi <strong class="text-white">non ci sono allucinazioni</strong>: quello che vedi è esattamente quello che hai scritto. Il testo resta sul tuo dispositivo.
+                </p>
+            </div>
+        </div>
 
         <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6 flex items-center gap-3">
             <i data-lucide="shield-check" style="width:24px;height:24px;color:#22c55e;"></i>
@@ -2180,7 +2187,7 @@ Cordiali saluti,
                 <button onclick="mostraStrumento('evidenzia')" data-strumento="evidenzia" class="btn-strumento bg-amber-500 text-black font-bold text-xs py-3 px-2 rounded-lg transition">🖍️ Evidenzia</button>
                 <button onclick="mostraStrumento('flashcard')" data-strumento="flashcard" class="btn-strumento bg-neutral-900 text-neutral-300 font-bold text-xs py-3 px-2 rounded-lg transition hover:bg-neutral-700">📇 Flashcard</button>
                 <button onclick="mostraStrumento('studio')" data-strumento="studio" class="btn-strumento bg-neutral-900 text-neutral-300 font-bold text-xs py-3 px-2 rounded-lg transition hover:bg-neutral-700">🧠 Studia</button>
-                <button onclick="mostraStrumento('quiz')" data-strumento="quiz" class="btn-strumento bg-neutral-900 text-neutral-300 font-bold text-xs py-3 px-2 rounded-lg transition hover:bg-neutral-700">❓ Quiz</button>
+                <button onclick="mostraStrumento('quiz')" data-strumento="quiz" class="btn-strumento bg-neutral-900 text-neutral-300 font-bold text-xs py-2 px-2 rounded-lg transition hover:bg-neutral-700">❓ Quiz</button>
             </div>
         </div>
 
@@ -2191,27 +2198,36 @@ Cordiali saluti,
             </h3>
             <p class="text-neutral-400 text-xs mb-4">Incolla il testo, importa un file o carica quello salvato in precedenza. Seleziona le parti importanti e clicca "Evidenzia".</p>
 
-            <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
+            <div class="bg-neutral-900/60 rounded-lg p-4 mb-3">
                 <div id="testo-evidenzia" contenteditable="true" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-3 text-white text-sm focus:border-amber-500 focus:outline-none h-48 overflow-y-auto" style="min-height:12rem;">
                     Incolla qui il tuo testo di studio...
                 </div>
+                <div class="flex justify-between items-center mt-2 text-[10px] text-neutral-500">
+                    <span id="contatore-testo">0 caratteri · 0 parole</span>
+                    <span>💡 Seleziona con il mouse e clicca "Evidenzia"</span>
+                </div>
             </div>
 
-            <input type="file" id="file-input" accept=".txt,.md,.csv,.json,text/plain" style="display:none;" onchange="s83_importaFile(event)">
+            <input type="file" id="file-input" accept=".txt,.md,.csv,.json,.docx" style="display:none;" onchange="s83_importaFile(event)">
 
-            <div class="flex gap-2 mb-4 flex-wrap">
+            <!-- RIGA 1: AZIONI SUL TESTO -->
+            <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2 mt-4">📝 Azioni sul testo</p>
+            <div class="grid grid-cols-2 gap-2 mb-3">
                 <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia</button>
                 <button onclick="rimuoviTutteEvidenziazioni()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">🧹 Pulisci evidenziazioni</button>
             </div>
 
-            <div class="flex gap-2 mb-4 flex-wrap">
+            <!-- RIGA 2: SALVA / CARICA / IMPORTA / STAMPA -->
+            <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2">💾 Salvataggio e importazione</p>
+            <div class="grid grid-cols-2 gap-2">
                 <button onclick="salvaTesto()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva nel browser</button>
                 <button onclick="caricaTesto()" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-500 transition text-sm">📂 Carica dal browser</button>
-                <button onclick="document.getElementById('file-input').click()" class="bg-indigo-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-indigo-500 transition text-sm">📁 Importa file (.txt)</button>
+                <button onclick="document.getElementById('file-input').click()" class="bg-indigo-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-indigo-500 transition text-sm">📁 Importa file</button>
                 <button onclick="stampaTesto()" class="bg-neutral-700 text-white font-bold px-4 py-2 rounded-lg hover:bg-neutral-600 transition text-sm">🖨️ Stampa / PDF</button>
             </div>
+            <p class="text-neutral-500 text-[10px] mt-2">📎 Formati supportati: .txt · .md · .csv · .json · .docx (Word)</p>
 
-            <div id="lista-evidenziazioni" class="space-y-2 max-h-60 overflow-y-auto"></div>
+            <div id="lista-evidenziazioni" class="space-y-2 max-h-60 overflow-y-auto mt-4"></div>
         </div>
 
         <!-- STRUMENTO 2: FLASHCARD -->
@@ -2241,8 +2257,10 @@ Cordiali saluti,
             </div>
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
-                <p class="text-neutral-300 text-xs font-bold mb-2">📚 Le tue flashcard (<span id="fc-count">0</span>)</p>
-                <p class="text-neutral-500 text-[10px] mb-2">💡 Clicca su una flashcard per modificarla</p>
+                <div class="flex justify-between items-center mb-2">
+                    <p class="text-neutral-300 text-xs font-bold">📚 Le tue flashcard (<span id="fc-count">0</span>)</p>
+                    <p class="text-neutral-500 text-[10px]">💡 Clicca per modificare</p>
+                </div>
                 <div id="lista-flashcard" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
 
@@ -2270,6 +2288,9 @@ Cordiali saluti,
                     </div>
                 </div>
                 <p id="studio-progresso" class="text-neutral-500 text-xs mt-3"></p>
+                <div class="w-full max-w-sm mt-3 bg-neutral-800 rounded-full h-1.5 overflow-hidden">
+                    <div id="studio-progress-bar" class="bg-amber-500 h-1.5 rounded-full transition-all duration-300" style="width:0%"></div>
+                </div>
             </div>
 
             <div id="studio-bottoni" class="grid grid-cols-1 gap-2 mb-3 hidden">
@@ -2314,10 +2335,15 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
                 <i data-lucide="settings" style="width:20px;height:20px;"></i> Azioni Globali
             </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
                 <button onclick="stampaTutto()" class="bg-neutral-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-neutral-600 transition text-sm">
                     🖨️ Stampa tutto / Salva PDF
                 </button>
+                <button onclick="esportaFlashcard()" class="bg-teal-600 text-white font-bold px-4 py-3 rounded-lg hover:bg-teal-500 transition text-sm">
+                    📤 Esporta flashcard (.txt)
+                </button>
+            </div>
+            <div class="grid grid-cols-1 gap-2">
                 <button onclick="pulisciTutto()" class="bg-red-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-red-600 transition text-sm">
                     🗑️ Pulisci tutto
                 </button>
@@ -2336,10 +2362,34 @@ Cordiali saluti,
     </div>
 </div>
 
+<!-- MODALE MODIFICA FLASHCARD -->
+<div id="s83-modal" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9998;display:flex;align-items:center;justify-content:center;padding:16px;">
+    <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-6 max-w-md w-full">
+        <h3 class="text-amber-400 font-bold text-base mb-4">✏️ Modifica Flashcard</h3>
+        <div class="space-y-3 mb-4">
+            <div>
+                <label class="text-neutral-300 text-xs font-bold mb-1 block">❓ Domanda</label>
+                <textarea id="s83-modal-domanda" rows="2" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+            </div>
+            <div>
+                <label class="text-neutral-300 text-xs font-bold mb-1 block">💡 Risposta</label>
+                <textarea id="s83-modal-risposta" rows="3" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <button onclick="s83_salvaModifica()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva</button>
+            <button onclick="s83_chiudiModale()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">✕ Annulla</button>
+        </div>
+    </div>
+</div>
+
+<!-- MAMMOTH.JS per importare .docx -->
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+
 <script>
     // ============================================================
     // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 51)
-    // Prefisso s83_ per evitare conflitti con il resto dell'app
+    // Nessuna AI: parsing deterministico del testo
     // ============================================================
 
     function s83_init() {
@@ -2348,12 +2398,27 @@ Cordiali saluti,
         if (salvato && editor) editor.innerHTML = salvato;
         s83_aggiornaListaEvidenziazioni();
         s83_renderFlashcard();
+        s83_aggiornaContatore();
+        // Osserva modifiche al testo per aggiornare contatore
+        if (editor) {
+            editor.addEventListener('input', s83_aggiornaContatore);
+        }
     }
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', s83_init);
     } else {
         s83_init();
+    }
+
+    function s83_aggiornaContatore() {
+        const editor = document.getElementById('testo-evidenzia');
+        const contatore = document.getElementById('contatore-testo');
+        if (!editor || !contatore) return;
+        const testo = (editor.innerText || editor.textContent || '').trim();
+        const caratteri = testo.length;
+        const parole = testo ? testo.split(/\s+/).filter(w => w.length > 0).length : 0;
+        contatore.textContent = caratteri + ' caratteri · ' + parole + ' parole';
     }
 
     // ============================================================
@@ -2375,7 +2440,7 @@ Cordiali saluti,
     window.mostraStrumento = s83_mostraStrumento;
 
     // ============================================================
-    // 1. EVIDENZIA + IMPORT + STAMPA
+    // EVIDENZIA
     // ============================================================
     function s83_evidenziaSelezione() {
         const sel = window.getSelection();
@@ -2479,20 +2544,54 @@ Cordiali saluti,
         }
         document.getElementById('testo-evidenzia').innerHTML = salvato;
         s83_aggiornaListaEvidenziazioni();
+        s83_aggiornaContatore();
         s83_toast('📂 Testo caricato dal browser');
     }
     window.caricaTesto = s83_caricaTesto;
 
+    // IMPORTAZIONE FILE: txt, md, csv, json, docx (Word)
     function s83_importaFile(event) {
         const file = event.target.files[0];
         if (!file) return;
 
+        const estensione = file.name.split('.').pop().toLowerCase();
+        const editor = document.getElementById('testo-evidenzia');
+
+        // Word (.docx) → usa mammoth.js
+        if (estensione === 'docx') {
+            if (typeof mammoth === 'undefined') {
+                alert('Libreria per file Word non caricata. Ricarica la pagina e riprova.');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                mammoth.extractRawText({ arrayBuffer: e.target.result })
+                    .then(function(result) {
+                        const testo = result.value;
+                        editor.innerHTML = s83_escapeHtml(testo).replace(/\n/g, '<br>');
+                        s83_aggiornaListaEvidenziazioni();
+                        s83_aggiornaContatore();
+                        s83_salvaTesto(true);
+                        s83_toast('📁 Word importato: ' + file.name);
+                    })
+                    .catch(function(err) {
+                        alert('Errore nella lettura del file Word: ' + err.message);
+                    });
+            };
+            reader.readAsArrayBuffer(file);
+            event.target.value = '';
+            return;
+        }
+
+        // Altri formati testuali → leggi come testo
         const reader = new FileReader();
         reader.onload = function(e) {
             const contenuto = e.target.result;
-            const editor = document.getElementById('testo-evidenzia');
             editor.innerHTML = s83_escapeHtml(contenuto).replace(/\n/g, '<br>');
             s83_aggiornaListaEvidenziazioni();
+            s83_aggiornaContatore();
             s83_salvaTesto(true);
             s83_toast('📁 File importato: ' + file.name);
         };
@@ -2547,10 +2646,17 @@ Cordiali saluti,
         window.s83_toastTimeout = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
     }
 
+    function s83_escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
     // ============================================================
-    // 2. FLASHCARD — Generazione potenziata
+    // FLASHCARD
     // ============================================================
     let s83_flashcard = JSON.parse(localStorage.getItem('tesiflash_studio_flashcard') || '[]');
+    let s83_modificaIdCorrente = null;
 
     function s83_aggiungiFlashcard() {
         const domanda = document.getElementById('fc-domanda').value.trim();
@@ -2585,7 +2691,6 @@ Cordiali saluti,
         const evidenziati = Array.from(editor.querySelectorAll('.evidenziato')).map(s => s.textContent.trim()).filter(t => t.length > 10);
 
         const testoIntero = editor.innerText || editor.textContent || '';
-        // Split migliorato: separa su punto, punto esclamativo, punto interrogativo E su <br>
         const frasi = testoIntero
             .replace(/\n+/g, ' . ')
             .split(/(?<=[.!?])\s+/)
@@ -2595,29 +2700,17 @@ Cordiali saluti,
         let generate = 0;
         let scartate = 0;
 
-        // Priorità 1: evidenziazioni
         if (evidenziati.length > 0) {
             evidenziati.forEach(testo => {
                 const fc = s83_estraiFlashcard(testo);
-                if (fc) {
-                    s83_flashcard.push(fc);
-                    generate++;
-                } else {
-                    scartate++;
-                }
+                if (fc) { s83_flashcard.push(fc); generate++; } else { scartate++; }
             });
         }
 
-        // Priorità 2: TUTTE le frasi del testo
         if (frasi.length > 0) {
             frasi.forEach(frase => {
                 const fc = s83_estraiFlashcard(frase);
-                if (fc) {
-                    s83_flashcard.push(fc);
-                    generate++;
-                } else {
-                    scartate++;
-                }
+                if (fc) { s83_flashcard.push(fc); generate++; } else { scartate++; }
             });
         }
 
@@ -2632,7 +2725,6 @@ Cordiali saluti,
     }
     window.generaFlashcardDaTesto = s83_generaFlashcardDaTesto;
 
-    // ESTRAZIONE AVANZATA
     function s83_estraiFlashcard(frase) {
         frase = frase.trim();
         if (frase.length < 25) return null;
@@ -2645,7 +2737,6 @@ Cordiali saluti,
 
         if (pulita.endsWith('?')) return null;
 
-        // PATTERN 1: Due punti — "X: Y"
         const patternDuePunti = pulita.match(/^(.{5,100}?):\s+(.{15,400})$/);
         if (patternDuePunti) {
             const titolo = patternDuePunti[1].trim();
@@ -2654,13 +2745,10 @@ Cordiali saluti,
                 id: Date.now() + Math.random(),
                 domanda: `Cosa riguarda "${titolo}"?`,
                 risposta: contenuto.charAt(0).toUpperCase() + contenuto.slice(1),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
+                livello: 0, ultimaVisita: null, origine: 'auto'
             };
         }
 
-        // PATTERN 2: Verbi accademici
         const verbiAccademici = [
             'rappresenta', 'costituisce', 'richiede', 'richiedono', 'garantisce', 'garantiscono',
             'si configura come', 'si presta a', 'si prestano a', 'agevola', 'agevolano',
@@ -2681,36 +2769,24 @@ Cordiali saluti,
                 const predicato = match[2].trim().replace(/[.,;]$/, '');
                 if (soggetto.length >= 3 && predicato.length >= 10) {
                     let domanda;
-                    if (/^rappresenta|^costituisce/i.test(verbo)) {
-                        domanda = `Cosa ${verbo} ${soggetto}?`;
-                    } else if (/^richiede|^richiedono/i.test(verbo)) {
-                        domanda = `Cosa richiede ${soggetto}?`;
-                    } else if (/^garantisce|^garantiscono/i.test(verbo)) {
-                        domanda = `Cosa garantisce ${soggetto}?`;
-                    } else if (/^permette|^permettono|^consente|^consentono/i.test(verbo)) {
-                        domanda = `Cosa permette ${soggetto}?`;
-                    } else if (/^serve a|^servono a|^mira a|^mirano a/i.test(verbo)) {
-                        domanda = `A cosa serve ${soggetto}?`;
-                    } else if (/^si basa su|^si fonda su|^dipende da/i.test(verbo)) {
-                        domanda = `Su cosa si basa ${soggetto}?`;
-                    } else if (/^si articola in|^si sviluppa/i.test(verbo)) {
-                        domanda = `Come si articola ${soggetto}?`;
-                    } else {
-                        domanda = `In che modo ${soggetto} ${verbo}?`;
-                    }
+                    if (/^rappresenta|^costituisce/i.test(verbo)) domanda = `Cosa ${verbo} ${soggetto}?`;
+                    else if (/^richiede|^richiedono/i.test(verbo)) domanda = `Cosa richiede ${soggetto}?`;
+                    else if (/^garantisce|^garantiscono/i.test(verbo)) domanda = `Cosa garantisce ${soggetto}?`;
+                    else if (/^permette|^permettono|^consente|^consentono/i.test(verbo)) domanda = `Cosa permette ${soggetto}?`;
+                    else if (/^serve a|^servono a|^mira a|^mirano a/i.test(verbo)) domanda = `A cosa serve ${soggetto}?`;
+                    else if (/^si basa su|^si fonda su|^dipende da/i.test(verbo)) domanda = `Su cosa si basa ${soggetto}?`;
+                    else if (/^si articola in|^si sviluppa/i.test(verbo)) domanda = `Come si articola ${soggetto}?`;
+                    else domanda = `In che modo ${soggetto} ${verbo}?`;
                     return {
                         id: Date.now() + Math.random(),
                         domanda: domanda,
                         risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
-                        livello: 0,
-                        ultimaVisita: null,
-                        origine: 'auto'
+                        livello: 0, ultimaVisita: null, origine: 'auto'
                     };
                 }
             }
         }
 
-        // PATTERN 3: Definizioni — "X è Y"
         const patternDef = pulita.match(/^(.{3,100}?)\s+(è|sono|significa|indica|consiste in|consiste nel|si definisce come|si riferisce a|si intende per|si intende con)\s+(.{10,400})$/i);
         if (patternDef) {
             const soggetto = s83_pulisciSoggetto(patternDef[1]);
@@ -2721,93 +2797,72 @@ Cordiali saluti,
                     id: Date.now() + Math.random(),
                     domanda: `Cosa ${verbo} ${soggetto}?`,
                     risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
-                    livello: 0,
-                    ultimaVisita: null,
-                    origine: 'auto'
+                    livello: 0, ultimaVisita: null, origine: 'auto'
                 };
             }
         }
 
-        // PATTERN 4: Suddivisioni
         const patternDiv = pulita.match(/^(.{5,80}?)\s+(si divide in|si suddivide in|comprende|è composto da|è costituito da|include|contiene|si articola in)\s+(.{10,300})$/i);
         if (patternDiv) {
             return {
                 id: Date.now() + Math.random(),
                 domanda: `In cosa ${patternDiv[2].toLowerCase().replace('si ', '')} ${s83_pulisciSoggetto(patternDiv[1])}?`,
                 risposta: patternDiv[3].trim().replace(/[.,;]$/, ''),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
+                livello: 0, ultimaVisita: null, origine: 'auto'
             };
         }
 
-        // PATTERN 5: Cause
         const patternCausa = pulita.match(/^(.{10,100}?)\s+(perché|poiché|in quanto|dato che|in virtù di)\s+(.{15,300})$/i);
         if (patternCausa) {
             return {
                 id: Date.now() + Math.random(),
                 domanda: `Perché ${s83_pulisciSoggetto(patternCausa[1]).toLowerCase()}?`,
                 risposta: patternCausa[3].trim().replace(/[.,;]$/, '').charAt(0).toUpperCase() + patternCausa[3].trim().replace(/[.,;]$/, '').slice(1),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
+                livello: 0, ultimaVisita: null, origine: 'auto'
             };
         }
 
-        // PATTERN 6: Attribuzioni
         const patternAttr = pulita.match(/^(Secondo|Stando a|Come afferma|Come sostiene|Come evidenzia)\s+(.{2,60}?)[,]\s+(.{15,300})$/i);
         if (patternAttr) {
             return {
                 id: Date.now() + Math.random(),
                 domanda: `Cosa afferma ${patternAttr[2].trim()}?`,
                 risposta: patternAttr[3].trim().replace(/[.,;]$/, '').charAt(0).toUpperCase() + patternAttr[3].trim().replace(/[.,;]$/, '').slice(1),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
+                livello: 0, ultimaVisita: null, origine: 'auto'
             };
         }
 
-        // PATTERN 7: Caratteristiche
         const patternCar = pulita.match(/^(.{3,80}?)\s+(è caratterizzato da|è caratterizzata da|presenta|mostra|si contraddistingue per)\s+(.{10,250})$/i);
         if (patternCar) {
             return {
                 id: Date.now() + Math.random(),
                 domanda: `Quali sono le caratteristiche di ${s83_pulisciSoggetto(patternCar[1])}?`,
                 risposta: patternCar[3].trim().replace(/[.,;]$/, ''),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
+                livello: 0, ultimaVisita: null, origine: 'auto'
             };
         }
 
-        // PATTERN 8: Date
         const patternData = pulita.match(/^(Nel|Nell'anno|A partire dal)\s+(\d{4})[,]?\s+(.{15,250})$/i);
         if (patternData) {
             return {
                 id: Date.now() + Math.random(),
                 domanda: `Cosa è successo nel ${patternData[2]}?`,
                 risposta: patternData[3].trim().replace(/[.,;]$/, '').charAt(0).toUpperCase() + patternData[3].trim().replace(/[.,;]$/, '').slice(1),
-                livello: 0,
-                ultimaVisita: null,
-                origine: 'auto'
+                livello: 0, ultimaVisita: null, origine: 'auto'
             };
         }
 
-        // FALLBACK: Trasforma comunque la frase in flashcard generica
         if (pulita.length >= 50 && pulita.length <= 350) {
             const parole = pulita.split(' ');
             const lunghezzaConcetto = Math.min(8, Math.ceil(parole.length / 3));
             const concetto = parole.slice(0, lunghezzaConcetto).join(' ').replace(/[.,;:]$/, '');
             const resto = parole.slice(lunghezzaConcetto).join(' ').trim();
-
             if (concetto.length >= 15 && resto.length >= 20) {
                 return {
                     id: Date.now() + Math.random(),
                     domanda: `Cosa si può dire riguardo a "${concetto}"?`,
                     risposta: resto.charAt(0).toUpperCase() + resto.slice(1),
-                    livello: 0,
-                    ultimaVisita: null,
-                    origine: 'auto'
+                    livello: 0, ultimaVisita: null, origine: 'auto'
                 };
             }
         }
@@ -2840,12 +2895,12 @@ Cordiali saluti,
         }
 
         container.innerHTML = s83_flashcard.map(f => `
-            <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 hover:border-amber-500/50 transition cursor-pointer" onclick="s83_modificaFlashcard(${f.id})">
+            <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 hover:border-amber-500/50 transition cursor-pointer" onclick="s83_apriModale(${f.id})">
                 <div class="flex justify-between items-start gap-2">
                     <div class="flex-1">
                         <p class="text-white text-xs font-bold">${s83_escapeHtml(f.domanda)}</p>
                         <p class="text-neutral-400 text-xs mt-1">${s83_escapeHtml(f.risposta)}</p>
-                        ${f.origine === 'auto' ? '<p class="text-purple-400 text-[10px] mt-1">🤖 generata · clicca per modificare</p>' : '<p class="text-neutral-500 text-[10px] mt-1">✏️ clicca per modificare</p>'}
+                        ${f.origine === 'auto' ? '<p class="text-purple-400 text-[10px] mt-1">🤖 dal testo · clicca per modificare</p>' : '<p class="text-neutral-500 text-[10px] mt-1">✏️ manuale · clicca per modificare</p>'}
                     </div>
                     <button onclick="event.stopPropagation(); rimuoviFlashcard(${f.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
                 </div>
@@ -2853,29 +2908,47 @@ Cordiali saluti,
         `).join('');
     }
 
-    function s83_modificaFlashcard(id) {
+    // MODALE MODIFICA (DOMANDA + RISPOSTA)
+    function s83_apriModale(id) {
         const fc = s83_flashcard.find(f => f.id === id);
         if (!fc) return;
 
-        const nuovaDomanda = prompt('Modifica DOMANDA:', fc.domanda);
-        if (nuovaDomanda === null) return;
+        s83_modificaIdCorrente = id;
+        document.getElementById('s83-modal-domanda').value = fc.domanda;
+        document.getElementById('s83-modal-risposta').value = fc.risposta;
+        document.getElementById('s83-modal').classList.remove('hidden');
+        document.getElementById('s83-modal').style.display = 'flex';
+    }
+    window.s83_apriModale = s83_apriModale;
 
-        const nuovaRisposta = prompt('Modifica RISPOSTA:', fc.risposta);
-        if (nuovaRisposta === null) return;
+    function s83_salvaModifica() {
+        if (!s83_modificaIdCorrente) return;
+        const fc = s83_flashcard.find(f => f.id === s83_modificaIdCorrente);
+        if (!fc) return;
 
-        fc.domanda = nuovaDomanda.trim();
-        fc.risposta = nuovaRisposta.trim();
+        const nuovaDomanda = document.getElementById('s83-modal-domanda').value.trim();
+        const nuovaRisposta = document.getElementById('s83-modal-risposta').value.trim();
+
+        if (!nuovaDomanda || !nuovaRisposta) {
+            alert('Domanda e risposta non possono essere vuote.');
+            return;
+        }
+
+        fc.domanda = nuovaDomanda;
+        fc.risposta = nuovaRisposta;
         s83_salvaFlashcard();
         s83_renderFlashcard();
+        s83_chiudiModale();
         s83_toast('✏️ Flashcard modificata');
     }
-    window.s83_modificaFlashcard = s83_modificaFlashcard;
+    window.s83_salvaModifica = s83_salvaModifica;
 
-    function s83_escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+    function s83_chiudiModale() {
+        document.getElementById('s83-modal').classList.add('hidden');
+        document.getElementById('s83-modal').style.display = 'none';
+        s83_modificaIdCorrente = null;
     }
+    window.s83_chiudiModale = s83_chiudiModale;
 
     function s83_rimuoviFlashcard(id) {
         s83_flashcard = s83_flashcard.filter(f => f.id !== id);
@@ -2904,7 +2977,7 @@ Cordiali saluti,
     window.avviaStudioFlashcard = s83_avviaStudioFlashcard;
 
     // ============================================================
-    // 3. STUDIA
+    // STUDIA
     // ============================================================
     let s83_studioStato = { mazzo: [], indice: 0, attivo: false, rispostaMostrata: false };
 
@@ -2944,6 +3017,11 @@ Cordiali saluti,
         document.getElementById('studio-domanda').textContent = carta.domanda;
         document.getElementById('studio-risposta').textContent = carta.risposta;
         document.getElementById('studio-progresso').textContent = `Carta ${s83_studioStato.indice + 1} di ${s83_studioStato.mazzo.length}`;
+
+        const progressBar = document.getElementById('studio-progress-bar');
+        if (progressBar) {
+            progressBar.style.width = ((s83_studioStato.indice) / s83_studioStato.mazzo.length * 100) + '%';
+        }
 
         document.getElementById('studio-risposta-box').classList.add('hidden');
         document.getElementById('studio-bottoni').classList.remove('hidden');
@@ -2986,6 +3064,8 @@ Cordiali saluti,
         document.getElementById('studio-bottoni').classList.add('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
         document.getElementById('studio-progresso').textContent = '';
+        const progressBar = document.getElementById('studio-progress-bar');
+        if (progressBar) progressBar.style.width = '100%';
         s83_renderFlashcard();
     }
 
@@ -3006,11 +3086,13 @@ Cordiali saluti,
         document.getElementById('studio-bottoni').classList.add('hidden');
         document.getElementById('studio-valutazione').classList.add('hidden');
         document.getElementById('studio-progresso').textContent = '';
+        const progressBar = document.getElementById('studio-progress-bar');
+        if (progressBar) progressBar.style.width = '0%';
     }
     window.resetStudio = s83_resetStudio;
 
     // ============================================================
-    // 4. QUIZ
+    // QUIZ
     // ============================================================
     let s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeGenerate: [] };
 
@@ -3020,54 +3102,30 @@ Cordiali saluti,
         if (s83_flashcard.length >= 4) {
             s83_flashcard.forEach(fc => {
                 const altri = s83_flashcard.filter(f => f.id !== fc.id);
-                const distrattori = altri
-                    .sort(() => Math.random() - 0.5)
-                    .slice(0, 3)
-                    .map(f => f.risposta);
-
+                const distrattori = altri.sort(() => Math.random() - 0.5).slice(0, 3).map(f => f.risposta);
                 if (distrattori.length < 3) return;
-
                 const opzioni = [fc.risposta, ...distrattori].sort(() => Math.random() - 0.5);
                 const corretta = opzioni.indexOf(fc.risposta);
-
-                domande.push({
-                    domanda: fc.domanda,
-                    opzioni: opzioni,
-                    corretta: corretta,
-                    origine: 'flashcard'
-                });
+                domande.push({ domanda: fc.domanda, opzioni: opzioni, corretta: corretta, origine: 'flashcard' });
             });
         }
 
         const editor = document.getElementById('testo-evidenzia');
         if (editor) {
             const testoIntero = editor.innerText || editor.textContent || '';
-            const frasi = testoIntero
-                .split(/(?<=[.!?])\s+/)
-                .map(f => f.trim())
-                .filter(f => f.length > 40 && f.length < 300);
-
+            const frasi = testoIntero.split(/(?<=[.!?])\s+/).map(f => f.trim()).filter(f => f.length > 40 && f.length < 300);
             frasi.slice(0, 5).forEach(frase => {
                 const parole = frase.split(' ');
                 if (parole.length < 10) return;
-
                 const taglio = Math.floor(parole.length * 0.6);
                 const primaParte = parole.slice(0, taglio).join(' ');
                 const parteMancante = parole.slice(taglio, taglio + 4).join(' ');
                 const resto = parole.slice(taglio + 4).join(' ');
-
                 if (parteMancante.length < 3) return;
-
                 const distrattori = ['nessuna delle precedenti', 'tutte le precedenti', 'non è specificato'];
                 const opzioni = [parteMancante, ...distrattori].sort(() => Math.random() - 0.5);
                 const corretta = opzioni.indexOf(parteMancante);
-
-                domande.push({
-                    domanda: `Completa: "${primaParte} ___ ${resto}"`,
-                    opzioni: opzioni,
-                    corretta: corretta,
-                    origine: 'testo'
-                });
+                domande.push({ domanda: `Completa: "${primaParte} ___ ${resto}"`, opzioni: opzioni, corretta: corretta, origine: 'testo' });
             });
         }
 
@@ -3076,12 +3134,10 @@ Cordiali saluti,
 
     function s83_avviaQuiz() {
         const domande = s83_generaDomandeQuiz();
-
         if (domande.length === 0) {
             alert('Non riesco a generare il quiz.\n\nPer creare un quiz hai bisogno di:\n• Almeno 4 flashcard\n• OPPURE del testo caricato nell\'area "Evidenzia"');
             return;
         }
-
         s83_quizStato.domandeGenerate = domande;
         s83_quizStato.indice = 0;
         s83_quizStato.punteggio = 0;
@@ -3099,15 +3155,12 @@ Cordiali saluti,
             s83_fineQuiz();
             return;
         }
-
         const d = s83_quizStato.domandeGenerate[s83_quizStato.indice];
         document.getElementById('quiz-domanda').textContent = `${s83_quizStato.indice + 1}. ${d.domanda}`;
-
         const opzioniContainer = document.getElementById('quiz-opzioni');
         opzioniContainer.innerHTML = d.opzioni.map((op, i) => `
             <button onclick="rispondiQuiz(${i})" class="w-full text-left bg-neutral-900 border border-neutral-700 text-neutral-300 px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">${s83_escapeHtml(op)}</button>
         `).join('');
-
         document.getElementById('quiz-feedback').textContent = '';
     }
 
@@ -3115,16 +3168,11 @@ Cordiali saluti,
         if (!s83_quizStato.attivo) return;
         const d = s83_quizStato.domandeGenerate[s83_quizStato.indice];
         const feedback = document.getElementById('quiz-feedback');
-
         document.querySelectorAll('#quiz-opzioni button').forEach((btn, i) => {
             btn.style.pointerEvents = 'none';
-            if (i === d.corretta) {
-                btn.classList.add('bg-green-600', 'text-white', 'border-green-500');
-            } else if (i === indice && i !== d.corretta) {
-                btn.classList.add('bg-red-600', 'text-white', 'border-red-500');
-            }
+            if (i === d.corretta) btn.classList.add('bg-green-600', 'text-white', 'border-green-500');
+            else if (i === indice && i !== d.corretta) btn.classList.add('bg-red-600', 'text-white', 'border-red-500');
         });
-
         if (indice === d.corretta) {
             s83_quizStato.punteggio++;
             feedback.textContent = '✅ Esatto!';
@@ -3133,7 +3181,6 @@ Cordiali saluti,
             feedback.textContent = `❌ Sbagliato. La risposta corretta era: ${d.opzioni[d.corretta]}`;
             feedback.style.color = '#ef4444';
         }
-
         s83_quizStato.indice++;
         setTimeout(s83_mostraDomandaQuiz, 1800);
     }
@@ -3214,6 +3261,26 @@ Cordiali saluti,
     }
     window.stampaTutto = s83_stampaTutto;
 
+    // ESPORTA FLASHCARD IN .TXT (compatibile Anki/Quizlet)
+    function s83_esportaFlashcard() {
+        if (s83_flashcard.length === 0) {
+            alert('Nessuna flashcard da esportare.');
+            return;
+        }
+
+        // Formato: domanda [TAB] risposta (una per riga) — compatibile con import Anki
+        const contenuto = s83_flashcard.map(f => f.domanda + '\t' + f.risposta).join('\n');
+        const blob = new Blob([contenuto], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'flashcard-' + new Date().toISOString().split('T')[0] + '.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+        s83_toast('📤 Esportate ' + s83_flashcard.length + ' flashcard');
+    }
+    window.esportaFlashcard = s83_esportaFlashcard;
+
     function s83_pulisciTutto() {
         if (!confirm('⚠️ ATTENZIONE!\n\nStai per cancellare:\n• Tutto il testo di studio\n• Tutte le evidenziazioni\n• Tutte le flashcard\n• Tutti i progressi\n\nL\'operazione è IRREVERSIBILE.\n\nContinuare?')) {
             return;
@@ -3227,6 +3294,7 @@ Cordiali saluti,
 
         s83_renderFlashcard();
         s83_aggiornaListaEvidenziazioni();
+        s83_aggiornaContatore();
         s83_resetStudio();
         s83_resetQuiz();
 
