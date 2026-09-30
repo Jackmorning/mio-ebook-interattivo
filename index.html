@@ -2210,10 +2210,10 @@ Cordiali saluti,
 
             <input type="file" id="file-input" accept=".txt,.md,.csv,.json,.docx" style="display:none;" onchange="s83_importaFile(event)">
 
-                        <!-- RIGA 1: AZIONI SUL TESTO -->
+            <!-- PALETTE COLORI -->
             <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2 mt-4">🎨 Colore evidenziazione</p>
             <div class="flex gap-2 mb-3 flex-wrap" id="s83-palette">
-                <button onclick="s83_setColore('#facc15')" data-colore="#facc15" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-amber-400 transition" style="background-color:#facc15;" title="Giallo"></button>
+                <button onclick="s83_setColore('#facc15')" data-colore="#facc15" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-white scale-110 transition" style="background-color:#facc15;" title="Giallo"></button>
                 <button onclick="s83_setColore('#22c55e')" data-colore="#22c55e" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#22c55e;" title="Verde"></button>
                 <button onclick="s83_setColore('#3b82f6')" data-colore="#3b82f6" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#3b82f6;" title="Blu"></button>
                 <button onclick="s83_setColore('#ec4899')" data-colore="#ec4899" class="s83-colore-btn w-10 h-10 rounded-lg border-2 border-neutral-700 transition hover:border-neutral-400" style="background-color:#ec4899;" title="Rosa"></button>
@@ -2221,6 +2221,7 @@ Cordiali saluti,
                 <span class="text-neutral-500 text-[10px] self-center ml-2">← Colore attivo</span>
             </div>
 
+            <!-- RIGA 1: AZIONI SUL TESTO -->
             <p class="text-neutral-500 text-[10px] uppercase font-bold mb-2">📝 Azioni sul testo</p>
             <div class="grid grid-cols-2 gap-2 mb-3">
                 <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia selezione</button>
@@ -2372,8 +2373,8 @@ Cordiali saluti,
     </div>
 </div>
 
-<!-- MODALE MODIFICA FLASHCARD -->
-<div id="s83-modal" class="hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9998;display:flex;align-items:center;justify-content:center;padding:16px;">
+<!-- MODALE MODIFICA FLASHCARD (nascosto di default con style inline per sicurezza) -->
+<div id="s83-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9998;align-items:center;justify-content:center;padding:16px;">
     <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-6 max-w-md w-full">
         <h3 class="text-amber-400 font-bold text-base mb-4">✏️ Modifica Flashcard</h3>
         <div class="space-y-3 mb-4">
@@ -2409,10 +2410,20 @@ Cordiali saluti,
         s83_aggiornaListaEvidenziazioni();
         s83_renderFlashcard();
         s83_aggiornaContatore();
-        // Osserva modifiche al testo per aggiornare contatore
+
+        // Ripristina il colore di evidenziazione salvato
+        const coloreSalvato = localStorage.getItem('tesiflash_studio_colore');
+        if (coloreSalvato) {
+            s83_setColore(coloreSalvato);
+        }
+
         if (editor) {
             editor.addEventListener('input', s83_aggiornaContatore);
         }
+
+        // Assicura che il modale sia chiuso all'avvio
+        const modale = document.getElementById('s83-modal');
+        if (modale) modale.style.display = 'none';
     }
 
     if (document.readyState === 'loading') {
@@ -2450,6 +2461,22 @@ Cordiali saluti,
     window.mostraStrumento = s83_mostraStrumento;
 
     // ============================================================
+    // PALETTE COLORI
+    // ============================================================
+    let s83_coloreEvidenziazione = '#facc15';
+
+    function s83_setColore(colore) {
+        s83_coloreEvidenziazione = colore;
+        document.querySelectorAll('#s83-palette .s83-colore-btn').forEach(btn => {
+            const isAttivo = btn.dataset.colore === colore;
+            btn.className = 's83-colore-btn w-10 h-10 rounded-lg border-2 transition ' +
+                (isAttivo ? 'border-white scale-110' : 'border-neutral-700 hover:border-neutral-400');
+        });
+        localStorage.setItem('tesiflash_studio_colore', colore);
+    }
+    window.s83_setColore = s83_setColore;
+
+    // ============================================================
     // EVIDENZIA
     // ============================================================
     function s83_evidenziaSelezione() {
@@ -2467,8 +2494,10 @@ Cordiali saluti,
         }
 
         const span = document.createElement('span');
-        span.style.backgroundColor = '#f59e0b';
-        span.style.color = '#000';
+        span.style.backgroundColor = s83_coloreEvidenziazione;
+        // Testo bianco sui colori scuri, nero sui colori chiari
+        const coloriSc = ['#3b82f6', '#22c55e', '#ec4899'];
+        span.style.color = coloriSc.includes(s83_coloreEvidenziazione) ? '#fff' : '#000';
         span.style.borderRadius = '3px';
         span.style.padding = '0 2px';
         span.className = 'evidenziato';
@@ -2499,12 +2528,18 @@ Cordiali saluti,
             return;
         }
 
-        container.innerHTML = Array.from(spans).map((s, i) => `
+        container.innerHTML = Array.from(spans).map((s, i) => {
+            const colore = s.style.backgroundColor || '#facc15';
+            return `
             <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 flex justify-between items-start gap-2">
-                <p class="text-amber-200 text-xs flex-1 break-words">"${s.textContent}"</p>
+                <div class="flex-1 flex items-start gap-2">
+                    <span style="width:12px;height:12px;border-radius:3px;background-color:${colore};flex-shrink:0;margin-top:2px;"></span>
+                    <p class="text-amber-200 text-xs break-words">"${s.textContent}"</p>
+                </div>
                 <button onclick="rimuoviEvidenziazione(${i})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">✕</button>
             </div>
-        `).join('');
+        `;
+        }).join('');
     }
 
     function s83_rimuoviEvidenziazione(index) {
@@ -2559,7 +2594,6 @@ Cordiali saluti,
     }
     window.caricaTesto = s83_caricaTesto;
 
-    // IMPORTAZIONE FILE: txt, md, csv, json, docx (Word)
     function s83_importaFile(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -2567,7 +2601,6 @@ Cordiali saluti,
         const estensione = file.name.split('.').pop().toLowerCase();
         const editor = document.getElementById('testo-evidenzia');
 
-        // Word (.docx) → usa mammoth.js
         if (estensione === 'docx') {
             if (typeof mammoth === 'undefined') {
                 alert('Libreria per file Word non caricata. Ricarica la pagina e riprova.');
@@ -2595,7 +2628,6 @@ Cordiali saluti,
             return;
         }
 
-        // Altri formati testuali → leggi come testo
         const reader = new FileReader();
         reader.onload = function(e) {
             const contenuto = e.target.result;
@@ -2627,7 +2659,7 @@ Cordiali saluti,
                 <style>
                     body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
                     h1 { font-size: 18px; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; }
-                    .evidenziato { background-color: #fde68a; padding: 2px 4px; border-radius: 2px; }
+                    .evidenziato { padding: 2px 4px; border-radius: 2px; }
                     @media print { body { margin: 20px; } }
                 </style>
             </head>
@@ -2918,7 +2950,7 @@ Cordiali saluti,
         `).join('');
     }
 
-    // MODALE MODIFICA (DOMANDA + RISPOSTA)
+    // MODALE — apertura e chiusura corrette
     function s83_apriModale(id) {
         const fc = s83_flashcard.find(f => f.id === id);
         if (!fc) return;
@@ -2926,8 +2958,10 @@ Cordiali saluti,
         s83_modificaIdCorrente = id;
         document.getElementById('s83-modal-domanda').value = fc.domanda;
         document.getElementById('s83-modal-risposta').value = fc.risposta;
-        document.getElementById('s83-modal').classList.remove('hidden');
-        document.getElementById('s83-modal').style.display = 'flex';
+
+        // Mostra il modale correttamente
+        const modale = document.getElementById('s83-modal');
+        modale.style.display = 'flex';
     }
     window.s83_apriModale = s83_apriModale;
 
@@ -2954,11 +2988,30 @@ Cordiali saluti,
     window.s83_salvaModifica = s83_salvaModifica;
 
     function s83_chiudiModale() {
-        document.getElementById('s83-modal').classList.add('hidden');
-        document.getElementById('s83-modal').style.display = 'none';
+        // Nasconde il modale correttamente
+        const modale = document.getElementById('s83-modal');
+        modale.style.display = 'none';
         s83_modificaIdCorrente = null;
     }
     window.s83_chiudiModale = s83_chiudiModale;
+
+    // Chiudi il modale cliccando fuori (sullo sfondo scuro)
+    document.addEventListener('DOMContentLoaded', function() {
+        const modale = document.getElementById('s83-modal');
+        if (modale) {
+            modale.addEventListener('click', function(e) {
+                if (e.target === modale) s83_chiudiModale();
+            });
+        }
+    });
+
+    // Chiudi il modale con ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modale = document.getElementById('s83-modal');
+            if (modale && modale.style.display === 'flex') s83_chiudiModale();
+        }
+    });
 
     function s83_rimuoviFlashcard(id) {
         s83_flashcard = s83_flashcard.filter(f => f.id !== id);
@@ -3239,7 +3292,7 @@ Cordiali saluti,
                     body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
                     h1 { font-size: 22px; border-bottom: 3px solid #f59e0b; padding-bottom: 10px; margin-bottom: 30px; }
                     h2 { font-size: 16px; color: #b45309; margin-top: 30px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; }
-                    .evidenziato { background-color: #fde68a; padding: 2px 4px; border-radius: 2px; }
+                    .evidenziato { padding: 2px 4px; border-radius: 2px; }
                     .fc { background: #f9fafb; border-left: 4px solid #f59e0b; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 6px 6px 0; page-break-inside: avoid; }
                     .fc .dom { font-weight: bold; color: #111; margin-bottom: 4px; }
                     .fc .ris { color: #555; }
@@ -3271,14 +3324,11 @@ Cordiali saluti,
     }
     window.stampaTutto = s83_stampaTutto;
 
-    // ESPORTA FLASHCARD IN .TXT (compatibile Anki/Quizlet)
     function s83_esportaFlashcard() {
         if (s83_flashcard.length === 0) {
             alert('Nessuna flashcard da esportare.');
             return;
         }
-
-        // Formato: domanda [TAB] risposta (una per riga) — compatibile con import Anki
         const contenuto = s83_flashcard.map(f => f.domanda + '\t' + f.risposta).join('\n');
         const blob = new Blob([contenuto], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
