@@ -4499,12 +4499,12 @@ Cordiali saluti,
 
                 <div>
                     <label class="text-neutral-300 text-xs font-bold mb-1 block">📝 Titolo della tappa</label>
-                    <input type="text" id="dt-titolo" placeholder="es. Primo colloquio con il relatore" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
+                    <input type="text" id="dt-titolo" placeholder="es. Ho scelto l'argomento della tesi" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none">
                 </div>
 
                 <div>
-                    <label class="text-neutral-300 text-xs font-bold mb-1 block">💭 Come mi sono sentito</label>
-                    <textarea id="dt-note" rows="3" placeholder="es. Ero agitatissimo ma il prof è stato gentile. Mi ha detto di cercare più fonti internazionali..." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
+                    <label id="dt-note-label" class="text-neutral-300 text-xs font-bold mb-1 block">💭 Come mi sono sentito</label>
+                    <textarea id="dt-note" rows="3" placeholder="es. Ero emozionato ma anche spaventato..." class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 text-white text-sm focus:border-amber-500 focus:outline-none resize-none"></textarea>
                 </div>
 
                 <button onclick="dt_aggiungiTappa()" class="w-full bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:bg-amber-400 transition text-sm">
@@ -4558,8 +4558,54 @@ Cordiali saluti,
     let dt_tappe = JSON.parse(localStorage.getItem('tesiflash_diario_tesi') || '[]');
     let dt_tipoCorrente = 'inizio';
 
+    // Configurazione dinamica per ogni tipo di tappa
+    const DT_CONFIG = {
+        inizio: {
+            label: '💭 Come mi sono sentito',
+            placeholderNote: 'es. Ero emozionato ma anche spaventato...',
+            placeholderTitolo: 'es. Ho scelto l\'argomento della tesi'
+        },
+        ricerca: {
+            label: '📚 Fonti e scoperte',
+            placeholderNote: 'es. Ho trovato 12 articoli su Google Scholar. Il paper di Rossi è illuminante...',
+            placeholderTitolo: 'es. Prima ricerca bibliografica completata'
+        },
+        colloquio: {
+            label: '💬 Cosa mi ha detto',
+            placeholderNote: 'es. Il prof mi ha detto di restringere il campo. Era soddisfatto dell\'indice...',
+            placeholderTitolo: 'es. Primo colloquio con il relatore'
+        },
+        scrittura: {
+            label: '✍️ Come sta andando',
+            placeholderNote: 'es. Capitolo 1 a metà. Ho scritto 8 pagine oggi, mi sento in flow...',
+            placeholderTitolo: 'es. Completato il capitolo 1'
+        },
+        revisione: {
+            label: '🔧 Cosa sto correggendo',
+            placeholderNote: 'es. Il prof ha chiesto di riscrivere l\'introduzione. Trovati 4 errori di citazione...',
+            placeholderTitolo: 'es. Prima revisione del capitolo 2'
+        },
+        consegna: {
+            label: '📤 Cosa ho consegnato',
+            placeholderNote: 'es. Consegnato PDF completo in segreteria. Che liberazione!',
+            placeholderTitolo: 'es. Tesi consegnata in segreteria'
+        },
+        discussione: {
+            label: '🎓 Com\'è andata',
+            placeholderNote: 'es. Discussione durata 20 minuti. Voto finale: 108. Non ci credo ancora...',
+            placeholderTitolo: 'es. Discussione della tesi'
+        },
+        panico: {
+            label: '😰 Cosa mi sta bloccando',
+            placeholderNote: 'es. Sono in ritardo di 3 giorni. Non riesco a scrivere. Devo respirare...',
+            placeholderTitolo: 'es. Momento di crisi'
+        }
+    };
+
     function dt_init() {
         dt_render();
+        // Inizializza label e placeholder in base al tipo di default
+        dt_setTipo('inizio');
     }
 
     if (document.readyState === 'loading') {
@@ -4570,11 +4616,25 @@ Cordiali saluti,
 
     function dt_setTipo(tipo) {
         dt_tipoCorrente = tipo;
+
+        // Evidenzia il pulsante attivo
         document.querySelectorAll('.dt-tipo-btn').forEach(btn => {
             const isAttivo = btn.dataset.tipo === tipo;
             btn.className = 'dt-tipo-btn font-bold text-[10px] py-2 px-1 rounded-lg transition ' +
                 (isAttivo ? 'bg-amber-500 text-black' : 'bg-neutral-900 border border-neutral-700 text-neutral-300 hover:bg-neutral-700');
         });
+
+        // Aggiorna label e placeholder in base al tipo
+        const config = DT_CONFIG[tipo];
+        if (config) {
+            const labelEl = document.getElementById('dt-note-label');
+            const noteEl = document.getElementById('dt-note');
+            const titoloEl = document.getElementById('dt-titolo');
+
+            if (labelEl) labelEl.textContent = config.label;
+            if (noteEl) noteEl.placeholder = config.placeholderNote;
+            if (titoloEl) titoloEl.placeholder = config.placeholderTitolo;
+        }
     }
     window.dt_setTipo = dt_setTipo;
 
@@ -4602,6 +4662,9 @@ Cordiali saluti,
         document.getElementById('dt-data').value = '';
         document.getElementById('dt-titolo').value = '';
         document.getElementById('dt-note').value = '';
+
+        // Ripristina placeholder originali per il tipo corrente
+        dt_setTipo(dt_tipoCorrente);
 
         dt_render();
         dt_toast('📔 Tappa aggiunta al diario');
