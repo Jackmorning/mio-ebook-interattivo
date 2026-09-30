@@ -2146,7 +2146,6 @@ Cordiali saluti,
             <i data-lucide="book-open" style="width:28px;height:28px;color:#f59e0b;"></i> Strumenti di Studio Attivo
         </h2>
 
-        <!-- INTRODUZIONE AGGIUNTA -->
         <div class="bg-gradient-to-br from-purple-500/10 to-neutral-800 border border-purple-500/30 rounded-xl p-5 mb-5">
             <p class="text-purple-300 font-bold text-sm mb-2 flex items-center gap-2">
                 <i data-lucide="sparkles" style="width:18px;height:18px;"></i> Non solo scrivere la tesi, ma anche ricordarla
@@ -2190,7 +2189,7 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="highlighter" style="width:20px;height:20px;"></i> Evidenzia il tuo materiale
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Seleziona il testo qui sotto e clicca "Evidenzia" per colorarlo. Le evidenziazioni vengono salvate automaticamente.</p>
+            <p class="text-neutral-400 text-xs mb-4">Incolla il testo, importa un file o carica quello salvato in precedenza. Seleziona le parti importanti e clicca "Evidenzia".</p>
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
                 <div id="testo-evidenzia" contenteditable="true" class="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-3 text-white text-sm focus:border-amber-500 focus:outline-none h-48 overflow-y-auto" style="min-height:12rem;">
@@ -2198,11 +2197,19 @@ Cordiali saluti,
                 </div>
             </div>
 
+            <!-- Input file nascosto -->
+            <input type="file" id="file-input" accept=".txt,.md,.csv,.json,text/plain" style="display:none;" onchange="s83_importaFile(event)">
+
             <div class="flex gap-2 mb-4 flex-wrap">
                 <button onclick="evidenziaSelezione()" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-lg hover:bg-amber-400 transition text-sm">🖍️ Evidenzia</button>
                 <button onclick="rimuoviTutteEvidenziazioni()" class="bg-neutral-900 border border-neutral-700 text-neutral-300 font-bold px-4 py-2 rounded-lg hover:bg-neutral-700 transition text-sm">🧹 Pulisci evidenziazioni</button>
-                <button onclick="salvaTesto()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva testo</button>
-                <button onclick="caricaTesto()" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-500 transition text-sm">📂 Carica testo</button>
+            </div>
+
+            <div class="flex gap-2 mb-4 flex-wrap">
+                <button onclick="salvaTesto()" class="bg-green-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-green-500 transition text-sm">💾 Salva nel browser</button>
+                <button onclick="caricaTesto()" class="bg-blue-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-500 transition text-sm">📂 Carica dal browser</button>
+                <button onclick="document.getElementById('file-input').click()" class="bg-indigo-600 text-white font-bold px-4 py-2 rounded-lg hover:bg-indigo-500 transition text-sm">📁 Importa file (.txt)</button>
+                <button onclick="stampaTesto()" class="bg-neutral-700 text-white font-bold px-4 py-2 rounded-lg hover:bg-neutral-600 transition text-sm">🖨️ Stampa / PDF</button>
             </div>
 
             <div id="lista-evidenziazioni" class="space-y-2 max-h-60 overflow-y-auto"></div>
@@ -2213,7 +2220,7 @@ Cordiali saluti,
             <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2">
                 <i data-lucide="layers" style="width:20px;height:20px;"></i> Genera Flashcard
             </h3>
-            <p class="text-neutral-400 text-xs mb-4">Crea flashcard di qualità in pochi secondi. Puoi aggiungerle a mano oppure generarle automaticamente dal testo caricato.</p>
+            <p class="text-neutral-400 text-xs mb-4">Aggiungi flashcard a mano oppure generane automaticamente dal testo. Le flashcard generate si possono modificare cliccandoci sopra.</p>
 
             <div class="space-y-3 mb-4">
                 <div>
@@ -2236,6 +2243,7 @@ Cordiali saluti,
 
             <div class="bg-neutral-900/60 rounded-lg p-4 mb-4">
                 <p class="text-neutral-300 text-xs font-bold mb-2">📚 Le tue flashcard (<span id="fc-count">0</span>)</p>
+                <p class="text-neutral-500 text-[10px] mb-2">💡 Clicca su una flashcard per modificarla</p>
                 <div id="lista-flashcard" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
 
@@ -2302,9 +2310,27 @@ Cordiali saluti,
             <p id="quiz-punteggio" class="text-center mt-3 font-bold text-sm text-amber-400"></p>
         </div>
 
+        <!-- AZIONI GLOBALI -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-xl p-5 mb-6">
+            <h3 class="text-amber-400 font-bold text-base mb-3 flex items-center gap-2">
+                <i data-lucide="settings" style="width:20px;height:20px;"></i> Azioni Globali
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button onclick="stampaTutto()" class="bg-neutral-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-neutral-600 transition text-sm">
+                    🖨️ Stampa tutto / Salva PDF
+                </button>
+                <button onclick="pulisciTutto()" class="bg-red-700 text-white font-bold px-4 py-3 rounded-lg hover:bg-red-600 transition text-sm">
+                    🗑️ Pulisci tutto
+                </button>
+            </div>
+            <p class="text-neutral-500 text-[10px] mt-2">
+                "Pulisci tutto" cancella testo, evidenziazioni, flashcard e progressi. Operazione irreversibile.
+            </p>
+        </div>
+
         <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 mb-4">
             <p class="text-neutral-400 text-xs leading-relaxed">
-                💡 <strong class="text-white">Consiglio:</strong> Incolla un testo lungo in "Evidenzia", poi vai in "Flashcard" e clicca <strong class="text-purple-400">🤖 Genera dal testo</strong> per creare flashcard automatiche. Infine usa "Studia" e "Quiz" per verificare.
+                💡 <strong class="text-white">Consiglio:</strong> Incolla un testo lungo in "Evidenzia", poi vai in "Flashcard" e clicca <strong class="text-purple-400">🤖 Genera dal testo</strong>. Le flashcard generate si possono modificare cliccandoci sopra. Infine usa "Studia" e "Quiz" per verificare.
             </p>
         </div>
 
@@ -2314,10 +2340,9 @@ Cordiali saluti,
 <script>
     // ============================================================
     // LOGICA STRUMENTI DI STUDIO ATTIVO (PAGINA 51)
-    // Prefisso s83_ per evitare conflitti con il resto dell'app
+    // Prefisso s83_ per evitare conflitti
     // ============================================================
 
-    // --- INIZIALIZZAZIONE ---
     function s83_init() {
         const salvato = localStorage.getItem('tesiflash_studio_testo');
         const editor = document.getElementById('testo-evidenzia');
@@ -2351,7 +2376,7 @@ Cordiali saluti,
     window.mostraStrumento = s83_mostraStrumento;
 
     // ============================================================
-    // 1. EVIDENZIA + SALVA/CARICA
+    // 1. EVIDENZIA + IMPORT + STAMPA
     // ============================================================
     function s83_evidenziaSelezione() {
         const sel = window.getSelection();
@@ -2442,12 +2467,6 @@ Cordiali saluti,
         if (!editor) return;
         localStorage.setItem('tesiflash_studio_testo', editor.innerHTML);
         if (!silenzioso) {
-            const btn = window.event && window.event.target ? window.event.target : null;
-            if (btn && btn.tagName === 'BUTTON') {
-                const originale = btn.innerHTML;
-                btn.innerHTML = '✅ Salvato!';
-                setTimeout(() => { btn.innerHTML = originale; }, 1500);
-            }
             s83_toast('💾 Testo salvato nel browser');
         }
     }
@@ -2456,7 +2475,7 @@ Cordiali saluti,
     function s83_caricaTesto() {
         const salvato = localStorage.getItem('tesiflash_studio_testo');
         if (!salvato) {
-            alert('Nessun testo salvato. Scrivi qualcosa e premi "Salva testo" prima.');
+            alert('Nessun testo salvato nel browser.\n\nUsa "Salva nel browser" per salvare il testo corrente oppure "Importa file" per caricare un file dal computer.');
             return;
         }
         document.getElementById('testo-evidenzia').innerHTML = salvato;
@@ -2464,6 +2483,60 @@ Cordiali saluti,
         s83_toast('📂 Testo caricato dal browser');
     }
     window.caricaTesto = s83_caricaTesto;
+
+    // IMPORTA FILE DAL COMPUTER
+    function s83_importaFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const contenuto = e.target.result;
+            const editor = document.getElementById('testo-evidenzia');
+            // Preserva gli a-capo sostituendoli con <br>
+            editor.innerHTML = s83_escapeHtml(contenuto).replace(/\n/g, '<br>');
+            s83_aggiornaListaEvidenziazioni();
+            s83_salvaTesto(true);
+            s83_toast('📁 File importato: ' + file.name);
+        };
+        reader.onerror = function() {
+            alert('Errore nella lettura del file.');
+        };
+        reader.readAsText(file);
+        // Resetta input per permettere di ricaricare lo stesso file
+        event.target.value = '';
+    }
+    window.s83_importaFile = s83_importaFile;
+
+    // STAMPA SOLO IL TESTO
+    function s83_stampaTesto() {
+        const editor = document.getElementById('testo-evidenzia');
+        const contenuto = editor.innerHTML;
+
+        const finestra = window.open('', '_blank');
+        finestra.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Testo di Studio</title>
+                <style>
+                    body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
+                    h1 { font-size: 18px; border-bottom: 2px solid #f59e0b; padding-bottom: 8px; }
+                    .evidenziato { background-color: #fde68a; padding: 2px 4px; border-radius: 2px; }
+                    @media print { body { margin: 20px; } }
+                </style>
+            </head>
+            <body>
+                <h1>📖 Testo di Studio — ${new Date().toLocaleDateString('it-IT')}</h1>
+                <div>${contenuto}</div>
+            </body>
+            </html>
+        `);
+        finestra.document.close();
+        setTimeout(() => { finestra.print(); }, 300);
+    }
+    window.stampaTesto = s83_stampaTesto;
 
     function s83_toast(msg) {
         let toast = document.getElementById('s83-toast');
@@ -2480,7 +2553,7 @@ Cordiali saluti,
     }
 
     // ============================================================
-    // 2. FLASHCARD
+    // 2. FLASHCARD — generazione MIGLIORATA
     // ============================================================
     let s83_flashcard = JSON.parse(localStorage.getItem('tesiflash_studio_flashcard') || '[]');
 
@@ -2510,63 +2583,89 @@ Cordiali saluti,
     }
     window.aggiungiFlashcard = s83_aggiungiFlashcard;
 
+    // GENERAZIONE MIGLIORATA: analizza il testo con pattern accademici
     function s83_generaFlashcardDaTesto() {
         const editor = document.getElementById('testo-evidenzia');
         if (!editor) return;
 
         const evidenziati = Array.from(editor.querySelectorAll('.evidenziato')).map(s => s.textContent.trim()).filter(t => t.length > 10);
 
+        // Estrai tutto il testo come frasi
         const testoIntero = editor.innerText || editor.textContent || '';
         const frasi = testoIntero
             .split(/(?<=[.!?])\s+/)
             .map(f => f.trim())
-            .filter(f => f.length > 30 && f.length < 400);
+            .filter(f => f.length > 40 && f.length < 500);
 
         let generate = 0;
+        let scartate = 0;
 
+        // Priorità 1: evidenziazioni
         if (evidenziati.length > 0) {
             evidenziati.forEach(testo => {
-                const fc = s83_creaFlashcardDaFrase(testo);
+                const fc = s83_estraiFlashcard(testo);
                 if (fc) {
                     s83_flashcard.push(fc);
                     generate++;
+                } else {
+                    scartate++;
                 }
             });
         }
 
-        if (generate < 3 && frasi.length > 0) {
-            const frasiScelte = frasi.slice(0, 8);
+        // Priorità 2: frasi del testo
+        if (generate < 5 && frasi.length > 0) {
+            // Prendi fino a 15 frasi per avere più probabilità di trovare concetti
+            const frasiScelte = frasi.slice(0, 15);
             frasiScelte.forEach(frase => {
-                const fc = s83_creaFlashcardDaFrase(frase);
+                const fc = s83_estraiFlashcard(frase);
                 if (fc) {
                     s83_flashcard.push(fc);
                     generate++;
+                } else {
+                    scartate++;
                 }
             });
         }
 
         if (generate === 0) {
-            alert('Non riesco a generare flashcard.\n\nIncolla del testo più lungo (almeno qualche frase) nell\'area "Evidenzia" e riprova.');
+            alert('Non riesco a generare flashcard da questo testo.\n\nProva con:\n• Testo più lungo e discorsivo\n• Frasi con definizioni ("X è Y", "X significa Y")\n• Frasi con "si divide in", "comprende", "secondo [Autore]"\n\nOppure aggiungi le flashcard a mano.');
             return;
         }
 
         s83_salvaFlashcard();
         s83_renderFlashcard();
-        s83_toast('🤖 Generate ' + generate + ' flashcard dal testo');
+        s83_toast('🤖 Generate ' + generate + ' flashcard (' + scartate + ' frasi non adatte)');
     }
     window.generaFlashcardDaTesto = s83_generaFlashcardDaTesto;
 
-    function s83_creaFlashcardDaFrase(frase) {
+    // ESTRAZIONE INTELLIGENTE: riconosce pattern accademici
+    function s83_estraiFlashcard(frase) {
         frase = frase.trim();
-        if (frase.length < 15) return null;
+        if (frase.length < 20) return null;
 
-        const pulita = frase.replace(/\s+/g, ' ');
+        const pulita = frase.replace(/\s+/g, ' ').replace(/^(Inoltre|Inoltre,|Pertanto|Quindi|Tuttavia|Comunque|Invece|Dunque|Quindi,)\s+/i, '');
 
-        const matchDefinizione = pulita.match(/^(.{3,80}?)\s+(è|sono|significa|indica|consiste|rappresenta|si riferisce a|si definisce come)\s+(.+)$/i);
-        if (matchDefinizione) {
-            const soggetto = matchDefinizione[1].trim();
-            const verbo = matchDefinizione[2].trim();
-            const predicato = matchDefinizione[3].trim();
+        // Pattern 1: DEFINIZIONI — "X è Y", "X sono Y", "X significa Y", "X si definisce come Y"
+        const patternDef = pulita.match(/^(.{3,100}?)\s+(è|sono|significa|indica|consiste in|consiste nel|si definisce come|si riferisce a|rappresenta|costituisce)\s+(.{10,300})$/i);
+        if (patternDef) {
+            const soggetto = s83_pulisciSoggetto(patternDef[1]);
+            const verbo = patternDef[2].toLowerCase();
+            const predicato = patternDef[3].trim().replace(/[.,;]$/, '');
+
+            // Evita soggetti vaghi
+            if (soggetto.length < 3 || /^(esso|essa|questo|questa|ciò|egli|ella)$/i.test(soggetto)) {
+                // Usa l'intera prima parte come soggetto
+                return {
+                    id: Date.now() + Math.random(),
+                    domanda: `Cosa ${verbo} "${patternDef[1].trim()}"?`,
+                    risposta: predicato.charAt(0).toUpperCase() + predicato.slice(1),
+                    livello: 0,
+                    ultimaVisita: null,
+                    origine: 'auto'
+                };
+            }
+
             return {
                 id: Date.now() + Math.random(),
                 domanda: `Cosa ${verbo} ${soggetto}?`,
@@ -2577,34 +2676,93 @@ Cordiali saluti,
             };
         }
 
-        const matchCausa = pulita.match(/^(.{10,100}?)\s+(perché|poiché|in quanto|dato che)\s+(.+)$/i);
-        if (matchCausa) {
+        // Pattern 2: SUDDIVISIONI — "X si divide in Y", "X comprende Y", "X è composto da Y"
+        const patternDiv = pulita.match(/^(.{3,80}?)\s+(si divide in|si suddivide in|comprende|è composto da|è costituito da|include|contiene)\s+(.{10,250})$/i);
+        if (patternDiv) {
             return {
                 id: Date.now() + Math.random(),
-                domanda: `Perché ${matchCausa[1].trim().toLowerCase()}?`,
-                risposta: matchCausa[3].trim().charAt(0).toUpperCase() + matchCausa[3].trim().slice(1),
+                domanda: `In cosa ${patternDiv[2].toLowerCase().replace('si ', '')} ${patternDiv[1].trim()}?`,
+                risposta: patternDiv[3].trim().replace(/[.,;]$/, ''),
                 livello: 0,
                 ultimaVisita: null,
                 origine: 'auto'
             };
         }
 
-        const parole = pulita.split(' ');
-        if (parole.length >= 8) {
-            const meta = Math.floor(parole.length / 2);
-            const primaParte = parole.slice(0, meta).join(' ');
-            const secondaParte = parole.slice(meta).join(' ');
+        // Pattern 3: CAUSE — "X perché Y", "X poiché Y"
+        const patternCausa = pulita.match(/^(.{10,100}?)\s+(perché|poiché|in quanto|dato che|in virtù di)\s+(.{15,300})$/i);
+        if (patternCausa) {
             return {
                 id: Date.now() + Math.random(),
-                domanda: `Completa: "${primaParte}..."`,
-                risposta: secondaParte,
+                domanda: `Perché ${s83_pulisciSoggetto(patternCausa[1]).toLowerCase()}?`,
+                risposta: patternCausa[3].trim().replace(/[.,;]$/, '').charAt(0).toUpperCase() + patternCausa[3].trim().replace(/[.,;]$/, '').slice(1),
                 livello: 0,
                 ultimaVisita: null,
                 origine: 'auto'
             };
         }
 
+        // Pattern 4: ATTRIBUZIONI — "Secondo [Autore], X è Y"
+        const patternAttr = pulita.match(/^(Secondo|Stando a|Come afferma|Come sostiene)\s+(.{2,50}?)[,]\s+(.{15,300})$/i);
+        if (patternAttr) {
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `Cosa afferma ${patternAttr[2].trim()}?`,
+                risposta: patternAttr[3].trim().replace(/[.,;]$/, '').charAt(0).toUpperCase() + patternAttr[3].trim().replace(/[.,;]$/, '').slice(1),
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        // Pattern 5: CARATTERISTICHE — "X è caratterizzato da Y", "X presenta Y"
+        const patternCar = pulita.match(/^(.{3,80}?)\s+(è caratterizzato da|è caratterizzata da|presenta|mostra|ha come caratteristica)\s+(.{10,250})$/i);
+        if (patternCar) {
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `Quali sono le caratteristiche di ${s83_pulisciSoggetto(patternCar[1])}?`,
+                risposta: patternCar[3].trim().replace(/[.,;]$/, ''),
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        // Pattern 6: OBIETTIVI — "X serve a Y", "X ha lo scopo di Y"
+        const patternFine = pulita.match(/^(.{3,80}?)\s+(serve a|ha lo scopo di|ha l'obiettivo di|mira a|si propone di)\s+(.{10,250})$/i);
+        if (patternFine) {
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `A cosa serve ${s83_pulisciSoggetto(patternFine[1])}?`,
+                risposta: patternFine[3].trim().replace(/[.,;]$/, ''),
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        // Pattern 7: DATE — "Nel [anno], è successo X"
+        const patternData = pulita.match(/^(Nel|Nell'anno|A partire dal)\s+(\d{4})[,]?\s+(.{15,250})$/i);
+        if (patternData) {
+            return {
+                id: Date.now() + Math.random(),
+                domanda: `Cosa è successo nel ${patternData[2]}?`,
+                risposta: patternData[3].trim().replace(/[.,;]$/, '').charAt(0).toUpperCase() + patternData[3].trim().replace(/[.,;]$/, '').slice(1),
+                livello: 0,
+                ultimaVisita: null,
+                origine: 'auto'
+            };
+        }
+
+        // Nessun pattern riconosciuto — meglio non generare che generare spazzatura
         return null;
+    }
+
+    function s83_pulisciSoggetto(soggetto) {
+        return soggetto.trim()
+            .replace(/^(Il|Lo|La|I|Gli|Le|Un|Uno|Una)\s+/i, '')
+            .replace(/[.,;:]+$/, '')
+            .trim();
     }
 
     function s83_salvaFlashcard() {
@@ -2625,16 +2783,37 @@ Cordiali saluti,
         }
 
         container.innerHTML = s83_flashcard.map(f => `
-            <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 flex justify-between items-start gap-2">
-                <div class="flex-1">
-                    <p class="text-white text-xs font-bold">${s83_escapeHtml(f.domanda)}</p>
-                    <p class="text-neutral-400 text-xs mt-1">${s83_escapeHtml(f.risposta)}</p>
-                    ${f.origine === 'auto' ? '<p class="text-purple-400 text-[10px] mt-1">🤖 generata automaticamente</p>' : ''}
+            <div class="bg-neutral-900/60 p-3 rounded-lg border border-neutral-800 hover:border-amber-500/50 transition cursor-pointer" onclick="s83_modificaFlashcard(${f.id})">
+                <div class="flex justify-between items-start gap-2">
+                    <div class="flex-1">
+                        <p class="text-white text-xs font-bold">${s83_escapeHtml(f.domanda)}</p>
+                        <p class="text-neutral-400 text-xs mt-1">${s83_escapeHtml(f.risposta)}</p>
+                        ${f.origine === 'auto' ? '<p class="text-purple-400 text-[10px] mt-1">🤖 generata · clicca per modificare</p>' : '<p class="text-neutral-500 text-[10px] mt-1">✏️ clicca per modificare</p>'}
+                    </div>
+                    <button onclick="event.stopPropagation(); rimuoviFlashcard(${f.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
                 </div>
-                <button onclick="rimuoviFlashcard(${f.id})" class="text-red-400 hover:text-red-300 text-xs font-bold flex-shrink-0">🗑️</button>
             </div>
         `).join('');
     }
+
+    // MODIFICA FLASHCARD ESISTENTE
+    function s83_modificaFlashcard(id) {
+        const fc = s83_flashcard.find(f => f.id === id);
+        if (!fc) return;
+
+        const nuovaDomanda = prompt('Modifica DOMANDA:', fc.domanda);
+        if (nuovaDomanda === null) return;
+
+        const nuovaRisposta = prompt('Modifica RISPOSTA:', fc.risposta);
+        if (nuovaRisposta === null) return;
+
+        fc.domanda = nuovaDomanda.trim();
+        fc.risposta = nuovaRisposta.trim();
+        s83_salvaFlashcard();
+        s83_renderFlashcard();
+        s83_toast('✏️ Flashcard modificata');
+    }
+    window.s83_modificaFlashcard = s83_modificaFlashcard;
 
     function s83_escapeHtml(text) {
         const div = document.createElement('div');
@@ -2775,7 +2954,7 @@ Cordiali saluti,
     window.resetStudio = s83_resetStudio;
 
     // ============================================================
-    // 4. QUIZ — Generato da flashcard + testo
+    // 4. QUIZ
     // ============================================================
     let s83_quizStato = { indice: 0, punteggio: 0, attivo: false, domandeGenerate: [] };
 
@@ -2823,12 +3002,7 @@ Cordiali saluti,
 
                 if (parteMancante.length < 3) return;
 
-                const distrattori = [
-                    'nessuna delle precedenti',
-                    'tutte le precedenti',
-                    'non è specificato'
-                ];
-
+                const distrattori = ['nessuna delle precedenti', 'tutte le precedenti', 'non è specificato'];
                 const opzioni = [parteMancante, ...distrattori].sort(() => Math.random() - 0.5);
                 const corretta = opzioni.indexOf(parteMancante);
 
@@ -2848,7 +3022,7 @@ Cordiali saluti,
         const domande = s83_generaDomandeQuiz();
 
         if (domande.length === 0) {
-            alert('Non riesco a generare il quiz.\n\nPer creare un quiz hai bisogno di:\n• Almeno 4 flashcard (per avere i distrattori)\n• OPPURE del testo caricato nell\'area "Evidenzia"\n\nAggiungi contenuti e riprova.');
+            alert('Non riesco a generare il quiz.\n\nPer creare un quiz hai bisogno di:\n• Almeno 4 flashcard\n• OPPURE del testo caricato nell\'area "Evidenzia"');
             return;
         }
 
@@ -2933,6 +3107,77 @@ Cordiali saluti,
         document.getElementById('quiz-punteggio').textContent = '';
     }
     window.resetQuiz = s83_resetQuiz;
+
+    // ============================================================
+    // AZIONI GLOBALI: STAMPA TUTTO + PULISCI TUTTO
+    // ============================================================
+    function s83_stampaTutto() {
+        const testo = document.getElementById('testo-evidenzia').innerHTML;
+        const flashcard = s83_flashcard;
+
+        const finestra = window.open('', '_blank');
+        finestra.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Strumenti di Studio Attivo — Esportazione</title>
+                <style>
+                    body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #000; background: #fff; }
+                    h1 { font-size: 22px; border-bottom: 3px solid #f59e0b; padding-bottom: 10px; margin-bottom: 30px; }
+                    h2 { font-size: 16px; color: #b45309; margin-top: 30px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; }
+                    .evidenziato { background-color: #fde68a; padding: 2px 4px; border-radius: 2px; }
+                    .fc { background: #f9fafb; border-left: 4px solid #f59e0b; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 6px 6px 0; page-break-inside: avoid; }
+                    .fc .dom { font-weight: bold; color: #111; margin-bottom: 4px; }
+                    .fc .ris { color: #555; }
+                    .fc .num { color: #f59e0b; font-weight: bold; }
+                    .testo-box { background: #fafafa; padding: 16px; border: 1px solid #e5e5e5; border-radius: 6px; }
+                    @media print { body { margin: 20px; } h2 { page-break-after: avoid; } }
+                </style>
+            </head>
+            <body>
+                <h1>📖 Strumenti di Studio Attivo</h1>
+                <p style="color:#666;font-size:12px;">Esportato il ${new Date().toLocaleDateString('it-IT')} alle ${new Date().toLocaleTimeString('it-IT')}</p>
+
+                <h2>📝 Testo di Studio</h2>
+                <div class="testo-box">${testo || '<em style="color:#999;">Nessun testo caricato</em>'}</div>
+
+                <h2>📇 Flashcard (${flashcard.length})</h2>
+                ${flashcard.length === 0 ? '<em style="color:#999;">Nessuna flashcard</em>' : flashcard.map((f, i) => `
+                    <div class="fc">
+                        <div class="dom"><span class="num">${i + 1}.</span> ${s83_escapeHtml(f.domanda)}</div>
+                        <div class="ris">💡 ${s83_escapeHtml(f.risposta)}</div>
+                    </div>
+                `).join('')}
+            </body>
+            </html>
+        `);
+        finestra.document.close();
+        setTimeout(() => { finestra.print(); }, 500);
+        s83_toast('🖨️ Aperta finestra di stampa');
+    }
+    window.stampaTutto = s83_stampaTutto;
+
+    function s83_pulisciTutto() {
+        if (!confirm('⚠️ ATTENZIONE!\n\nStai per cancellare:\n• Tutto il testo di studio\n• Tutte le evidenziazioni\n• Tutte le flashcard\n• Tutti i progressi\n\nL\'operazione è IRREVERSIBILE.\n\nContinuare?')) {
+            return;
+        }
+
+        // Svuota tutto
+        s83_flashcard = [];
+        localStorage.removeItem('tesiflash_studio_flashcard');
+        localStorage.removeItem('tesiflash_studio_testo');
+
+        document.getElementById('testo-evidenzia').innerHTML = 'Incolla qui il tuo testo di studio...';
+
+        s83_renderFlashcard();
+        s83_aggiornaListaEvidenziazioni();
+        s83_resetStudio();
+        s83_resetQuiz();
+
+        s83_toast('🗑️ Tutto pulito');
+    }
+    window.pulisciTutto = s83_pulisciTutto;
 </script>
 
     </main>
